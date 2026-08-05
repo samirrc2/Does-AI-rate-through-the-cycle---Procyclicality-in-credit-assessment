@@ -1,0 +1,11 @@
+{
+  "subgrid": "full",
+  "model": "gemini_flash",
+  "variant": "v_ttc",
+  "csv": "runs_full_gemini_flash_v_ttc.csv",
+  "sha256": "5d3a337c75e38fdf2f3db6cd00e3563e33a596845885b53896ee0e9310555c7d",
+  "n_rows": 1600,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-07-15T20:48:28.679569+00:00"
+}

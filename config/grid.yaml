@@ -1,0 +1,108 @@
+# Grid & run config — P5
+#
+# The capture grid is K models x prompt-variants x seeds x MACRO STATES over a
+# firm battery subgrid. Fundamentals are byte-identical across macro states; the
+# macro state is the only perturbation. The cyclicality coefficient is the rating
+# change (in notches) per unit of macro severity, holding fundamentals fixed.
+
+seed_master: 20260715      # feeds the per-cell parity seed (firm+variant+idx);
+                           # DELIBERATELY independent of macro_state so a firm sees
+                           # an identical seed across all 5 macro states -> macro is
+                           # the sole difference (the identification).
+analysis_seed: 4242        # ANALYSIS_SEED: cluster bootstrap over firms
+
+# ── Budgets (USD) ──────────────────────────────────────────────────────────
+budgets:
+  pilot: 10.00             # BUDGET_PILOT — HARD. Ledger aborts > this; preflight
+                           # refuses to start if projected pilot cost > this.
+  full: 40.00              # BUDGET_FULL — HARD ceiling. Raised 25 -> 40 for the 4th
+                           # variant (v_stable) x 6 models incl. two flagships (gpt-4o,
+                           # Grok). Real projection ~$28-37; probe --subgrid full
+                           # measures the true Grok/gpt-4o price and preflight refuses
+                           # if over. (PREREGISTRATION_AMENDMENTS.md #1.)
+stop_margin_usd: 0.05      # stop this far below the cap (headroom for in-flight)
+
+# ── Concurrency / rate / retries ───────────────────────────────────────────
+max_workers: 5             # MAX_WORKERS per capture (tier-1 TPM safe)
+max_retries: 10            # MAX_RETRIES; honor Retry-After
+judge_temperature: 0.0     # deterministic decoding
+rpm_limits:                # per-provider requests/min (0 = unthrottled)
+  openai: 450
+  gemini: 300
+  xai: 60
+daily_limits: {}
+
+# ── Prompt variants (all supervisory credit-rating; JSON-only) ─────────────
+prompt_variants:
+  - v_terse     # plain "assign a credit rating" instruction + JSON schema
+  - v_ttc       # explicit THROUGH-THE-CYCLE instruction (look through transitory macro)
+  - v_pit       # explicit POINT-IN-TIME instruction (reflect current conditions)
+  - v_stable    # instruction-level PLACEBO: "be stable", NO cycle reasoning. Separates
+                # genuine TTC reasoning from generic 'be stable' compliance (anchoring).
+                # Full run only (added post-pilot; see PREREGISTRATION_AMENDMENTS.md).
+
+# ── Macro states: name -> severity index (higher = more contractionary) ─────
+# The severity index is the continuous regressor for the cyclicality slope and
+# the Amato-Furfine ordered-probit null. Five ordered states give a dose-response
+# curve (monotonicity check) rather than a single contrast.
+macro_states:
+  boom: -2               # strong expansion, low unemployment, tight spreads, easy credit
+  expansion: -1          # moderate above-trend growth
+  neutral: 0             # mid-cycle baseline
+  slowdown: 1            # mild recession / rising unemployment / widening spreads
+  severe_recession: 2    # deep contraction, credit crunch, elevated default rates
+
+# ── Placebo axis: a matched-format, credit-IRRELEVANT gradient (regional weather/
+# traffic) with the SAME structure + number density as the macro blocks. If ratings
+# move across the placebo axis, that movement is the frame-compliance / suggestibility
+# floor (demand effect); the NET economic-minus-placebo slope is the demand-effect-
+# adjusted cyclicality. Referees will otherwise argue the coefficient measures
+# suggestibility, not procyclicality (2026-07 review; DECISIONS D13).
+placebo_states:
+  placebo_calm: -2
+  placebo_mild: -1
+  placebo_normal: 0
+  placebo_rough: 1
+  placebo_storm: 2
+
+# ── Subgrids ───────────────────────────────────────────────────────────────
+subgrids:
+  pilot:
+    # Cheap-only: OpenAI mini pair + Gemini flash pair (two families) x 3 prompt
+    # variants x 2 seeds x (5 macro + 5 placebo) x 40 firms.
+    #   cells/model = 3 x 2 x 10 x 40 = 2400  ->  4 models = 9600 calls (still << $10).
+    models: [openai_4o_mini, openai_41_mini, gemini_flash, gemini_flash_lite]
+    variants: [v_terse, v_ttc, v_pit]
+    seed_indices: [0, 1]
+    macro_states: [boom, expansion, neutral, slowdown, severe_recession]
+    placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
+    firms: pilot          # 40-firm stratified subsample (pilot subset of full)
+  pilot_gemini:
+    # Fallback pilot when the OpenAI org daily request cap (RPD) is exhausted.
+    # Gemini-family only (both cheap flash models) — still a real cyclicality signal
+    # for the gate; expected-notch (logprobs) is OpenAI-only so it's simply absent
+    # here (documented robustness arm). Add OpenAI later via SUBGRID=pilot once RPD
+    # resets (that run resumes, re-billing only missing cells).
+    models: [gemini_flash, gemini_flash_lite]
+    variants: [v_terse, v_ttc, v_pit]
+    seed_indices: [0, 1]
+    macro_states: [boom, expansion, neutral, slowdown, severe_recession]
+    placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
+    firms: pilot
+  full:
+    # Add flagship breadth (gpt-4o + grok-4.5, two more families) and the full
+    # 80-firm battery. 6 models x 3 variants x 2 seeds x (5 macro + 5 placebo) x 80.
+    # xai_grok temporarily dropped 2026-07-15: the xAI team is out of credits / over
+    # its spending limit (probe 403). Re-add it here and resume once credits are
+    # topped up (resumable; re-bills only the missing Grok cells). AMENDMENT #2.
+    models: [openai_4o_mini, openai_41_mini, gemini_flash, gemini_flash_lite,
+             openai_4o]
+    variants: [v_terse, v_ttc, v_pit, v_stable]   # +v_stable (anchoring control)
+    seed_indices: [0, 1]
+    macro_states: [boom, expansion, neutral, slowdown, severe_recession]
+    placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
+    firms: full           # 80-firm battery (tighter per-firm slope CIs)
+
+# Guard: the pilot subgrid may reference ONLY models with pilot: true. loader.py
+# enforces this so a flagship can never sneak into a <=$10 pilot.
+pilot_requires_cheap: true

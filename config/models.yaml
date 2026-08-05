@@ -1,0 +1,112 @@
+# Model registry — P5
+#
+# One entry per model version. `pilot: true` = in the cheap pilot set (mini/flash
+# tier only). Flagship models are `pilot: false` and reserved for the FULL run.
+#
+# Snapshot strings are PROVISIONAL and must be confirmed by capture/probe.py,
+# which writes the served-model fingerprint + measured per-call price into
+# manifest/probe_receipts.json before any real run. If a snapshot 404s, swap to
+# the current mini/flash snapshot and log a DECISIONS.md entry. Analysis is
+# agnostic to the exact snapshot (provenance is recorded per row).
+#
+# price_in / price_out are USD per 1,000,000 tokens; the ledger prices every call
+# and enforces the hard spend cap. Where a live price is unknown, values are set
+# CONSERVATIVELY (round up) so the cap bites early. probe.py overwrites with the
+# measured per-call price when available.
+
+models:
+
+  # ── OpenAI family ── PILOT (cheap) ──────────────────────────────────────────
+  openai_4o_mini:
+    family: openai
+    provider: openai
+    key_env: OPENAI_API_KEY          # secrets.py treats *_1/_2/_3 as a pool
+    base_url: null
+    api_model: gpt-4o-mini-2024-07-18
+    price_in: 0.15
+    price_out: 0.60
+    max_tokens: 160
+    logprobs: true                   # top_logprobs on the rating token -> expected-notch
+    pilot: true
+    extra: {}
+    probe_receipt: null
+
+  openai_41_mini:
+    family: openai
+    provider: openai
+    key_env: OPENAI_API_KEY
+    base_url: null
+    api_model: gpt-4.1-mini-2025-04-14
+    price_in: 0.40
+    price_out: 1.60
+    max_tokens: 160
+    logprobs: true
+    pilot: true
+    extra: {}
+    probe_receipt: null
+
+  # ── Google Gemini family ── PILOT (cheap) ──────────────────────────────────
+  # Flash tier: Gemini 3.5 Flash (gemini-flash-latest) + Gemini 2.5 Flash-Lite
+  # (gemini-flash-lite-latest). -latest aliases resolve to the current stable
+  # release; probe.py pins the served-model fingerprint for provenance. Prices
+  # conservative; probe.py overwrites with the measured per-call cost.
+  gemini_flash:
+    family: google
+    provider: gemini
+    key_env: GEMINI_API_KEY
+    base_url: null
+    api_model: gemini-flash-latest       # -> Gemini 3.5 Flash
+    price_in: 0.50
+    price_out: 3.00
+    max_tokens: 160
+    thinking_budget: 0                   # disable thinking (keeps it cheap)
+    pilot: true
+    extra: {}
+    probe_receipt: null
+
+  gemini_flash_lite:
+    family: google
+    provider: gemini
+    key_env: GEMINI_API_KEY
+    base_url: null
+    api_model: gemini-flash-lite-latest  # -> Gemini 2.5 Flash-Lite
+    price_in: 0.15
+    price_out: 0.60
+    max_tokens: 160
+    thinking_budget: 0
+    pilot: true
+    extra: {}
+    probe_receipt: null
+
+  # ── FULL-RUN ONLY (flagship / larger) ── NOT in pilot ──────────────────────
+  openai_4o:
+    family: openai
+    provider: openai
+    key_env: OPENAI_API_KEY
+    base_url: null
+    api_model: gpt-4o-2024-11-20
+    price_in: 2.50
+    price_out: 10.00
+    max_tokens: 160
+    logprobs: true
+    pilot: false
+    extra: {}
+    probe_receipt: null
+
+  # xAI Grok 4.5 — full-run third family / cost driver. grok-4.5 (~$2/$6 per 1M,
+  # per docs.x.ai 2026-07). Priced CONSERVATIVELY so the $25 full cap bites early;
+  # probe.py overwrites with the measured price. reasoning_effort=low + larger
+  # max_tokens so default reasoning does not eat the output budget.
+  xai_grok:
+    family: xai
+    provider: xai
+    key_env: XAI_API_KEY
+    base_url: https://api.x.ai/v1
+    api_model: grok-4.5
+    price_in: 2.50
+    price_out: 7.00
+    max_tokens: 320
+    reasoning_effort: low
+    pilot: false
+    extra: {}
+    probe_receipt: null

@@ -1,0 +1,49 @@
+# Firm battery spec — P5
+#
+# Deterministic, offline, $0. build_firms.py mints a battery of SYNTHETIC firms
+# with FIXED fundamentals, stratified across credit-quality tiers x sectors so the
+# implied ratings span the scale (AAA..CCC) — dispersion is required so a macro-
+# induced shift is observable and not censored at a rail. The full battery is
+# minted once; the pilot battery is a strict seeded stratified SUBSAMPLE of it
+# (pilot subset of full; per-firm ids and fundamentals are identical).
+#
+# IDENTIFICATION: a firm's fundamentals block is serialized ONCE and reused byte-
+# identically under every macro state (build_firms freezes the fundamentals text;
+# the orchestrator only prepends a macro-context block). No real firm names, no
+# real dates -> no date-leakage / fingerprinting artifact (P3 lesson).
+
+seed: 20260715          # generation + stratified subsampling seed
+
+sizes:
+  full: 80              # whole battery
+  pilot: 40             # stratified subsample of the full battery
+
+# Credit-quality tiers = the clustering unit AND the dispersion axis. Each tier
+# fixes a coherent fundamentals profile so the fundamentals-implied rating lands
+# in a known band. build_firms.py maps a tier to leverage / coverage / margin etc.
+tiers:
+  - high_ig            # AAA-AA: very low leverage, strong coverage, large scale
+  - low_ig            # A-BBB: solid but levered investment grade
+  - crossover         # BBB-/BB+: at the IG/HY boundary
+  - high_yield        # BB-B: speculative, high leverage
+  - distressed        # CCC and below: weak coverage, negative FCF
+
+sectors:
+  - industrials
+  - consumer_staples
+  - consumer_discretionary
+  - technology
+  - utilities
+  - healthcare
+  - energy
+  - real_estate
+
+# Serialization: a fixed labelled financial-statement block (Altman-style inputs
+# plus scale/liquidity/leverage lines). Emitted ONCE per firm by build_firms.py
+# and reused byte-identically across macro states.
+serialization:
+  version: 1
+  currency: USD
+  units: millions
+  format: "labelled financial-statement lines; NO firm name; NO calendar dates (relative 'most recent fiscal year')"
+  note: "Fundamentals are identical across macro states by construction; only the MACRO ENVIRONMENT block differs (added at capture time by agent.py)."

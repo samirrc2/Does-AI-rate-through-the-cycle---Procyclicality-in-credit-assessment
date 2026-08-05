@@ -1,0 +1,17 @@
+# P5 dependencies.  Python 3.10+.
+#   pip install -r requirements.txt
+#
+# Core — needed for EVERYTHING (firms, offline dry-run, analysis, verdict):
+pydantic>=2,<3
+PyYAML>=6
+
+# Analysis — the Amato–Furfine ordered-probit null. If absent, probit.py falls
+# back to the pooled within-firm OLS slope (pipeline still runs), so these are
+# strongly recommended but not strictly required.
+numpy>=1.24
+scipy>=1.10
+
+# Live capture only — the vendor SDKs. Not needed for PILOT_MOCK=1 or analysis.
+#   OpenAI SDK also drives xAI/Grok (OpenAI-compatible endpoint). httpx ships with it.
+openai>=1.40
+google-genai>=1.0

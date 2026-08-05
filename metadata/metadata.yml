@@ -1,0 +1,30 @@
+metadata_version: 1
+name: "Do LLMs Rate Through the Cycle?"
+description: >
+  Reproducibility artifact for the Finance Research Letters submission "Do LLMs
+  Rate Through the Cycle?" — the first controlled measurement of procyclicality in
+  large language model credit ratings. Firm fundamentals are held byte-identical
+  across an ordered five-point macroeconomic-severity axis (and a matched
+  credit-irrelevant placebo axis), so any rating movement is procyclicality by
+  construction. From the frozen 32,000-rating dataset (5 frontier LLMs x 4 prompt
+  framings x 80 synthetic firms x 10 macro/placebo states x 2 seeds), the analysis
+  regenerates the cyclicality coefficient (notches per severity step) with
+  firm-clustered bootstrap confidence intervals, the boom-to-recession swing, the
+  downside/upside asymmetry, the Amato-Furfine ordered-probit null, the logprob
+  expected-notch estimator, the placebo-adjusted (net) coefficient, the
+  through-the-cycle vs "be stable" instruction contrasts, and all tables and figures.
+  Live model capture requires vendor API keys and is excluded from the reproducible
+  run; the reproducible run is offline, deterministic and free.
+authors:
+  - name: "Samir Chincholikar"
+    affiliation: "Independent researcher"
+    orcid: "0009-0007-2779-3492"
+  - name: "Robin Chawla"
+    affiliation: "Independent researcher"
+    orcid: "0009-0007-2807-3948"
+    email: "robin.chawla.cse14@iitbhu.ac.in"
+    corresponding: true
+corresponding_author:
+  name: "Robin Chawla"
+  email: "robin.chawla.cse14@iitbhu.ac.in"
+  institution: "Independent researcher"

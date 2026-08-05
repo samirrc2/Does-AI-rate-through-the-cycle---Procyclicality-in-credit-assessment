@@ -1,0 +1,11 @@
+{
+  "subgrid": "full",
+  "model": "openai_41_mini",
+  "variant": "v_terse",
+  "csv": "runs_full_openai_41_mini_v_terse.csv",
+  "sha256": "cb82d45ace1ba3295e5145403ce2f037b1dc4a83cdfb2c12da1082f4e802c4ad",
+  "n_rows": 1600,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-07-15T20:54:17.547144+00:00"
+}

@@ -1,0 +1,82 @@
+{
+  "config_hash": "57c8b3991ffb253f",
+  "receipts": {
+    "gemini_flash": {
+      "api_model": "gemini-flash-latest",
+      "error": null,
+      "family": "google",
+      "input_tokens": 387,
+      "key_id": "0",
+      "measured_call_usd": 0.0003765,
+      "model_key": "gemini_flash",
+      "ok": true,
+      "output_tokens": 61,
+      "probed_utc": "2026-07-15T20:31:56.894807+00:00",
+      "provider": "gemini",
+      "rating": "A-",
+      "response_preview": "{\"rating\": \"A-\", \"pd_1yr_bps\": 10, \"rationale\": \"Strong scale, solid 20% EBITDA margin, robust 8.0x interest coverage, and conservative 2.0x leverage support a "
+    },
+    "gemini_flash_lite": {
+      "api_model": "gemini-flash-lite-latest",
+      "error": null,
+      "family": "google",
+      "input_tokens": 387,
+      "key_id": "1",
+      "measured_call_usd": 9.465e-05,
+      "model_key": "gemini_flash_lite",
+      "ok": true,
+      "output_tokens": 61,
+      "probed_utc": "2026-07-15T20:32:01.302549+00:00",
+      "provider": "gemini",
+      "rating": "A-",
+      "response_preview": "{\"rating\": \"A-\", \"pd_1yr_bps\": 45, \"rationale\": \"Strong EBITDA margins, moderate leverage at 2.0x, and consistent free cash flow generation support a solid inve"
+    },
+    "openai_41_mini": {
+      "api_model": "gpt-4.1-mini-2025-04-14",
+      "error": null,
+      "family": "openai",
+      "input_tokens": 359,
+      "key_id": "1",
+      "measured_call_usd": 0.0002252,
+      "model_key": "openai_41_mini",
+      "ok": true,
+      "output_tokens": 51,
+      "probed_utc": "2026-07-15T20:31:54.146902+00:00",
+      "provider": "openai",
+      "rating": "A-",
+      "response_preview": "{\"rating\": \"A-\", \"pd_1yr_bps\": 120, \"rationale\": \"Strong EBITDA margin and cash flow, moderate leverage, stable macro environment, and solid liquidity support a"
+    },
+    "openai_4o": {
+      "api_model": "gpt-4o-2024-11-20",
+      "error": null,
+      "family": "openai",
+      "input_tokens": 359,
+      "key_id": "2",
+      "measured_call_usd": 0.0013075,
+      "model_key": "openai_4o",
+      "ok": true,
+      "output_tokens": 41,
+      "probed_utc": "2026-07-15T20:32:02.154030+00:00",
+      "provider": "openai",
+      "rating": "BBB+",
+      "response_preview": "{\"rating\": \"BBB+\", \"pd_1yr_bps\": 75, \"rationale\": \"Strong fundamentals with solid EBITDA coverage and moderate leverage; stable macro environment supports inves"
+    },
+    "openai_4o_mini": {
+      "api_model": "gpt-4o-mini-2024-07-18",
+      "error": null,
+      "family": "openai",
+      "input_tokens": 359,
+      "key_id": "0",
+      "measured_call_usd": 7.665e-05,
+      "model_key": "openai_4o_mini",
+      "ok": true,
+      "output_tokens": 38,
+      "probed_utc": "2026-07-15T20:31:52.169848+00:00",
+      "provider": "openai",
+      "rating": "BBB+",
+      "response_preview": "{\"rating\": \"BBB+\", \"pd_1yr_bps\": 150, \"rationale\": \"Stable fundamentals with moderate leverage and solid cash flow generation in a growing economy.\"}"
+    }
+  },
+  "subgrid": "full",
+  "total_probe_usd": 0.00208
+}

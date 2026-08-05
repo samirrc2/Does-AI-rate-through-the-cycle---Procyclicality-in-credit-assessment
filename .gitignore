@@ -1,0 +1,44 @@
+# P5 reproducibility artifact — .gitignore
+#
+# NOTE: the frozen captures under data/raw/ and data/frozen/ are the reproducibility
+# RECORD and are INTENTIONALLY TRACKED (only ~32 MB total). Do not add them here — the
+# Zenodo deposit and any GitHub->Zenodo release must include them so `reproduce.sh`
+# can verify and regenerate the results offline.
+
+# secrets / keys — never commit
+*.env
+*.env.*
+keys.env.txt
+*.pem
+**/API Keys/
+
+# python virtualenv + caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS / editor cruft
+.DS_Store
+
+# transient run logs (not needed to reproduce)
+logs/*.log
+
+# scratch temp
+*.tmp
+results/_preview_p1.png
+
+# LaTeX build artifacts (keep .tex, .bib, .cls, .bst, .bbl, .pdf)
+paper/latex/*.aux
+paper/latex/*.log
+paper/latex/*.out
+paper/latex/*.blg
+paper/latex/*.fls
+paper/latex/*.fdb_latexmk
+paper/latex/*.synctex.gz
+results/_*.png
+paper/latex/*.abs
+paper/latex/*.spl
+paper/latex/*.toc

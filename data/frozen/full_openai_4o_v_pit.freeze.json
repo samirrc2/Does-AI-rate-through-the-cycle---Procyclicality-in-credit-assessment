@@ -1,0 +1,11 @@
+{
+  "subgrid": "full",
+  "model": "openai_4o",
+  "variant": "v_pit",
+  "csv": "runs_full_openai_4o_v_pit.csv",
+  "sha256": "3ac637f10e1ffe7d6ab08f2c339908fd9ce52fa6c6c6dc93b24f5920d285e40e",
+  "n_rows": 1600,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-07-15T21:19:15.598201+00:00"
+}

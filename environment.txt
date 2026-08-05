@@ -1,0 +1,14 @@
+# Exact environment that produced the committed results (offline analysis path).
+# Reproduces claims.json byte-identically; see environment/Dockerfile for the pinned
+# container. The vendor SDKs (openai, google-genai) are for live capture only and are
+# NOT required to reproduce results from the frozen data.
+python==3.12
+numpy==2.2.6
+scipy==1.15.3
+pydantic==2.13.4
+PyYAML==6.0.3
+matplotlib==3.10.0    # figures only
+
+# Live capture only (not needed for reproduction):
+# openai>=1.40
+# google-genai>=1.0

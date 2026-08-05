@@ -1,0 +1,29 @@
+{
+  "title": "Do LLMs Rate Through the Cycle? — reproducibility artifact",
+  "upload_type": "software",
+  "description": "<p>Reproducibility artifact for the Finance Research Letters submission <em>Do LLMs Rate Through the Cycle?</em> — the first controlled measurement of procyclicality in large language model credit ratings. Firm fundamentals are held byte-identical across an ordered five-point macroeconomic-severity axis (plus a matched credit-irrelevant placebo axis), so any rating movement is procyclicality by construction. From a frozen 32,000-rating dataset (5 frontier LLMs × 4 prompt framings × 80 synthetic firms × 10 macro/placebo states × 2 seeds) the analysis regenerates the cyclicality coefficient (notches per severity step) with firm-clustered bootstrap 95% CIs, the boom-to-recession swing, the downside/upside asymmetry, the Amato–Furfine ordered-probit null, the log-probability expected-notch estimator, the placebo-adjusted (net) coefficient, and the through-the-cycle vs 'be stable' instruction contrasts. The reproducible run is offline, deterministic and free; live model capture (vendor API keys) is intentionally excluded.</p>",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "creators": [
+    {
+      "name": "Chincholikar, Samir",
+      "orcid": "0009-0007-2779-3492",
+      "affiliation": "Independent researcher"
+    },
+    {
+      "name": "Chawla, Robin",
+      "orcid": "0009-0007-2807-3948",
+      "affiliation": "Independent researcher"
+    }
+  ],
+  "keywords": [
+    "large language models",
+    "credit ratings",
+    "procyclicality",
+    "through-the-cycle",
+    "Amato-Furfine",
+    "reproducibility",
+    "finance"
+  ],
+  "notes": "Code released under MIT (see LICENSE); data, analysis outputs and text under CC-BY-4.0. Affiliation, ORCID, related-publication DOI and repository URL to be completed at deposit. Live-capture SDKs (openai, google-genai) are not required to reproduce results from the frozen data."
+}

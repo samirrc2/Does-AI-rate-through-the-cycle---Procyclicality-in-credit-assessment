@@ -1,0 +1,11 @@
+{
+  "subgrid": "pilot",
+  "model": "openai_4o_mini",
+  "variant": "v_terse",
+  "csv": "runs_pilot_openai_4o_mini_v_terse.csv",
+  "sha256": "23e5d445ca4998f3fcae189cdf864d1983aeafe9c395e3bf4908629c76cc9d63",
+  "n_rows": 800,
+  "n_error": 1,
+  "error_rate": 0.0013,
+  "frozen_utc": "2026-07-15T18:32:56.739739+00:00"
+}

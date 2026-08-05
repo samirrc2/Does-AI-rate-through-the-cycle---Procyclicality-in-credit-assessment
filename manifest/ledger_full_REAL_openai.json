@@ -1,0 +1,24 @@
+{
+  "cap": 20.0,
+  "cum_usd": 10.518792,
+  "per_model": {
+    "openai_41_mini": {
+      "calls": 6400,
+      "in_tok": 2337280,
+      "out_tok": 296089,
+      "usd": 1.408627
+    },
+    "openai_4o": {
+      "calls": 6400,
+      "in_tok": 2337280,
+      "out_tok": 276390,
+      "usd": 8.607127
+    },
+    "openai_4o_mini": {
+      "calls": 6400,
+      "in_tok": 2337280,
+      "out_tok": 254074,
+      "usd": 0.503021
+    }
+  }
+}

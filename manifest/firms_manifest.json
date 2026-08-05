@@ -1,0 +1,46 @@
+{
+  "config_hash": "2708e70a1ac462fb",
+  "full": {
+    "by_sector": {
+      "consumer_discretionary": 10,
+      "consumer_staples": 10,
+      "energy": 10,
+      "healthcare": 10,
+      "industrials": 10,
+      "real_estate": 10,
+      "technology": 10,
+      "utilities": 10
+    },
+    "by_tier": {
+      "crossover": 16,
+      "distressed": 16,
+      "high_ig": 16,
+      "high_yield": 16,
+      "low_ig": 16
+    },
+    "n": 80,
+    "sha256": "3ac2600be8cea85b5b0dcc00b057c85ee1b0d9b9f4ce394653c749440a0eef50"
+  },
+  "pilot": {
+    "by_sector": {
+      "consumer_discretionary": 4,
+      "consumer_staples": 4,
+      "energy": 5,
+      "healthcare": 5,
+      "industrials": 5,
+      "real_estate": 6,
+      "technology": 6,
+      "utilities": 5
+    },
+    "by_tier": {
+      "crossover": 8,
+      "distressed": 8,
+      "high_ig": 8,
+      "high_yield": 8,
+      "low_ig": 8
+    },
+    "n": 40,
+    "sha256": "604d47dab58b32ac7ca93f2310a7a19d3cee3851dde7821ae8737e7450298156"
+  },
+  "seed": 20260715
+}

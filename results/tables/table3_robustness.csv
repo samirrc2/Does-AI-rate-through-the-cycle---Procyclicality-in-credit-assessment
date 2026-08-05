@@ -1,0 +1,6 @@
+Model,beta_terse,net_placebo,expected_notch,noise_floor_sd,probit
+Gemini 3.5 Flash,0.230,0.190,,0.020,0.272
+Gemini 2.5 Flash-Lite,0.285,0.268,,0.000,0.235
+GPT-4.1-mini,0.471,0.464,0.420,0.086,0.307
+GPT-4o,0.387,0.367,0.378,0.025,0.403
+GPT-4o-mini,0.775,0.646,0.765,0.072,0.726
