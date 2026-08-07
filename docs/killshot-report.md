@@ -1,4 +1,4 @@
-# Kill-Shot Sweep — P5: Do LLMs Rate Through the Cycle?
+# Kill-Shot Sweep — P5: Does AI rate through the cycle?
 
 **Topic:** P5 · rating procyclicality
 **Framework cell:** B7 → rung 5 (economic mechanism)

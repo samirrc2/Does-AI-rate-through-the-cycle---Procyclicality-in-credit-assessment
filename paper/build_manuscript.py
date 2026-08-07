@@ -90,11 +90,11 @@ def body(text, italic=False, align=None):
 
 # ── title block ──────────────────────────────────────────────────────────────
 t = doc.add_paragraph()
-tr = t.add_run("Do LLMs Rate Through the Cycle?")
+tr = t.add_run("Does AI rate through the cycle?")
 tr.bold = True; tr.font.size = Pt(16)
 t.alignment = WD_ALIGN_PARAGRAPH.CENTER
 sub = doc.add_paragraph()
-sr = sub.add_run("Procyclicality and anchoring in large language model credit ratings")
+sr = sub.add_run("Procyclicality in credit assessment")
 sr.italic = True; sr.font.size = Pt(12)
 sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
@@ -336,7 +336,7 @@ refs = [
     "person: does algorithmic monoculture lead to outcome homogenization? NeurIPS 35.",
     "Cantor, R., Packer, F., 1996. Determinants and impact of sovereign credit ratings. Federal "
     "Reserve Bank of New York Economic Policy Review 2 (2), 37–53.",
-    "Chincholikar, S., Chawla, R., 2026. Do LLMs rate through the cycle? — reproducibility "
+    "Chincholikar, S., Chawla, R., 2026. Does AI rate through the cycle? — reproducibility "
     "artifact [data set + software]. Zenodo. https://doi.org/<ZENODO-DOI>",
     "Gordy, M.B., Howells, B., 2006. Procyclicality in Basel II: can we treat the disease without "
     "killing the patient? Journal of Financial Intermediation 15 (3), 395–417.",

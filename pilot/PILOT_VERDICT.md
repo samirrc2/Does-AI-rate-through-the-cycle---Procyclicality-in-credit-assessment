@@ -1,4 +1,4 @@
-# PILOT_VERDICT — P5 (Do LLMs Rate Through the Cycle?)
+# PILOT_VERDICT — P5 (Does AI rate through the cycle?)
 
 **Subgrid:** `full`  ·  **Mode:** `REAL`  ·  **Config hash:** `57c8b3991ffb253f`
 **Models:** gemini_flash, gemini_flash_lite, openai_41_mini, openai_4o, openai_4o_mini

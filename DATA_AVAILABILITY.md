@@ -6,7 +6,7 @@
 All data and code required to reproduce every number, table and figure in this article
 are openly available in a Zenodo deposit:
 
-> Chincholikar, S. (2026). *Do LLMs Rate Through the Cycle? — reproducibility
+> Chincholikar, S. (2026). *Does AI rate through the cycle? — reproducibility
 > artifact* [data set + software]. Zenodo. https://doi.org/<ZENODO-DOI>  ← *to be
 > minted at deposit; insert the reserved DOI here and in the manuscript reference list.*
 

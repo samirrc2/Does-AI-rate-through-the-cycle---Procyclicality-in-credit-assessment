@@ -14,7 +14,7 @@ Primary manuscript = the Elsevier CAS LaTeX in `paper/latex/`.
 ## Front matter
 | # | Requirement | Status | Where |
 |---|---|---|---|
-| 4 | Title succinct & meaningful | ✅ | "Do LLMs Rate Through the Cycle? …" |
+| 4 | Title succinct & meaningful | ✅ | "Does AI rate through the cycle? …" |
 | 5 | Abstract **≤ 250 words**, standalone, factual, minimal refs | ✅ **205 words** | `\begin{abstract}` |
 | 6 | Keywords 1–7, English | ✅ 6 | `\begin{keywords}` |
 | 7 | Highlights: separate file, 3–5 bullets, **≤ 85 chars each** | ✅ 5 bullets ≤76 | `paper/highlights.txt` (+ in CAS) |

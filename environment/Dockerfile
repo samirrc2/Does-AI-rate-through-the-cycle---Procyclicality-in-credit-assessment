@@ -1,4 +1,4 @@
-# Reproducible environment for P5 — "Do LLMs Rate Through the Cycle?"
+# Reproducible environment for P5 — "Does AI rate through the cycle?"
 #
 # This image reproduces the ANALYSIS ($0, offline, deterministic) that regenerates
 # claims.json, the tables and figures from the FROZEN captures in data/. It does NOT

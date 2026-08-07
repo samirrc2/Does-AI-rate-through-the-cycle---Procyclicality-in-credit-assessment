@@ -1,9 +1,9 @@
 metadata_version: 1
-name: "Do LLMs Rate Through the Cycle?"
+name: "Does AI rate through the cycle?"
 description: >
-  Reproducibility artifact for the Finance Research Letters submission "Do LLMs
-  Rate Through the Cycle?" — the first controlled measurement of procyclicality in
-  large language model credit ratings. Firm fundamentals are held byte-identical
+  Reproducibility artifact for the Finance Research Letters submission "Does AI rate
+  through the cycle? Procyclicality in credit assessment" — the first controlled
+  measurement of procyclicality in credit assessment. Firm fundamentals are held byte-identical
   across an ordered five-point macroeconomic-severity axis (and a matched
   credit-irrelevant placebo axis), so any rating movement is procyclicality by
   construction. From the frozen 32,000-rating dataset (5 frontier LLMs x 4 prompt

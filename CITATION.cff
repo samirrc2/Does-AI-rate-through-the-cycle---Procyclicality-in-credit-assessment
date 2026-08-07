@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this artifact, please cite it as below."
-title: "Do LLMs Rate Through the Cycle? — reproducibility artifact"
+title: "Does AI rate through the cycle? — reproducibility artifact"
 abstract: >
   Reproducibility artifact (code, frozen data, analysis outputs) for the first
-  controlled measurement of procyclicality in large language model credit ratings.
+  controlled measurement of procyclicality in credit assessment.
   Firm fundamentals are held byte-identical across an ordered macroeconomic-severity
   axis; the analysis regenerates the cyclicality coefficient, its confidence
   intervals, the asymmetry, the ordered-probit null, and the instruction contrasts

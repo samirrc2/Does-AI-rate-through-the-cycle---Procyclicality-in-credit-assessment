@@ -85,7 +85,7 @@ def build(claims: dict) -> tuple[str, str, str]:
 
     def mark(ok): return "🟢 GREEN" if ok else "🔴 RED"
 
-    verdict_md = f"""# PILOT_VERDICT — P5 (Do LLMs Rate Through the Cycle?)
+    verdict_md = f"""# PILOT_VERDICT — P5 (Does AI rate through the cycle?)
 
 **Subgrid:** `{m['subgrid']}`  ·  **Mode:** `{m['mode']}`  ·  **Config hash:** `{m['config_hash']}`
 **Models:** {', '.join(m['models'])}

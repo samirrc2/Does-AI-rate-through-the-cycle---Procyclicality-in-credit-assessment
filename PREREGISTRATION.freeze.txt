@@ -1,6 +1,6 @@
-PREREGISTRATION FREEZE — P5 (Do LLMs Rate Through the Cycle?)
-frozen_utc         : 2026-07-15T20:26:15.431419+00:00
-PREREGISTRATION.md : sha256 ecee9a810533a56449bea4b942afea367a4f0a967d4c0b59211934d243df513c
+PREREGISTRATION FREEZE — P5 (Does AI rate through the cycle?)
+frozen_utc         : 2026-08-07T15:35:52.284013+00:00
+PREREGISTRATION.md : sha256 fb3ebe49480354f7c08d78a0b0cb7760e69d95f9886c39f91312c16c1687382e
 config_hash        : 57c8b3991ffb253f
 firms_manifest.json: sha256 e611c1a1d7fab7c2d4c686131210b6b31b0cda169c5726b6b7464f2e93268722
 

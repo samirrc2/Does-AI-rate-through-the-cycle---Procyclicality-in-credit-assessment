@@ -33,7 +33,7 @@ def main() -> int:
     firms_hash = sha(firms_manifest) if firms_manifest.exists() else "(none)"
     ts = datetime.now(timezone.utc).isoformat()
     body = (
-        "PREREGISTRATION FREEZE — P5 (Do LLMs Rate Through the Cycle?)\n"
+        "PREREGISTRATION FREEZE — P5 (Does AI rate through the cycle?)\n"
         f"frozen_utc         : {ts}\n"
         f"PREREGISTRATION.md : sha256 {digest}\n"
         f"config_hash        : {config_hash}\n"

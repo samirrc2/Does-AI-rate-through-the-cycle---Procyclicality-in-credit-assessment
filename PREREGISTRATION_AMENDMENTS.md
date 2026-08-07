@@ -9,6 +9,14 @@ config_hash `757bed608aa28d19`, frozen 2026-07-15 (the exact config the PILOT ra
 under). The pilot is confirmatory-gating under that hash; the amendment below applies
 only to the FULL run and is declared BEFORE any full-run capture.
 
+## AMENDMENT #3 — final title (2026-08-07, cosmetic; no design change)
+The manuscript title was finalised to **"Does AI rate through the cycle? Procyclicality
+in credit assessment"** (working title had been "Do LLMs Rate Through the Cycle?"). This
+is a **title-only** change: no estimand, battery, macro/placebo axis, prompt framing,
+seed rule, or pilot-gate criterion is altered. `PREREGISTRATION.md` was re-frozen for the
+new header (sha256 `fb3ebe49…`); the substantive pre-registered design is byte-for-byte
+unchanged and all analysis outputs (`claims.json`) are identical.
+
 ## AMENDMENT #1 — add the `v_stable` anchoring-control arm (2026-07-15, pre-full-run)
 **What.** A fourth prompt variant `v_stable` ("assign a stable rating," NO
 through-the-cycle / rating-philosophy language) is added to the FULL subgrid. Budget

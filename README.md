@@ -1,8 +1,8 @@
-# Do LLMs Rate Through the Cycle?
+# Does AI rate through the cycle?
 ### Reproducibility artifact — the first controlled measurement of procyclicality in LLM credit ratings
 
 This repository regenerates every number, table, and figure in the Finance Research
-Letters submission *"Do LLMs Rate Through the Cycle?"* from a **frozen 32,000-rating
+Letters submission *"Does AI rate through the cycle?"* from a **frozen 32,000-rating
 dataset**. Firm fundamentals are held **byte-identical** across an ordered five-point
 macroeconomic-severity axis (plus a matched credit-irrelevant placebo axis), so any
 rating movement is procyclicality *by construction* — an identification the classical

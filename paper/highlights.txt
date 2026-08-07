@@ -1,5 +1,0 @@
-First controlled test of procyclicality in LLM credit ratings.
-All five frontier LLMs downgrade identical firms as the macro worsens.
-Pooled effect: 0.43 rating notches of downgrade per macro-severity step.
-The effect is asymmetric: about 3x steeper into recessions than into booms.
-A "through-the-cycle" prompt anchors ratings rather than de-cyclifying them.

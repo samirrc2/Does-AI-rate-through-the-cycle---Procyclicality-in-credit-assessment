@@ -51,7 +51,7 @@ def table(cols, rows):
 
 p = doc.add_paragraph(); run = p.add_run("Supplementary Appendix"); run.bold = True; run.font.size = Pt(16)
 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-p2 = doc.add_paragraph(); r2 = p2.add_run("Do LLMs Rate Through the Cycle? — supporting robustness and methods")
+p2 = doc.add_paragraph(); r2 = p2.add_run("Does AI rate through the cycle? — supporting robustness and methods")
 r2.italic = True; p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 # ── S1 robustness ────────────────────────────────────────────────────────────

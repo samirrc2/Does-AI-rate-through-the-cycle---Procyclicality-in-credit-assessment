@@ -1,4 +1,4 @@
-%% Do LLMs Rate Through the Cycle? — Finance Research Letters (Elsevier CAS single-column)
+%% Does AI rate through the cycle? — Finance Research Letters (Elsevier CAS single-column)
 \documentclass[a4paper,fleqn]{cas-sc}
 \usepackage[T1]{fontenc}   % scalable Type-1 fonts (fixes Type-3/ligature extraction)
 \usepackage{lmodern}
@@ -7,27 +7,28 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{verbatim}
+\usepackage{url}
 
 \begin{document}
 \let\WriteBookmarks\relax
 \def\floatpagepagefraction{1}
 \def\textpagefraction{.001}
 
-\shorttitle{Do LLMs Rate Through the Cycle?}
+\shorttitle{Does AI rate through the cycle?}
 \shortauthors{S. Chincholikar and R. Chawla}
 
-\title[mode=title]{Do LLMs Rate Through the Cycle? Procyclicality and anchoring in large language model credit ratings}
+\title[mode=title]{Does AI rate through the cycle? Procyclicality in credit assessment}
 
 \author[1]{Samir Chincholikar}[orcid=0009-0007-2779-3492]
 \ead{samir.chincholikar@gmail.com}
 \credit{Conceptualization, Methodology, Software, Formal analysis, Writing -- original draft}
-\affiliation[1]{organization={Independent researcher}}
+\affiliation[1]{organization={Independent researcher}, city={New York}, country={USA}}
 
 \author[2]{Robin Chawla}[orcid=0009-0007-2807-3948]
 \cormark[1]
 \ead{robin.chawla.cse14@iitbhu.ac.in}
 \credit{Conceptualization, Validation, Writing -- review and editing, Supervision}
-\affiliation[2]{organization={Independent researcher}}
+\affiliation[2]{organization={Independent researcher}, city={New York}, country={USA}}
 
 \cortext[1]{Corresponding author}
 
@@ -92,7 +93,9 @@ We provide the first controlled measurement of rating procyclicality in LLMs. Ou
 identification problem by construction: a synthetic firm's fundamentals are held byte-identical
 across an ordered macroeconomic-severity axis, so any change in the model's rating is procyclicality,
 not a response to changed fundamentals---an experimental counterpart to the observational
-Amato--Furfine test. We make three contributions. First, we show that all five production-tier models
+Amato--Furfine test. The benchmark is not that any movement is bad: a genuine through-the-cycle
+rater should hold the \emph{rating} steady while its point-in-time default probability still tracks
+conditions, and we test that joint condition directly. We make three contributions. First, we show that all five production-tier models
 tested (spanning two families and two capability tiers) downgrade identical firms as the described
 macroeconomy worsens, by economically meaningful and statistically significant margins, and that
 model identity moves the magnitude roughly threefold.
@@ -114,15 +117,22 @@ stakes are set by the interaction of ratings with Basel capital rules \citep{kas
 with sovereign and corporate ratings alike carrying real pricing consequences \citep{cantor1996}.
 Our experimental design sidesteps these studies' central difficulty---that fundamentals and the cycle
 are observationally entangled---by holding fundamentals fixed. The second strand is the rapid
-adoption of \emph{LLMs in finance}: language models are now used for return prediction
-\citep{lopezlira2023}, financial-statement analysis \citep{kim2024}, financial advice
-\citep{fieberg2025}, and as simulated economic agents \citep{horton2023}, and supervisors have
-flagged their potential to re-introduce procyclicality
-\citep{bis2024}. Closest to us, \citet{hens2025} publish in this journal that LLM-generated client
-risk profiles are statistically indistinguishable from those of experienced bankers in level, while
-the models' explanations are generic---level-agreement without genuine reasoning. Our result is the
-troubling complement: on the credit-rating task, LLMs not only match a level but \emph{move} it with
-context that a through-the-cycle rater should ignore. The third strand
+adoption of \emph{LLMs in finance}, for which this journal has become a leading outlet
+\citep{ali2025}. Language models are used for return prediction \citep{lopezlira2023},
+financial-statement analysis \citep{kim2024}, financial advice \citep{fieberg2025,kirschbaum2026},
+and as simulated economic agents \citep{horton2023}; within finance specifically they have been
+turned to measuring monetary-policy uncertainty \citep{ito2025}, assessing the financial conditions
+of AI firms \citep{giaretta2026}, and---most relevant here---to reliability evidence in banking
+supervision \citep{garcia2026}. A parallel line warns that machine-generated scores and disclosures
+can mislead: greenwashing in ESG scores \citep{kathan2025} and ``AI washing'' in corporate
+disclosure \citep{song2026}. Broader analyses consider AI's systemic and macroeconomic footprint,
+from agent-based market (in)stability \citep{llacay2026} to the skill premium \citep{bloom2025},
+while supervisors have flagged the potential to re-introduce
+procyclicality \citep{bis2024}. Closest to us, \citet{hens2025} show in this journal that
+LLM-generated client risk profiles are statistically indistinguishable from those of experienced
+bankers in level, while the models' explanations are generic---level-agreement without genuine
+reasoning. Our result is the troubling complement: on the credit-rating task, LLMs not only match a
+level but \emph{move} it with context that a through-the-cycle rater should ignore. The third strand
 is \emph{behavioural and cognitive limitations of LLMs}: models reproduce classic human framing and
 anchoring effects \citep{tversky1974,tversky1981,binz2023}, are imperfectly calibrated
 \citep{kadavath2022}, and---through shared foundation models---can homogenise decisions across users
@@ -220,9 +230,9 @@ movement while still calming the rating. A residual downgrade survives everywher
 notches across the cycle for GPT-4o-mini.
 
 \subsection{Capital consequences}\label{sec:capital}
-Against the through-the-cycle ideal, any nonzero slope is a failure by construction; the material
-question is not whether the rating moves but what the movement costs. We translate the rating path
-into capital by anchoring through the \emph{rating}---which is what enters a credit pipeline---rather
+The material question is not merely that the rating moves but what the movement costs. We translate
+the rating path into capital by anchoring through the \emph{rating}---which is what enters a credit
+pipeline---rather
 than the disclaimed verbalised PD: we map each notch to a stylised one-year default probability
 calibrated to published agency average default rates, and apply the Basel internal-ratings-based
 (IRB) corporate risk-weight formula. This is a stylised proxy for the core economic logic (loss
@@ -291,8 +301,10 @@ This research did not receive any specific grant from funding agencies in the pu
 not-for-profit sectors.
 
 \section*{Data availability}
-All data and code are openly available in a Zenodo deposit (DOI to be inserted); reproduction is
-offline, deterministic and free. See \citet{artifact2026}.
+All data and code are openly available at
+\url{https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment}; a citable Zenodo archive
+accompanies the published version. Reproduction is offline, deterministic and free
+\citep{artifact2026}.
 
 \appendix
 \section{Robustness}\label{app:robust}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================================
-# P5 — "Do LLMs Rate Through the Cycle?"  ·  REPRODUCE (offline, $0, no capture)
+# P5 — "Does AI rate through the cycle?"  ·  REPRODUCE (offline, $0, no capture)
 # ============================================================================
 # Regenerates the analysis from the FROZEN captures in data/ and verifies it
 # against the committed results. This NEVER calls a vendor API, never captures

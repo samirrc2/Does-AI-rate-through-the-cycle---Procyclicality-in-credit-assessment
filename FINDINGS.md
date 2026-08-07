@@ -1,4 +1,4 @@
-# Do LLMs Rate Through the Cycle? — Abstract, Results, Conclusion
+# Does AI rate through the cycle? — Abstract, Results, Conclusion
 
 *Confirmatory full run: 5 frontier LLMs · 80 synthetic firms · 5-point macro-severity
 axis + matched placebo · 4 prompt framings · 2 seeds · 32,000 ratings · 0 ERROR ·

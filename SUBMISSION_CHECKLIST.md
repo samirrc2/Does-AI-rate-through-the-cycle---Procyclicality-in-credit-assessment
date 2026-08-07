@@ -1,4 +1,4 @@
-# FRL submission checklist — "Do LLMs Rate Through the Cycle?"
+# FRL submission checklist — "Does AI rate through the cycle?"
 
 Status of every Finance Research Letters requirement. ✅ done · ✍️ needs author input.
 

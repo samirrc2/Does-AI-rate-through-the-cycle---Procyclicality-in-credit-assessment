@@ -1,4 +1,4 @@
-# PREREGISTRATION — P5: Do LLMs Rate Through the Cycle?
+# PREREGISTRATION — P5: Does AI rate through the cycle?
 
 > Freeze this file (SHA-256) BEFORE any real credit-rating call, so the confirmatory
 > claims are pre-registered. Post-freeze changes go in `PREREGISTRATION_AMENDMENTS.md`.
