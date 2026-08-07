@@ -169,7 +169,24 @@ body(
 )
 
 # ── 2. Design and identification ────────────────────────────────────────────
-heading("2. Design and identification")
+heading("2. Related literature")
+body("Our study connects three strands. The first is the literature on rating procyclicality and "
+     "through-the-cycle methodology: Amato and Furfine (2004) formalise the ordered-probit test, "
+     "Löffler (2004, 2013) characterise and question through-the-cycle rating, and the prudential "
+     "stakes are set by the interaction of ratings with Basel capital rules (Kashyap and Stein, "
+     "2004; Gordy and Howells, 2006; Cantor and Packer, 1996). Our experimental design sidesteps "
+     "these studies' central difficulty—fundamentals and the cycle are observationally "
+     "entangled—by holding fundamentals fixed. The second strand is the rapid adoption of LLMs in "
+     "finance: language models are used for return prediction (Lopez-Lira and Tang, 2023), "
+     "financial-statement analysis (Kim et al., 2024), and as simulated economic agents (Horton, "
+     "2023), and supervisors have flagged their potential to re-introduce procyclicality (Bank for "
+     "International Settlements, 2024). The third strand is the behavioural limitations of LLMs: "
+     "models reproduce human framing and anchoring effects (Tversky and Kahneman, 1974, 1981; Binz "
+     "and Schulz, 2023), are imperfectly calibrated (Kadavath et al., 2022), and through shared "
+     "foundation models can homogenise decisions (Bommasani et al., 2022). Procyclicality on fixed "
+     "fundamentals is exactly such a context-driven bias, made consequential by its regulatory "
+     "setting.")
+heading("3. Design and identification")
 body(
     f"The unit of analysis is a rating cell = (model, prompt framing, seed, firm, macro state). "
     f"We generate {NUM['firms']} synthetic firms with fixed fundamentals (revenue growth, EBITDA "
@@ -206,8 +223,8 @@ body(
 )
 
 # ── 3. Results ───────────────────────────────────────────────────────────────
-heading("3. Results")
-heading("3.1. LLMs are procyclical on identical fundamentals", 12)
+heading("4. Results")
+heading("4.1. LLMs are procyclical on identical fundamentals", 12)
 body(
     f"On byte-identical fundamentals, every model downgrades as the described macroeconomy "
     f"worsens (Table 1, Figure 1a). Pooling across models under the terse framing, ratings fall "
@@ -234,7 +251,7 @@ body(
 )
 body("[Insert Table 1 here]  [Insert Figure 1 here]", italic=True)
 
-heading("3.2. The procyclicality is asymmetric", 12)
+heading("4.2. The procyclicality is asymmetric", 12)
 body(
     f"Splitting the macro axis at neutral, ratings fall much faster going into recession than "
     f"they rise going into a boom. Pooled, the downside half-slope (neutral to severe recession) "
@@ -245,7 +262,7 @@ body(
     f"stricter-in-downturns behaviour documented for human agencies."
 )
 
-heading("3.3. “Through-the-cycle” instructions anchor rather than de-cyclify", 12)
+heading("4.3. “Through-the-cycle” instructions anchor rather than de-cyclify", 12)
 body(
     f"Prompt framing moves the coefficient monotonically: point-in-time {NUM['pit']}, terse "
     f"{NUM['terse']}, “be stable” {NUM['stable']}, and through-the-cycle {NUM['ttc']} "
@@ -264,7 +281,7 @@ body(
 )
 
 # ── 4. Conclusion ────────────────────────────────────────────────────────────
-heading("4. Conclusion")
+heading("5. Conclusion")
 body(
     "Using a design in which fundamentals are fixed by construction, we provide the first "
     "controlled measurement of rating procyclicality in large language models. Frontier LLMs "
@@ -317,6 +334,8 @@ refs = [
     "the National Academy of Sciences 120 (6), e2218523120.",
     "Bommasani, R., Creel, K.A., Bansal, A., Guha, S., Liang, P., 2022. Picking on the same "
     "person: does algorithmic monoculture lead to outcome homogenization? NeurIPS 35.",
+    "Cantor, R., Packer, F., 1996. Determinants and impact of sovereign credit ratings. Federal "
+    "Reserve Bank of New York Economic Policy Review 2 (2), 37–53.",
     "Chincholikar, S., Chawla, R., 2026. Do LLMs rate through the cycle? — reproducibility "
     "artifact [data set + software]. Zenodo. https://doi.org/<ZENODO-DOI>",
     "Gordy, M.B., Howells, B., 2006. Procyclicality in Basel II: can we treat the disease without "
@@ -329,10 +348,14 @@ refs = [
     "know. arXiv:2207.05221.",
     "Kashyap, A.K., Stein, J.C., 2004. Cyclical implications of the Basel II capital standards. "
     "Economic Perspectives (Federal Reserve Bank of Chicago) 28 (1), 18–31.",
+    "Kim, A., Muhn, M., Nikolaev, V.V., 2024. Financial statement analysis with large language "
+    "models. arXiv:2407.17866.",
     "Löffler, G., 2004. An anatomy of rating through the cycle. Journal of Banking & Finance 28 "
     "(3), 695–720.",
     "Löffler, G., 2013. Can rating agencies look through the cycle? Review of Quantitative Finance "
     "and Accounting 40 (4), 623–646.",
+    "Lopez-Lira, A., Tang, Y., 2023. Can ChatGPT forecast stock price movements? Return "
+    "predictability and large language models. arXiv:2304.07619.",
     "Tversky, A., Kahneman, D., 1974. Judgment under uncertainty: heuristics and biases. Science "
     "185 (4157), 1124–1131.",
     "Tversky, A., Kahneman, D., 1981. The framing of decisions and the psychology of choice. "

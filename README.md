@@ -67,18 +67,14 @@ metadata/                 metadata.yml (deposit metadata)
 results/                  derived, regenerable outputs
   tables/                 table1-3 (csv + LaTeX), regenerated from claims.json
   review_diag_full.txt    full-run reviewer diagnostics dump
-paper/                    the FRL manuscript package
-  latex/                  Elsevier CAS (cas-sc) submission set — PRIMARY
+paper/                    the FRL manuscript (single source of truth)
+  latex/                  Elsevier CAS (cas-sc) submission set
     manuscript.tex/.pdf   the letter in the official Elsevier template
-    refs.bib              15-reference bibliography
+    refs.bib              18-reference bibliography
     tables/  *.tex        claims-gated LaTeX tables
     Figure_1/2.pdf  cas-*.cls/.sty/.bst  build.sh
-  manuscript.docx/.pdf    Word alternate (same content)
-  supplementary.docx/.pdf robustness tables + methods
   highlights.txt          FRL highlights (<=85 chars each)
-  figures/                Figure_1, Figure_2 (vector PDF + 300-dpi PNG)
-  build_manuscript.py     rebuilds the .docx from claims.json (numbers can't drift)
-  build_supplementary.py
+  figures/                Figure_1, Figure_2 source (vector PDF + 300-dpi PNG)
 SUBMISSION_CHECKLIST.md    FRL requirement-by-requirement status
 analysis/make_tables.py    claims.json -> results/tables
 analysis/make_figures.py   claims.json -> paper/figures

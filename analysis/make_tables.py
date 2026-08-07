@@ -10,8 +10,8 @@ from pathlib import Path
 
 # display names for the served models
 DISP = {
-    "gemini_flash": "Gemini 3.5 Flash",
-    "gemini_flash_lite": "Gemini 2.5 Flash-Lite",
+    "gemini_flash": "Gemini Flash",
+    "gemini_flash_lite": "Gemini Flash-Lite",
     "openai_41_mini": "GPT-4.1-mini",
     "openai_4o": "GPT-4o",
     "openai_4o_mini": "GPT-4o-mini",

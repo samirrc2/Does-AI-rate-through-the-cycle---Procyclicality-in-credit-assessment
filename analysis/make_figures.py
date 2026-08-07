@@ -14,14 +14,15 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 DISP = {
-    "gemini_flash": "Gemini 3.5 Flash",
-    "gemini_flash_lite": "Gemini 2.5 Flash-Lite",
+    "gemini_flash": "Gemini Flash",
+    "gemini_flash_lite": "Gemini Flash-Lite",
     "openai_41_mini": "GPT-4.1-mini",
     "openai_4o": "GPT-4o",
     "openai_4o_mini": "GPT-4o-mini",
 }
 ORDER = ["gemini_flash", "gemini_flash_lite", "openai_41_mini", "openai_4o", "openai_4o_mini"]
-plt.rcParams.update({"font.size": 9, "font.family": "DejaVu Sans", "axes.linewidth": 0.8})
+plt.rcParams.update({"font.size": 9, "font.family": "DejaVu Sans", "axes.linewidth": 0.8,
+                     "pdf.fonttype": 42, "ps.fonttype": 42})  # embed TrueType (no Type-3)
 
 
 def _pmv(c, m, v):

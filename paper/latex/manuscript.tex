@@ -1,8 +1,12 @@
 %% Do LLMs Rate Through the Cycle? — Finance Research Letters (Elsevier CAS single-column)
 \documentclass[a4paper,fleqn]{cas-sc}
+\usepackage[T1]{fontenc}   % scalable Type-1 fonts (fixes Type-3/ligature extraction)
+\usepackage{lmodern}
+\usepackage{microtype}
 \usepackage[authoryear,longnamesfirst]{natbib}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{verbatim}
 
 \begin{document}
 \let\WriteBookmarks\relax
@@ -17,13 +21,13 @@
 \author[1]{Samir Chincholikar}[orcid=0009-0007-2779-3492]
 \ead{samir.chincholikar@gmail.com}
 \credit{Conceptualization, Methodology, Software, Formal analysis, Writing -- original draft}
-\affiliation[1]{organization={Independent researcher}, country={}}
+\affiliation[1]{organization={Independent researcher}}
 
 \author[2]{Robin Chawla}[orcid=0009-0007-2807-3948]
 \cormark[1]
 \ead{robin.chawla.cse14@iitbhu.ac.in}
 \credit{Conceptualization, Validation, Writing -- review and editing, Supervision}
-\affiliation[2]{organization={Independent researcher}, country={}}
+\affiliation[2]{organization={Independent researcher}}
 
 \cortext[1]{Corresponding author}
 
@@ -33,7 +37,7 @@ tools, yet whether they rate ``through the cycle'' or amplify it---a property pr
 care about but that has been asserted rather than measured---has remained untested. We hold
 synthetic firm fundamentals byte-identical across an ordered five-point macroeconomic-severity axis
 (plus a matched credit-irrelevant placebo axis) and elicit letter ratings and one-year default
-probabilities from five frontier models, so that any rating movement is procyclicality by
+probabilities from five production-tier models (two families, two capability tiers), so that any rating movement is procyclicality by
 construction, identified without the unobserved-fundamentals confound that limits the classical
 Amato--Furfine test. Across 32{,}000 ratings, every model is significantly procyclical (pooled
 $0.429$ rating notches of downgrade per severity step, 95\% CI $[0.41,0.45]$; a $1.76$-notch
@@ -49,7 +53,7 @@ capital-procyclicality channel that regulation seeks to dampen.
 
 \begin{highlights}
 \item First controlled test of procyclicality in LLM credit ratings.
-\item All five frontier LLMs downgrade identical firms as the macro worsens.
+\item All five production-tier LLMs downgrade identical firms as the macro worsens.
 \item Pooled effect: 0.43 rating notches of downgrade per macro-severity step.
 \item The effect is asymmetric: about 3x steeper into recessions than booms.
 \item A ``through-the-cycle'' prompt anchors ratings rather than de-cyclifying them.
@@ -87,11 +91,43 @@ sentiment \citep{graham2026} makes the question timely and the contamination ris
 We provide the first controlled measurement of rating procyclicality in LLMs. Our design removes the
 identification problem by construction: a synthetic firm's fundamentals are held byte-identical
 across an ordered macroeconomic-severity axis, so any change in the model's rating is procyclicality,
-not a response to changed fundamentals. We find that all five frontier models tested are
-significantly procyclical, that the effect is strongly asymmetric (much steeper into recessions),
-and---using a placebo instruction and the models' default-probability outputs---that an explicit
-through-the-cycle instruction does not restore through-the-cycle behaviour but instead induces
-generic anchoring \citep{tversky1974}.
+not a response to changed fundamentals---an experimental counterpart to the observational
+Amato--Furfine test. We make three contributions. First, we show that all five production-tier models
+tested (spanning two families and two capability tiers) downgrade identical firms as the described
+macroeconomy worsens, by economically meaningful and statistically significant margins, and that
+model identity moves the magnitude roughly threefold.
+Second, we document that the effect is strongly \emph{asymmetric}---about three times steeper into
+recessions than out of them---the precise pattern that transmits rating-driven capital
+procyclicality. Third, using a matched placebo instruction and the models' default-probability
+outputs, we show that the obvious remedy---telling the model to rate ``through the cycle''---does not
+restore through-the-cycle behaviour but instead induces generic \emph{anchoring} \citep{tversky1974},
+suppressing the point-in-time default probability that should move. The paper proceeds as follows.
+Section~\ref{sec:lit} positions the contribution; Section~\ref{sec:design} sets out the design and
+identification; Section~\ref{sec:results} reports the results; Section~\ref{sec:concl} concludes.
+
+\section{Related literature}\label{sec:lit}
+Our study connects three strands. The first is the long literature on \emph{rating procyclicality}
+and through-the-cycle methodology. \citet{amato2004} formalise the ordered-probit test for whether
+ratings move with the cycle conditional on fundamentals, and \citet{loffler2004,loffler2013}
+characterise---and question---the extent to which agencies rate through the cycle; the prudential
+stakes are set by the interaction of ratings with Basel capital rules \citep{kashyap2004,gordy2006},
+with sovereign and corporate ratings alike carrying real pricing consequences \citep{cantor1996}.
+Our experimental design sidesteps these studies' central difficulty---that fundamentals and the cycle
+are observationally entangled---by holding fundamentals fixed. The second strand is the rapid
+adoption of \emph{LLMs in finance}: language models are now used for return prediction
+\citep{lopezlira2023}, financial-statement analysis \citep{kim2024}, financial advice
+\citep{fieberg2025}, and as simulated economic agents \citep{horton2023}, and supervisors have
+flagged their potential to re-introduce procyclicality
+\citep{bis2024}. Closest to us, \citet{hens2025} publish in this journal that LLM-generated client
+risk profiles are statistically indistinguishable from those of experienced bankers in level, while
+the models' explanations are generic---level-agreement without genuine reasoning. Our result is the
+troubling complement: on the credit-rating task, LLMs not only match a level but \emph{move} it with
+context that a through-the-cycle rater should ignore. The third strand
+is \emph{behavioural and cognitive limitations of LLMs}: models reproduce classic human framing and
+anchoring effects \citep{tversky1974,tversky1981,binz2023}, are imperfectly calibrated
+\citep{kadavath2022}, and---through shared foundation models---can homogenise decisions across users
+\citep{bommasani2022}. Procyclicality on fixed fundamentals is exactly such a context-driven bias,
+made consequential by its regulatory setting.
 
 \section{Design and identification}\label{sec:design}
 The unit of analysis is a rating cell $=$ (model, prompt framing, seed, firm, macro state). We
@@ -113,8 +149,11 @@ a cycle effect. Each model returns a letter rating (mapped to an S\&P notch, $1$
 one-year probability of default (PD).
 
 We study four prompt framings---terse, point-in-time, explicit through-the-cycle, and a ``be
-stable'' instruction with no cycle reasoning---on five models (GPT-4o-mini, GPT-4.1-mini, GPT-4o,
-Gemini 3.5 Flash, Gemini 2.5 Flash-Lite), two seeds, at temperature zero. The primary estimand is
+stable'' instruction with no cycle reasoning---on five models: three OpenAI (\texttt{gpt-4o-mini},
+\texttt{gpt-4.1-mini}, \texttt{gpt-4o}) and two Google Gemini Flash-tier models accessed via the
+\texttt{gemini-flash-latest} and \texttt{gemini-flash-lite-latest} aliases, all queried in July 2026
+with the served-model snapshot/\texttt{system\_fingerprint} logged per call for reproducibility. We
+use two seeds at temperature zero. The primary estimand is
 the mean within-firm slope of rating notch on macro severity (notches of downgrade per $+1$ step;
 positive $=$ procyclical), with firm-clustered (tier-stratified) bootstrap 95\% confidence intervals
 ($2{,}000$ draws). We also report the boom-to-recession swing, downside vs upside half-slopes, the
@@ -129,9 +168,9 @@ On byte-identical fundamentals, every model downgrades as the described macroeco
 (Table~\ref{tab:permodel}; Fig.~\ref{fig:main}a). Pooling across models under the terse framing,
 ratings fall by $0.429$ notches per severity step (95\% CI $[0.41,0.45]$)---a $1.76$-notch swing from
 boom to severe recession, enough to move a BBB firm toward BB$+$/BB with nothing real changing. The
-per-model coefficient ranges from $0.230$ (Gemini 3.5 Flash) to $0.775$ (GPT-4o-mini), and every
+per-model coefficient ranges from $0.230$ (Gemini Flash) to $0.775$ (GPT-4o-mini), and every
 model's CI excludes zero. Model identity is thus a first-order determinant---a roughly threefold
-spread---and, within OpenAI, the flagship GPT-4o ($0.387$) is about half as procyclical as
+spread---and, within OpenAI, the larger GPT-4o ($0.387$) is about half as procyclical as
 GPT-4o-mini.
 
 The effect is not framing suggestibility: the matched credit-irrelevant placebo axis moves ratings
@@ -141,7 +180,15 @@ effects shifts the coefficient by less than $0.003$. It is not a censoring or pa
 model parses at $1.000$, with the largest-cyclicality model (GPT-4o-mini) among the cleanest. For the
 OpenAI models, a continuous expected-notch slope from rating-token log-probabilities reproduces the
 sampled estimate (e.g., GPT-4o-mini $0.775$ vs $0.765$), and the Amato--Furfine ordered-probit
-coefficient agrees in sign and magnitude throughout (Appendix Table~\ref{tab:robust}).
+coefficient agrees in sign throughout and is of comparable magnitude, though the two estimators do
+not perfectly preserve the cross-model rank order (Appendix Table~\ref{tab:robust}).
+
+The magnitudes are economically material: a pooled $1.76$-notch swing means that a firm rated,
+say, A$-$ in a boom is rated near BBB in a severe recession on unchanged fundamentals, and for the
+most sensitive model the swing exceeds three notches; we translate this into a capital requirement in
+$\S$\ref{sec:capital}. That the coefficient survives the placebo control, the log-probability
+estimator, served-model fixed effects and the ordered-probit null makes it unlikely to be an artefact
+of suggestibility, sampling noise or infrastructure drift.
 
 \subsection{The procyclicality is asymmetric}\label{sec:asym}
 Splitting the macro axis at neutral, ratings fall much faster going into recession than they rise
@@ -149,36 +196,62 @@ going into a boom. Pooled, the downside half-slope (neutral to severe recession)
 $[0.63,0.72]$) versus an upside half-slope (boom to neutral) of $0.21$ (95\% CI $[0.18,0.24]$)---a
 $3.2\times$ asymmetry that holds for every model (Fig.~\ref{fig:asym}). This is the financially
 dangerous margin: downturn downgrades dominate, exactly the pattern that transmits rating-driven
-capital procyclicality, and it mirrors the stricter-in-downturns behaviour documented for human
-agencies.
+capital procyclicality, and it echoes the stricter-in-downturns behaviour long attributed to human
+agencies \citep{loffler2004}. Because capital requirements are convex in the rating and bind hardest
+in stress, an asymmetric downgrade profile is more procyclical than a symmetric one of equal average
+slope, amplifying the prudential concern.
 
 \subsection{``Through-the-cycle'' instructions anchor rather than de-cyclify}\label{sec:ttc}
 Prompt framing moves the coefficient monotonically (Table~\ref{tab:gradient}; Fig.~\ref{fig:main}b):
 point-in-time $0.516$, terse $0.429$, ``be stable'' $0.329$, and through-the-cycle $0.160$ (95\% CI
 $[0.14,0.18]$); the terse-minus-TTC contrast is $0.269$ notches per step. Taken alone, this looks
-like a successful mitigation. It is not. A genuine through-the-cycle rater holds the rating steady
-while its point-in-time PD still moves with the cycle; anchoring flattens both. (We use the PD only
-in relative, within-firm terms, since verbalised LLM probabilities are imperfectly calibrated;
-\citealp{kadavath2022}.) Under the through-the-cycle instruction, the PD slope collapses to
-$0.22$--$0.59$ of its terse value across models---the instruction suppresses the very quantity that should remain cycle-sensitive. Revealingly,
-the vaguer ``be stable'' instruction, which is not semantically about the cycle, retains far more PD
-movement while still calming the rating. The explicit through-the-cycle instruction therefore
-stabilises the wrong object, and a residual downgrade survives everywhere---up to $1.60$ notches
-across the cycle for GPT-4o-mini.
+like a successful mitigation. It is not. We define genuine through-the-cycle behaviour as a joint
+condition: the rating slope should fall toward zero \emph{and} the (point-in-time) default
+probability should keep moving with the cycle. Anchoring collapses both. We measure the default
+probability on the log-odds scale (so the comparison across framings is not driven by level
+differences, and is robust to the miscalibration of verbalised LLM probabilities;
+\citealp{kadavath2022,kang2023}). Pooled, the log-odds PD slope falls from $0.270$ under terse to
+$0.102$ under the through-the-cycle instruction---a \emph{retention} of only $0.38$ (95\% CI
+$[0.35,0.40]$), far below the value near one that genuine through-the-cycle behaviour requires; the
+suppression is comparable on the downside and upside (retention $0.35$ and $0.38$). So the model
+satisfies the first condition and violates the second: it stabilises the wrong object. Revealingly,
+the vaguer ``be stable'' instruction, which is not semantically about the cycle, retains more PD
+movement while still calming the rating. A residual downgrade survives everywhere---up to $1.60$
+notches across the cycle for GPT-4o-mini.
+
+\subsection{Capital consequences}\label{sec:capital}
+Against the through-the-cycle ideal, any nonzero slope is a failure by construction; the material
+question is not whether the rating moves but what the movement costs. We translate the rating path
+into capital by anchoring through the \emph{rating}---which is what enters a credit pipeline---rather
+than the disclaimed verbalised PD: we map each notch to a stylised one-year default probability
+calibrated to published agency average default rates, and apply the Basel internal-ratings-based
+(IRB) corporate risk-weight formula. This is a stylised proxy for the core economic logic (loss
+given default $0.45$, maturity $2.5$, the corporate asset-correlation function), not the regulatory
+framework in full detail (no SME or firm-size adjustment). Reporting the \emph{change} across the
+severity axis, an identical firm's required capital rises by a pooled $1.87$ percentage points of
+exposure from boom to severe recession (95\% CI $[1.73,2.00]$), and by $3.48$ pp for the most
+sensitive model. The verbalised-PD variant agrees in direction ($2.92$ pp). Because the risk weight
+is convex in PD, the $\S$\ref{sec:asym} asymmetry compounds: the downside capital increase
+(neutral$\to$recession, $1.55$ pp) is about five times the upside decrease (boom$\to$neutral, $0.32$
+pp)---a wider gap than the notch asymmetry alone, so an equal-average-slope symmetric rater would
+produce a smaller capital swing than we observe.
 
 \section{Conclusion}\label{sec:concl}
-Using a design in which fundamentals are fixed by construction, we provide the first controlled
-measurement of rating procyclicality in large language models. Frontier LLMs downgrade identical
-firms as the macroeconomy is described as worsening, by economically meaningful and statistically
-robust margins, and they do so asymmetrically---punishing simulated downturns far more than they
-reward simulated expansions. The magnitude is a first-order function of model identity, so in a
+Using a design in which fundamentals are fixed by construction, we measure rating procyclicality in
+large language models directly. All five models downgrade identical firms as the macroeconomy is
+described as worsening, by economically meaningful and statistically robust margins, and they do so
+asymmetrically---punishing simulated downturns far more than they reward simulated expansions. The magnitude is a first-order function of model identity, so in a
 deployed pipeline the choice of model is itself a prudential decision. The natural
 mitigation---instructing the model to rate through the cycle---fails instructively: rather than
 holding the rating steady while letting the default probability track conditions, it suppresses both,
-and it leaves a measurable residual. These results should be read against their scope---a synthetic
-firm battery built for identification rather than external realism, five mini/flagship models from
-two families, and prompt-level rather than fine-tuning interventions---and they motivate benchmarking
-LLM procyclicality against agency and IRB baselines, testing fine-tuning and retrieval remedies that
+and it leaves a measurable residual. Our design perturbs a macro block inside the prompt; this is
+representative rather than artificial, because realistic credit pipelines routinely place
+macroeconomic context in front of the model---through retrieval over news and filings, analyst
+preambles, or market-data conditioning---so the sensitivity we measure is precisely the exposure a
+deployment inherits. These results should be read against their scope---a synthetic firm battery
+built for identification rather than external realism, five production-tier models from two families,
+and prompt-level rather than fine-tuning interventions---and they motivate benchmarking LLM
+procyclicality against agency and IRB baselines, testing fine-tuning and retrieval remedies that
 target the point-in-time object directly, and, in the interim, treating model selection and prompt
 framing as governed parameters wherever LLMs touch credit and capital decisions.
 
@@ -227,7 +300,16 @@ offline, deterministic and free. See \citet{artifact2026}.
 Adding served-model (\texttt{system\_fingerprint}) fixed effects shifts the terse coefficient by
 $<0.003$ for every OpenAI model; a within-cell seed noise floor confirms the signal exceeds residual
 non-determinism. The ordered-probit (Amato--Furfine) null uses the firm mean notch as a Mundlak
-control.
+control. The capital translation ($\S$\ref{sec:capital}) maps each notch to a stylised one-year
+default probability (AAA $\approx 0.01\%$, BBB $\approx 0.25\%$, BB $\approx 1.1\%$, B $\approx 5\%$,
+CCC $\approx 20\%$; monotone across the 21-notch scale, calibrated to published agency averages) and
+applies the Basel IRB corporate formula; the reported \emph{change} in capital is robust to the exact
+mapping.
+
+\section{Prompts}\label{app:prompts}
+The prompt framings and the macro and placebo blocks below are extracted programmatically from the
+capture code (\texttt{agent.py}) and reproduce the executed instrument verbatim.
+\input{appendix_prompts.tex}
 
 \printcredits
 

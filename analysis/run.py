@@ -15,6 +15,7 @@ import ratings as RA        # noqa: E402
 import cyclicality as CY    # noqa: E402
 import probit as PB         # noqa: E402
 import stats as S           # noqa: E402
+import capital as CAP       # noqa: E402
 import loader as C          # noqa: E402
 
 _HERE = Path(__file__).resolve().parent
@@ -183,6 +184,71 @@ def analyse(subgrid: str, draws: int, seed: int, allow_unfrozen: bool) -> dict:
         "note": "downside = neutral->severe recession; upside = boom->neutral (notches/step)",
     }
 
+    # ── Basel IRB capital translation (referee Row 2), v_terse ───────────────
+    cap_r_ci = S.cluster_bootstrap(
+        rt, tfirms, lambda fs: CAP.pooled_capital_swing(rt, "v_terse", fs, "rating"),
+        draws=draws, seed=seed)
+    cap_pd_ci = S.cluster_bootstrap(
+        rt, tfirms, lambda fs: CAP.pooled_capital_swing(rt, "v_terse", fs, "pd"),
+        draws=draws, seed=seed)
+    cap_down = [CAP.mean_capital_halves(rt, (m, "v_terse"),
+                                        rt.firm_support((m, "v_terse"), "macro"), "rating")
+                for m in rt.models]
+    cd = [x[0] for x in cap_down if x[0] is not None]
+    cu = [x[1] for x in cap_down if x[1] is not None]
+    capital = {
+        "unit": "percentage points of exposure (Basel IRB corporate, LGD 0.45, M 2.5; stylised)",
+        "source_primary": "rating-anchored (notch -> stylised agency default rate -> IRB)",
+        "pooled_swing_boom_to_recession": CAP.pooled_capital_swing(rt, "v_terse", tfirms, "rating"),
+        "pooled_swing_ci95": [cap_r_ci["ci_low"], cap_r_ci["ci_high"]],
+        "pooled_swing_rawpd_robustness": CAP.pooled_capital_swing(rt, "v_terse", tfirms, "pd"),
+        "pooled_swing_rawpd_ci95": [cap_pd_ci["ci_low"], cap_pd_ci["ci_high"]],
+        "pooled_downside_pp": (sum(cd) / len(cd)) if cd else None,
+        "pooled_upside_pp": (sum(cu) / len(cu)) if cu else None,
+        "capital_asymmetry_ratio": ((sum(cd) / len(cd)) / (sum(cu) / len(cu))) if (cd and cu and sum(cu)) else None,
+        "per_model_swing_pp": {m: CAP.mean_capital_swing(
+            rt, (m, "v_terse"), rt.firm_support((m, "v_terse"), "macro"), "rating") for m in rt.models},
+    }
+
+    # ── anchoring inference (referee Row 3): PD-retention CI + directional split ──
+    # Genuine TTC => rating slope ~ 0 AND PD slope retained (PD is point-in-time and
+    # should keep moving). PD slopes are on the LOG-ODDS scale so cross-framing
+    # comparison is not dominated by level differences.
+    def _pdslope(v, fs):
+        return CY.pooled_across_models(rt, v, fs, CY.cyclicality_pd)
+
+    def _retention(fs):
+        a = _pdslope("v_terse", fs); b = _pdslope("v_ttc", fs)
+        return (b / a) if (a not in (None, 0) and b is not None) else None
+    ret_ci = S.cluster_bootstrap(rt, tfirms, _retention, draws=draws, seed=seed)
+
+    def _pooled_pd_half(v, side, fs):
+        vals = [CY.pd_half_slope(rt, (m, v), fs, side) for m in rt.models]
+        vals = [x for x in vals if x is not None]
+        return (sum(vals) / len(vals)) if vals else None
+    pd_terse = _pdslope("v_terse", tfirms)
+    pd_ttc = _pdslope("v_ttc", tfirms)
+    anchoring = {
+        "definition": ("genuine through-the-cycle = rating slope ~ 0 AND log-odds PD "
+                       "slope retained (~ point-in-time slope); anchoring = both collapse"),
+        "scale": "log-odds(PD) per severity step",
+        "pooled_pd_slope_terse": pd_terse,
+        "pooled_pd_slope_ttc": pd_ttc,
+        "pooled_pd_retention_ttc_vs_terse": (pd_ttc / pd_terse) if (pd_terse not in (None, 0)) else None,
+        "pd_retention_ci95": [ret_ci["ci_low"], ret_ci["ci_high"]],
+        "directional_pd_slope": {
+            "terse_down": _pooled_pd_half("v_terse", "down", tfirms),
+            "terse_up": _pooled_pd_half("v_terse", "up", tfirms),
+            "ttc_down": _pooled_pd_half("v_ttc", "down", tfirms),
+            "ttc_up": _pooled_pd_half("v_ttc", "up", tfirms),
+        },
+    }
+    _dd = anchoring["directional_pd_slope"]
+    anchoring["downside_pd_retention"] = (
+        (_dd["ttc_down"] / _dd["terse_down"]) if _dd["terse_down"] not in (None, 0) else None)
+    anchoring["upside_pd_retention"] = (
+        (_dd["ttc_up"] / _dd["terse_up"]) if _dd["terse_up"] not in (None, 0) else None)
+
     # ── headline: the primary arm (v_terse pooled) for the gate ─────────────
     primary_variant = "v_terse" if "v_terse" in per_variant else sorted(per_variant)[0]
     primary = per_variant.get(primary_variant, {})
@@ -235,6 +301,8 @@ def analyse(subgrid: str, draws: int, seed: int, allow_unfrozen: bool) -> dict:
         },
         "per_variant_pooled": per_variant,
         "asymmetry": asymmetry,
+        "capital": capital,
+        "anchoring": anchoring,
         "instruction_effect_contrasts": contrasts,
         "per_model_variant": per_mv,
         "pilot_gate": {

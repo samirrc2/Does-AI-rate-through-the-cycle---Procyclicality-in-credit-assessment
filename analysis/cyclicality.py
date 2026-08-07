@@ -178,6 +178,26 @@ def cyclicality_pd(rt: RatingTable, mv, firms) -> float | None:
     return (sum(slopes) / len(slopes)) if slopes else None
 
 
+def pd_half_slope(rt: RatingTable, mv, firms, side="down") -> float | None:
+    """Mean within-firm log-odds(PD) slope on one half of the macro axis (downside =
+    neutral->severe recession; upside = boom->neutral). Used to test whether the TTC
+    instruction suppresses DOWNSIDE PD movement specifically."""
+    order = rt.macro_order()
+    sel = [s for s in order if (rt.state_sev[s] >= 0 if side == "down" else rt.state_sev[s] <= 0)]
+    if len(sel) < 2:
+        return None
+    slopes = []
+    for f in firms:
+        d = rt.pd.get(mv, {}).get(f, {})
+        pts = [(rt.state_sev[s], d.get(s)) for s in sel if d.get(s) is not None]
+        if len(pts) < 2:
+            continue
+        sl = _within_firm_slope([p[0] for p in pts], [_logit(p[1]) for p in pts])
+        if sl is not None:
+            slopes.append(sl)
+    return (sum(slopes) / len(slopes)) if slopes else None
+
+
 def churn(rt: RatingTable, mv, firms) -> dict:
     order = rt.macro_order()
     if len(order) < 2:

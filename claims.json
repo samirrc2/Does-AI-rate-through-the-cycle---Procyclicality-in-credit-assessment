@@ -1,4 +1,23 @@
 {
+  "anchoring": {
+    "definition": "genuine through-the-cycle = rating slope ~ 0 AND log-odds PD slope retained (~ point-in-time slope); anchoring = both collapse",
+    "directional_pd_slope": {
+      "terse_down": 0.40257170280905774,
+      "terse_up": 0.14953869651211388,
+      "ttc_down": 0.1420569612959258,
+      "ttc_up": 0.05659247123968354
+    },
+    "downside_pd_retention": 0.35287368760566934,
+    "pd_retention_ci95": [
+      0.3518013677940165,
+      0.4040352801521997
+    ],
+    "pooled_pd_retention_ttc_vs_terse": 0.37760102410658813,
+    "pooled_pd_slope_terse": 0.2701949902444489,
+    "pooled_pd_slope_ttc": 0.10202590502477349,
+    "scale": "log-odds(PD) per severity step",
+    "upside_pd_retention": 0.3784470010750634
+  },
   "asymmetry": {
     "note": "downside = neutral->severe recession; upside = boom->neutral (notches/step)",
     "pooled_downside_ci95": [
@@ -13,6 +32,30 @@
     "pooled_upside_slope": 0.20812499999999998,
     "ratio": 3.21921921921922,
     "variant": "v_terse"
+  },
+  "capital": {
+    "capital_asymmetry_ratio": 4.913046644194434,
+    "per_model_swing_pp": {
+      "gemini_flash": 1.1538136152183263,
+      "gemini_flash_lite": 1.1856966629783987,
+      "openai_41_mini": 2.144387765079415,
+      "openai_4o": 1.3673258801524686,
+      "openai_4o_mini": 3.4819021837297734
+    },
+    "pooled_downside_pp": 1.5509461250618937,
+    "pooled_swing_boom_to_recession": 1.8666252214316763,
+    "pooled_swing_ci95": [
+      1.7296568118229636,
+      2.0031520827074276
+    ],
+    "pooled_swing_rawpd_ci95": [
+      2.810572797961477,
+      3.029765761672109
+    ],
+    "pooled_swing_rawpd_robustness": 2.92046156379996,
+    "pooled_upside_pp": 0.315679096369783,
+    "source_primary": "rating-anchored (notch -> stylised agency default rate -> IRB)",
+    "unit": "percentage points of exposure (Basel IRB corporate, LGD 0.45, M 2.5; stylised)"
   },
   "headline_cyclicality": {
     "ci_excludes_0": true,
