@@ -16,6 +16,7 @@ import cyclicality as CY    # noqa: E402
 import probit as PB         # noqa: E402
 import stats as S           # noqa: E402
 import capital as CAP       # noqa: E402
+import canonicalize as CAN  # noqa: E402
 import loader as C          # noqa: E402
 
 _HERE = Path(__file__).resolve().parent
@@ -283,6 +284,7 @@ def analyse(subgrid: str, draws: int, seed: int, allow_unfrozen: bool) -> dict:
             "placebo_states": rt.placebo_order(), "has_placebo": has_placebo,
             "has_expected_notch": has_expnotch, "n_expected_notch": rt.n_expnotch,
             "system_fingerprints": RA.fingerprint_summary(rt),
+            "float_quantize_decimals": CAN.CLAIMS_FLOAT_DECIMALS,
         },
         "ratings_dispersion": disp,
         "headline_cyclicality": {
@@ -331,7 +333,7 @@ def main() -> int:
     draws = args.draws if args.draws is not None else 2000
     seed = args.seed if args.seed is not None else int(cfg.grid.analysis_seed)
     claims = analyse(args.subgrid, draws, seed, args.allow_unfrozen)
-    Path(args.out).write_text(json.dumps(claims, indent=2, sort_keys=True))
+    CAN.write_claims(Path(args.out), claims)
     g = claims["pilot_gate"]
     h = claims["headline_cyclicality"]
 

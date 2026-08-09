@@ -27,9 +27,9 @@ The deposit contains:
   `PREREGISTRATION.freeze.txt` + amendments), decision log, and novelty sweep.
 
 **Reproduction is offline, deterministic and free** — `bash reproduce.sh` regenerates
-the analysis from the frozen captures and verifies it against the committed results
-(no vendor API calls, no cost). For a byte-identical `claims.json` hash, use
-`environment/Dockerfile`. Live model capture (OpenAI / Google keys) is documented in
+the analysis from the frozen captures and requires a byte-identical `claims.json`
+(floats are integer-quantized to 12 decimals for cross-platform stability; no vendor
+API calls, no cost). Live model capture (OpenAI / Google keys) is documented in
 `docs/RUNBOOK.md` but is **not** needed to reproduce the reported results.
 
 No proprietary, personal, or confidential data are used or distributed.

@@ -7,18 +7,15 @@
 # new data, and never spends money — it is a pure, deterministic function of the
 # frozen inputs. (Live capture is a separate, key-gated path; see docs/RUNBOOK.md.)
 #
-#   bash reproduce.sh            # FULL: integrity + regenerate claims.json + compare
-#   bash reproduce.sh --quick    # FAST (~seconds): integrity + exact primary estimates
+#   bash reproduce.sh            # FULL: integrity + regenerate claims.json + SHA match
+#   bash reproduce.sh --quick    # FAST (~seconds): integrity + primary estimates
 #                                #   (skips the 2000-draw bootstrap)
 #   bash reproduce.sh --write    # FULL, then refresh results/ (claims, verdict, diag)
 #   SUBGRID=pilot bash reproduce.sh
 #
-# The primary estimands (within-firm cyclicality slopes) are pure-python and
-# reproduce EXACTLY on any platform; the 95% CIs come from a seeded pure-python
-# bootstrap and also reproduce exactly. The ordered-probit robustness estimator uses
-# SciPy's optimizer, which can differ at floating-point precision across builds — so a
-# whole-file hash is byte-identical only in the pinned environment (environment/
-# Dockerfile). --quick verifies the primary estimands without the bootstrap.
+# claims.json floats are integer-quantized (12 decimals) before write, so the
+# whole-file SHA-256 matches across platforms. --quick checks primary slopes
+# against the committed file within 0.5 ULP of that quantization.
 set -euo pipefail
 cd "$(dirname "$0")"
 export PYTHONUNBUFFERED=1
@@ -65,31 +62,47 @@ sys.exit(0 if ok else 2)
 PY
 [ $? -ne 0 ] && { echo "!! INTEGRITY FAILED — frozen inputs do not match recorded hashes. Stop."; exit 2; }
 
+# ---- canonicalize unit test (same dict → same bytes) -------------------------
+$PY -m unittest tests.test_canonicalize -q
+[ $? -ne 0 ] && { echo "!! canonicalize unit tests FAILED. Stop."; exit 4; }
+echo "  [OK ] canonicalize dumps_claims unit tests"
+
 # ---- QUICK: primary point-estimates (no bootstrap) ----------------------------
 if [ "$MODE" = "quick" ]; then
   $PY - "$SUBGRID" <<'PY'
 import json, sys
 sys.path.insert(0, "analysis"); sys.path.insert(0, "config")
-import ratings as RA, cyclicality as CY
-TOL = 1e-9  # floats are compared within tolerance, never with exact == (cross-platform safe)
-def same(a, b): return a is not None and b is not None and abs(a - b) <= TOL
+import ratings as RA, cyclicality as CY, canonicalize as CAN
+TOL = 0.5 * 10 ** (-CAN.CLAIMS_FLOAT_DECIMALS)
+def same(a, b):
+    return a is not None and b is not None and abs(a - b) <= TOL
 sub = sys.argv[1]; c = json.load(open("claims.json"))
 rt = RA.load_rating_table(subgrid_filter=sub, allowed_models=set(c["meta"]["models"]))
 bad = n = 0
 for key, d in c["per_model_variant"].items():
     mv = (d["model"], d["variant"]); firms = rt.firm_support(mv, "macro"); n += 1
-    if not same(CY.cyclicality_notch(rt, mv, firms), d["cyclicality_notch_per_step"]):
-        print(f"  DIFF {key}"); bad += 1
-print(f"  [{'OK ' if bad==0 else 'FAIL'}] {n-bad}/{n} primary cyclicality estimands reproduce (tol {TOL:g})")
+    got = CAN.quantize(CY.cyclicality_notch(rt, mv, firms))
+    if not same(got, d["cyclicality_notch_per_step"]):
+        print(f"  DIFF {key}: got={got} committed={d['cyclicality_notch_per_step']}"); bad += 1
+print(f"  [{'OK ' if bad==0 else 'FAIL'}] {n-bad}/{n} primary cyclicality estimands match (quantized {CAN.CLAIMS_FLOAT_DECIMALS} dp)")
 sys.exit(0 if bad == 0 else 3)
 PY
   echo "== reproduce (quick): DONE =="; exit $?
 fi
 
-# ---- FULL: regenerate and compare ---------------------------------------------
+# ---- FULL: regenerate and require byte-identical claims.json ------------------
 TMP="$(mktemp -d)"
 echo "  regenerating claims.json (seeded 2000-draw bootstrap; ~2-5 min)…"
 $PY analysis/run.py --subgrid "$SUBGRID" --out "$TMP/claims.json" >/dev/null
+
+if [ "$MODE" = "write" ]; then
+  echo "  --write: refreshing claims.json + results/ …"
+  cp "$TMP/claims.json" claims.json
+  $PY pilot/verdict.py >/dev/null
+  $PY analysis/review_diag.py --subgrid "$SUBGRID" > "results/review_diag_${SUBGRID}.txt" 2>/dev/null || true
+  echo "  results refreshed."
+fi
+
 sha() { if command -v sha256sum >/dev/null 2>&1; then sha256sum "$1" | awk '{print $1}'; else shasum -a 256 "$1" | awk '{print $1}'; fi; }
 A="$(sha claims.json)"; B="$(sha "$TMP/claims.json")"
 echo "  committed  : $A"
@@ -97,35 +110,41 @@ echo "  regenerated: $B"
 if [ "$A" = "$B" ]; then
   echo "  ==> BYTE-IDENTICAL. Full reproduction verified."
 else
-  echo "  ==> whole-file hash differs; checking reported PRIMARY numbers exactly:"
+  echo "  ==> HASH MISMATCH — claims.json did not reproduce byte-identically."
   $PY - "claims.json" "$TMP/claims.json" <<'PY'
 import json, sys
-TOL = 1e-9  # tolerance compare, never exact == (cross-platform float safe)
-def same(a, b): return abs((a or 0) - (b or 0)) <= TOL
-def same_list(a, b): return a is not None and b is not None and len(a) == len(b) and all(same(x, y) for x, y in zip(a, b))
-c = json.load(open(sys.argv[1])); r = json.load(open(sys.argv[2])); bad = 0
-if not same(c['headline_cyclicality']['pooled_notch_per_step'], r['headline_cyclicality']['pooled_notch_per_step']):
-    print("   DIFF headline pooled"); bad += 1
-for k, a in c['per_model_variant'].items():
-    b = r['per_model_variant'][k]
-    if not same(a['cyclicality_notch_per_step'], b['cyclicality_notch_per_step']): print(f"   DIFF {k} slope"); bad += 1
-    if not same_list(a['cyclicality_ci95'], b['cyclicality_ci95']): print(f"   DIFF {k} CI"); bad += 1
-if bad == 0:
-    print("   All PRIMARY estimands (within-firm slopes + bootstrap CIs) reproduce EXACTLY.")
-    print("   (Whole-file difference is confined to the ordered-probit robustness estimator,")
-    print("    whose SciPy optimizer is platform-sensitive; use environment/Dockerfile for")
-    print("    a byte-identical run.)")
-else:
-    print(f"   {bad} PRIMARY estimand(s) differ — reproduction FAILED."); sys.exit(3)
+sys.path.insert(0, "analysis")
+import canonicalize as CAN
+c = json.load(open(sys.argv[1])); r = json.load(open(sys.argv[2]))
+def walk(a, b, path="$"):
+    if type(a) != type(b) and not (isinstance(a, (int, float)) and isinstance(b, (int, float))):
+        print(f"   TYPE {path}: {type(a).__name__} vs {type(b).__name__}"); return 1
+    if isinstance(a, dict):
+        keys = set(a) | set(b); n = 0
+        for k in sorted(keys):
+            if k not in a: print(f"   MISS committed {path}.{k}"); n += 1
+            elif k not in b: print(f"   MISS regenerated {path}.{k}"); n += 1
+            else: n += walk(a[k], b[k], f"{path}.{k}")
+        return n
+    if isinstance(a, list):
+        if len(a) != len(b):
+            print(f"   LEN {path}: {len(a)} vs {len(b)}"); return 1
+        return sum(walk(x, y, f"{path}[{i}]") for i, (x, y) in enumerate(zip(a, b)))
+    if isinstance(a, bool) or a is None or isinstance(a, str):
+        if a != b: print(f"   DIFF {path}: {a!r} vs {b!r}"); return 1
+        return 0
+    if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+        qa, qb = CAN.quantize(float(a)), CAN.quantize(float(b))
+        if qa != qb:
+            print(f"   DIFF {path}: {a!r} vs {b!r} (q {qa} vs {qb})"); return 1
+        return 0
+    if a != b:
+        print(f"   DIFF {path}: {a!r} vs {b!r}"); return 1
+    return 0
+n = walk(c, r)
+print(f"   {n} leaf mismatch(es) after quantization.")
+sys.exit(3)
 PY
-fi
-
-if [ "$MODE" = "write" ]; then
-  echo "  --write: refreshing results/ …"
-  cp "$TMP/claims.json" claims.json
-  $PY pilot/verdict.py >/dev/null
-  $PY analysis/review_diag.py --subgrid "$SUBGRID" > "results/review_diag_${SUBGRID}.txt" 2>/dev/null || true
-  echo "  results refreshed."
 fi
 rm -rf "$TMP"
 echo "== reproduce: DONE =="

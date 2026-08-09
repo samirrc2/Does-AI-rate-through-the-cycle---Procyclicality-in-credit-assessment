@@ -22,6 +22,6 @@ RUN pip install -U --no-cache-dir \
 WORKDIR /repro
 COPY . /repro
 
-# Default reproducible run: regenerate analysis from frozen data and verify it is
-# byte-identical to the committed claims.json.
+# Default reproducible run: regenerate analysis from frozen data and verify
+# byte-identical claims.json (floats are integer-quantized to 12 decimals).
 CMD ["bash", "reproduce.sh"]

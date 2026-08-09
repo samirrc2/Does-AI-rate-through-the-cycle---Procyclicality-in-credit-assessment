@@ -42,15 +42,17 @@ git clone https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclic
 cd Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-bash reproduce.sh              # full: verify inputs + regenerate claims.json + compare
-bash reproduce.sh --quick      # fast (seconds): integrity + primary estimands, no bootstrap
+bash reproduce.sh              # full: verify inputs + unit tests + regenerate claims.json + SHA match
+bash reproduce.sh --quick      # fast (seconds): integrity + unit tests + primary estimands
+python -m unittest tests.test_canonicalize -v   # canonicalize serialization only
 ```
 
 `reproduce.sh` (1) verifies the frozen firm battery and every capture CSV against their recorded
 SHA-256 receipts, (2) verifies the pre-registration freeze, and (3) regenerates `claims.json` and
-compares it to the committed copy. Floating-point estimands are compared **within a 1e-9 tolerance**,
-not by exact equality, so the primary results reproduce on any platform. The pinned environment
-additionally yields a byte-identical file:
+requires a **byte-identical** SHA-256 match to the committed file. Floats are integer-quantized to
+12 decimal places before write (`analysis/canonicalize.py`), so the hash is stable across platforms.
+
+Optional pinned image (same check):
 
 ```bash
 docker build -t p5-repro -f environment/Dockerfile . && docker run --rm p5-repro

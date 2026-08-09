@@ -26,7 +26,7 @@ Dispersed & interior — a macro shift has room to move in either direction.
 Headline pooled cyclicality (v_terse) = **0.429** notches/step,
 95% CI **[0.41, 0.45]**; ordered-probit null estimable: **True**.
 Scientific read: **PROCYCLICAL: 0.429 notches downgraded per +1 macro-severity step (CI [0.41, 0.45] excludes 0)**.
-Demand-effect control: placebo slope **0.042** notch/step (frame-compliance floor) → **NET 0.387** notch/step, CI [0.36, 0.41] (excludes 0: True). The net is the procyclicality that survives after removing pure suggestibility to a matched, credit-irrelevant frame.
+Demand-effect control: placebo slope **0.043** notch/step (frame-compliance floor) → **NET 0.387** notch/step, CI [0.36, 0.41] (excludes 0: True). The net is the procyclicality that survives after removing pure suggestibility to a matched, credit-irrelevant frame.
 
 ---
 
