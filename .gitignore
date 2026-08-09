@@ -47,3 +47,6 @@ paper/latex/*.toc
 paper/latex/flattened.tex
 paper/latex/Figure_1.png
 paper/latex/Figure_2.png
+
+# SSRN preprint — distributed separately, not part of the repo
+ssrn/
