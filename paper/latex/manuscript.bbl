@@ -85,10 +85,8 @@
   \bibinfo{year}{2026}.
 \newblock \bibinfo{title}{Does {AI} rate through the cycle? --- reproducibility
   artifact}.
-\newblock \bibinfo{howpublished}{GitHub:
-  https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment}.
-\newblock \bibinfo{note}{A citable Zenodo archive accompanies the published
-  version}.
+\newblock \DOIprefix\doi{10.5281/zenodo.21864042}. \bibinfo{note}{code and
+  frozen data; \url{https://doi.org/10.5281/zenodo.21864042}}.
 %Type = Techreport
 \bibitem[{Fieberg et~al.(2025)Fieberg, Hornuf, Meiler and
   Streich}]{fieberg2025}
