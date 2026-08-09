@@ -42,3 +42,8 @@ results/_*.png
 paper/latex/*.abs
 paper/latex/*.spl
 paper/latex/*.toc
+
+# intermediates from Word (.docx) generation — not part of the source
+paper/latex/flattened.tex
+paper/latex/Figure_1.png
+paper/latex/Figure_2.png
