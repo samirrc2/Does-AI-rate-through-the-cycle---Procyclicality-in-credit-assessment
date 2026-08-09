@@ -25,5 +25,5 @@
     "reproducibility",
     "finance"
   ],
-  "notes": "Code released under MIT (see LICENSE); data, analysis outputs and text under CC-BY-4.0. Affiliation, ORCID, related-publication DOI and repository URL to be completed at deposit. Live-capture SDKs (openai, google-genai) are not required to reproduce results from the frozen data."
+  "notes": "Code released under MIT (see LICENSE); data, analysis outputs and text under CC-BY-4.0. Working copy: https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment. Insert related-publication DOI at deposit. Live-capture SDKs (openai, google-genai) are not required to reproduce results from the frozen data."
 }

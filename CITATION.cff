@@ -28,5 +28,18 @@ keywords:
   - procyclicality
   - through-the-cycle
   - reproducibility
-repository-code: "<Zenodo/GitHub URL — to be completed on deposit>"
-# doi: "<Zenodo DOI — minted on deposit>"
+repository-code: "https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment"
+# doi: "10.5281/zenodo.<ID>"
+# url: "https://doi.org/10.5281/zenodo.<ID>"
+preferred-citation:
+  type: article
+  title: "Does AI rate through the cycle? Procyclicality in credit assessment"
+  authors:
+    - family-names: "Chincholikar"
+      given-names: "Samir"
+      orcid: "https://orcid.org/0009-0007-2779-3492"
+    - family-names: "Chawla"
+      given-names: "Robin"
+      orcid: "https://orcid.org/0009-0007-2807-3948"
+  journal: "Finance Research Letters"
+  year: 2026
