@@ -30,7 +30,7 @@ esac
 echo "== P5 reproduce ($MODE): subgrid=$SUBGRID · offline · \$0 · no capture =="
 
 # ---- (1)(2)(3) integrity: frozen data + pre-registration ----------------------
-$PY - "$SUBGRID" <<'PY'
+"$PY" - "$SUBGRID" <<'PY'
 import hashlib, json, sys
 from pathlib import Path
 sub = sys.argv[1]; root = Path(".")
@@ -63,13 +63,13 @@ PY
 [ $? -ne 0 ] && { echo "!! INTEGRITY FAILED — frozen inputs do not match recorded hashes. Stop."; exit 2; }
 
 # ---- canonicalize unit test (same dict → same bytes) -------------------------
-$PY -m unittest tests.test_canonicalize -q
+"$PY" -m unittest tests.test_canonicalize -q
 [ $? -ne 0 ] && { echo "!! canonicalize unit tests FAILED. Stop."; exit 4; }
 echo "  [OK ] canonicalize dumps_claims unit tests"
 
 # ---- QUICK: primary point-estimates (no bootstrap) ----------------------------
 if [ "$MODE" = "quick" ]; then
-  $PY - "$SUBGRID" <<'PY'
+  "$PY" - "$SUBGRID" <<'PY'
 import json, sys
 sys.path.insert(0, "analysis"); sys.path.insert(0, "config")
 import ratings as RA, cyclicality as CY, canonicalize as CAN
@@ -93,13 +93,13 @@ fi
 # ---- FULL: regenerate and require byte-identical claims.json ------------------
 TMP="$(mktemp -d)"
 echo "  regenerating claims.json (seeded 2000-draw bootstrap; ~2-5 min)…"
-$PY analysis/run.py --subgrid "$SUBGRID" --out "$TMP/claims.json" >/dev/null
+"$PY" analysis/run.py --subgrid "$SUBGRID" --out "$TMP/claims.json" >/dev/null
 
 if [ "$MODE" = "write" ]; then
   echo "  --write: refreshing claims.json + results/ …"
   cp "$TMP/claims.json" claims.json
-  $PY pilot/verdict.py >/dev/null
-  $PY analysis/review_diag.py --subgrid "$SUBGRID" > "results/review_diag_${SUBGRID}.txt" 2>/dev/null || true
+  "$PY" pilot/verdict.py >/dev/null
+  "$PY" analysis/review_diag.py --subgrid "$SUBGRID" > "results/review_diag_${SUBGRID}.txt" 2>/dev/null || true
   echo "  results refreshed."
 fi
 
@@ -111,7 +111,7 @@ if [ "$A" = "$B" ]; then
   echo "  ==> BYTE-IDENTICAL. Full reproduction verified."
 else
   echo "  ==> HASH MISMATCH — claims.json did not reproduce byte-identically."
-  $PY - "claims.json" "$TMP/claims.json" <<'PY'
+  "$PY" - "claims.json" "$TMP/claims.json" <<'PY'
 import json, sys
 sys.path.insert(0, "analysis")
 import canonicalize as CAN

@@ -30,11 +30,11 @@ echo "== P5 run_all: subgrid=$SUBGRID mode=$MODE conc=$CONC parallel=$PARALLEL =
 
 # 1. firm battery (deterministic, offline, $0)
 if [ ! -f "data/firms/${SUBGRID}.jsonl" ]; then
-  $PY capture/build_firms.py
+  "$PY" capture/build_firms.py
 fi
 
-MODELS=$($PY -c "import sys;sys.path.insert(0,'config');import loader as C;print(' '.join(C.subgrid(C.load_all(),'$SUBGRID').models))")
-VARIANTS=$($PY -c "import sys;sys.path.insert(0,'config');import loader as C;print(' '.join(C.subgrid(C.load_all(),'$SUBGRID').variants))")
+MODELS=$("$PY" -c "import sys;sys.path.insert(0,'config');import loader as C;print(' '.join(C.subgrid(C.load_all(),'$SUBGRID').models))")
+VARIANTS=$("$PY" -c "import sys;sys.path.insert(0,'config');import loader as C;print(' '.join(C.subgrid(C.load_all(),'$SUBGRID').variants))")
 echo "   models  : $MODELS"
 echo "   variants: $VARIANTS"
 
@@ -65,17 +65,17 @@ if [ "$MOCK" = "1" ]; then
 fi
 
 # provider of a model key (for parallel track grouping + cap splitting)
-provider_of () { $PY -c "import sys;sys.path.insert(0,'config');import loader as C;print(C.load_all().models.cfg('$1').provider)"; }
+provider_of () { "$PY" -c "import sys;sys.path.insert(0,'config');import loader as C;print(C.load_all().models.cfg('$1').provider)"; }
 
 capture_one () {   # args: model variant [suffix] [capflag]
   local m="$1" v="$2" suf="${3:-}" capflag="${4:-}"
   set +e
-  PILOT_MOCK=$MOCK $PY capture/orchestrator.py --subgrid "$SUBGRID" --model "$m" \
+  PILOT_MOCK=$MOCK "$PY" capture/orchestrator.py --subgrid "$SUBGRID" --model "$m" \
       --variant "$v" --concurrency "$CONC" ${suf:+--ledger-suffix "$suf"} $capflag
   local rc=$?
   set -e
   if [ $rc -eq 0 ]; then
-    $PY capture/freeze.py --subgrid "$SUBGRID" --model "$m" --variant "$v"
+    "$PY" capture/freeze.py --subgrid "$SUBGRID" --model "$m" --variant "$v"
   fi
   return $rc
 }
@@ -91,8 +91,8 @@ if [ "$PARALLEL" = "1" ]; then
     case " $PROVIDERS " in *" $p "*) ;; *) PROVIDERS="$PROVIDERS $p" ;; esac
   done
   NTRACKS=$(echo $PROVIDERS | wc -w | tr -d ' ')
-  CAP=$($PY -c "import sys;sys.path.insert(0,'config');import loader as C;print(getattr(C.load_all().grid.budgets,'$SUBGRID'))")
-  SUBCAP=$($PY -c "print(round($CAP/$NTRACKS,4))")
+  CAP=$("$PY" -c "import sys;sys.path.insert(0,'config');import loader as C;print(getattr(C.load_all().grid.budgets,'$SUBGRID'))")
+  SUBCAP=$("$PY" -c "print(round($CAP/$NTRACKS,4))")
   echo "   PARALLEL: $NTRACKS provider tracks, per-track cap \$$SUBCAP (global \$$CAP)"
   PIDS=""; TRACKS=""
   for p in $PROVIDERS; do
@@ -134,9 +134,9 @@ else
 fi
 
 # 3. analysis (pure, $0, frozen CSVs only)
-$PY analysis/run.py --subgrid "$SUBGRID"
+"$PY" analysis/run.py --subgrid "$SUBGRID"
 
 # 4. pilot verdict (report + stop; never starts the full run)
-$PY pilot/verdict.py
+"$PY" pilot/verdict.py
 
 echo "== done: see claims.json and pilot/PILOT_VERDICT.md =="
