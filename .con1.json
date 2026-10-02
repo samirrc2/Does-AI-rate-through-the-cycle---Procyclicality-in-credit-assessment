@@ -1,0 +1,31 @@
+{
+  "paper": "Paper 5 — Does AI rate through the cycle?",
+  "run": "bash reproduce.sh",
+  "claims": "claims.json",
+  "artifacts": [
+    "claims.json",
+    "results/tables/*.csv",
+    "results/tables/*.tex",
+    "results/joint_spec.json",
+    "results/ofat.json",
+    "results/seeds_epochs.json",
+    "results/reviewer_revision.json",
+    "results/real_arm.json",
+    "paper/latex/tables/*.csv",
+    "paper/latex/tables/*.tex"
+  ],
+  "inputs": [
+    "data/firms/full.jsonl",
+    "manifest/firms_manifest.json",
+    "PREREGISTRATION.md"
+  ],
+  "env": {
+    "PY": "/Users/samirchincholikar/Desktop/NIW/Paper 5/.venv/bin/python"
+  },
+  "notes": [
+    "No capsule key: this paper is archived on Zenodo as a source release, not as a Code Ocean",
+    "/code + /data mount, so there is nothing for a capsule track to emulate. con1 skips track B",
+    "and says so; the clone track still answers the question that matters, which is whether a",
+    "reader who clones the repository reproduces every number."
+  ]
+}
