@@ -1,0 +1,11 @@
+{
+  "subgrid": "ofat",
+  "model": "gemini_flash",
+  "variant": "v_terse",
+  "csv": "runs_ofat_gemini_flash_v_terse.csv",
+  "sha256": "54986507ab39b46c9a2b691d5006544e1c5c51e08618177c0c4dbe3c9d62e2d0",
+  "n_rows": 3400,
+  "n_error": 42,
+  "error_rate": 0.0124,
+  "frozen_utc": "2026-09-29T22:38:30.934823+00:00"
+}

@@ -1,0 +1,27 @@
+\begin{table}[t]\centering\small
+\caption{Per-model results. \textbf{Panel A}: procyclicality on byte-identical fundamentals. $\beta$ = notches of downgrade per $+1$ macro-severity step under the terse framing, with firm-clustered bootstrap 95\% CI; \textbf{Swing} = measured boom$\to$severe-recession notches (not $4\beta$: the endpoint ratio runs $3.96$--$4.39$, so the gap carries curvature); \textbf{D:U} = downside over upside half-slope. Fig.~\ref{fig:asym} plots the two half-slopes with their intervals. The ratio has its own clustered intervals, with lower bounds from $1.23$ to $3.06$ and upper bounds reaching $8.50$. All exclude one, and they overlap across models, so they do not rank them. \textbf{Resid.} and \textbf{PD-ret.} = $\beta$ and the retained fraction of the log-odds PD slope under the through-the-cycle instruction; \textbf{$\beta$ real} = the same coefficient on the real-fundamentals battery and \textbf{$\Delta\beta$} its drift on re-measurement 2.5 months later (blank where the model was not in that arm). \textbf{Panel B}: one macro indicator moved across the same $-2\ldots+2$ range with the other four held neutral, so each column is comparable to $\beta$ above; $\Sigma/\beta$ sums the five and divides by the joint slope, below one meaning the indicators reinforce one another. $^{\dagger}$interval includes zero.}
+\label{tab:permodel}
+\begin{tabular}{lrrrrrrr}
+\toprule
+\multicolumn{8}{l}{\emph{Panel A: procyclicality, through-the-cycle response, and revision arms}}\\
+\midrule
+Model & $\beta$ (95\% CI) & Swing & D:U & Resid. (95\% CI) & PD-ret. & $\beta$ real & $\Delta\beta$ \\
+\midrule
+Gemini Pro & 0.182 [0.15, 0.22] & 0.72 & 2.3 & $-$0.021 [$-$0.04, 0.00] & 0.00 &  &  \\
+GPT-6 Astra & 0.198 [0.18, 0.22] & 0.87 & 4.8 & $-$0.055 [$-$0.08, $-$0.04] & $-$0.11 & 0.151 &  \\
+Gemini Flash & 0.230 [0.19, 0.27] & 0.96 & 4.0 & 0.059 [0.03, 0.08] & 0.22 & 0.094 & $-$0.037 \\
+Gemini Flash-Lite & 0.285 [0.25, 0.32] & 1.15 & 3.6 & 0.056 [0.03, 0.08] & 0.34 &  &  \\
+GPT-4o & 0.387 [0.34, 0.43] & 1.55 & 3.3 & 0.187 [0.15, 0.22] & 0.52 & 0.407 & +0.002 \\
+GPT-4.1-mini & 0.471 [0.41, 0.53] & 1.94 & 3.9 & 0.096 [0.06, 0.13] & 0.24 &  & $-$0.021 \\
+GPT-4o-mini & 0.775 [0.69, 0.86] & 3.18 & 2.6 & 0.403 [0.34, 0.47] & 0.59 & 0.814 & $-$0.028 \\
+\midrule
+\multicolumn{8}{l}{\emph{Panel B: macro-factor decomposition (one indicator at a time)}}\\
+\midrule
+Model & GDP & Unem. & Spread & Default & Standards & $\Sigma/\beta$ & \\
+\midrule
+GPT-4o-mini & 0.184 & 0.197 & 0.148 & 0.199 & 0.175 & 1.17 &  \\
+GPT-4o & 0.019 & 0.043 & 0.112 & 0.114 & 0.047 & 0.87 &  \\
+Gemini Flash & 0.029 & 0.017$^{\dagger}$ & 0.015$^{\dagger}$ & 0.046 & 0.037 & 0.62 &  \\
+GPT-6 Astra & 0.016 & 0.012$^{\dagger}$ & 0.091 & 0.034 & 0.035 & 0.95 &  \\
+\bottomrule
+\end{tabular}\end{table}

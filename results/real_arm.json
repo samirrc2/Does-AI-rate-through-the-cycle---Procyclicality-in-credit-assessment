@@ -1,0 +1,106 @@
+{
+  "contamination_slope_test": {
+    "all": {
+      "beta": 0.15062500000000004,
+      "ci95": [
+        0.12562500000000004,
+        0.1793750000000001
+      ],
+      "n": 80
+    },
+    "difference": -0.0025974025974026538,
+    "difference_ci95": [
+      -0.07445887445887447,
+      0.06298701298701297
+    ],
+    "difference_draws": 2000,
+    "difference_excludes_0": false,
+    "identified": {
+      "beta": 0.14285714285714285,
+      "ci95": [
+        0.08571428571428573,
+        0.18571428571428572
+      ],
+      "n": 7
+    },
+    "n_battery": 80,
+    "n_identified": 7,
+    "n_not_identified": 33,
+    "n_tested": 40,
+    "n_untested_excluded": 40,
+    "not_identified": {
+      "beta": 0.1454545454545455,
+      "ci95": [
+        0.10303030303030304,
+        0.18939393939393948
+      ],
+      "n": 33
+    }
+  },
+  "replication": {
+    "gemini_flash": {
+      "n_firms_real": 80,
+      "real_beta": 0.09375,
+      "real_ci95": [
+        0.06937499999999999,
+        0.12062499999999995
+      ],
+      "real_excludes_zero": true,
+      "real_net": 0.091875,
+      "real_placebo": 0.0018749999999999995,
+      "synthetic_beta": 0.22999999999999998,
+      "synthetic_ci95": [
+        0.19250000000000006,
+        0.266875
+      ]
+    },
+    "openai_4o": {
+      "n_firms_real": 80,
+      "real_beta": 0.40687500000000004,
+      "real_ci95": [
+        0.36187499999999984,
+        0.4506249999999999
+      ],
+      "real_excludes_zero": true,
+      "real_net": 0.40062500000000006,
+      "real_placebo": 0.00625,
+      "synthetic_beta": 0.3868749999999999,
+      "synthetic_ci95": [
+        0.3424999999999999,
+        0.4281249999999999
+      ]
+    },
+    "openai_4o_mini": {
+      "n_firms_real": 80,
+      "real_beta": 0.8137500000000001,
+      "real_ci95": [
+        0.7293750000000003,
+        0.8962500000000002
+      ],
+      "real_excludes_zero": true,
+      "real_net": 0.6775000000000001,
+      "real_placebo": 0.13625,
+      "synthetic_beta": 0.7750000000000001,
+      "synthetic_ci95": [
+        0.6943749999999999,
+        0.8556250000000004
+      ]
+    },
+    "openai_astra": {
+      "n_firms_real": 80,
+      "real_beta": 0.15062500000000004,
+      "real_ci95": [
+        0.12562500000000004,
+        0.1793750000000001
+      ],
+      "real_excludes_zero": true,
+      "real_net": 0.16625000000000004,
+      "real_placebo": -0.015624999999999997,
+      "synthetic_beta": 0.1981249999999999,
+      "synthetic_ci95": [
+        0.1762499999999999,
+        0.22187499999999996
+      ]
+    }
+  }
+}

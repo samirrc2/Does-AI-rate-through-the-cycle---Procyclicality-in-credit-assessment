@@ -46,6 +46,12 @@ class ModelCfg(BaseModel):
     price_out: float = Field(ge=0)     # USD / 1M output tokens
     max_tokens: int = Field(gt=0, default=256)
     reasoning_effort: str | None = None
+    temperature: float | None = None        # per-model decoding temperature
+                                            # override. None -> grid.judge_temperature.
+                                            # Set ONLY where a model refuses the grid
+                                            # default (gpt-6-astra accepts temp=1 only);
+                                            # the captured row records the EFFECTIVE
+                                            # value, never the grid default.
     thinking_budget: int | None = None      # Gemini: 0 disables thinking
     logprobs: bool = False                  # request token logprobs (OpenAI-compatible)
     pilot: bool = False
@@ -102,6 +108,15 @@ class FirmsCfg(BaseModel):
 class Budgets(BaseModel):
     pilot: float = Field(gt=0)
     full: float = Field(gt=0)
+    seeds: float | None = None           # AMENDMENT #7 replication-stability arm
+    real: float | None = None            # AMENDMENT #7 real-fundamentals arm
+    ofat: float | None = None            # AMENDMENT #6 macro-factor decomposition
+    frontier: float | None = None        # AMENDMENT #5 confirmatory frontier grids
+    probe_astra: float | None = None     # AMENDMENT #4 frontier probe arm. Declared so
+                                        # analysis/run.py's ran_clean gate compares spend
+                                        # against THIS arm's cap; without it the gate falls
+                                        # back to the $10 pilot cap and reports a spurious
+                                        # failure for a run that never breached its own.
 
 
 class Subgrid(BaseModel):
@@ -110,7 +125,9 @@ class Subgrid(BaseModel):
     seed_indices: list[int]
     macro_states: list[str]
     placebo_states: list[str] = []          # matched-format credit-irrelevant arm
-    firms: Literal["pilot", "full"]
+    ofat_states: list[str] = []             # one-factor-at-a-time decomposition
+    firms: Literal["pilot", "full", "real"]   # "real" = SEC-XBRL battery
+                                              # (AMENDMENT #7, referee 1 c1/c2)
 
 
 class GridCfg(BaseModel):
@@ -126,6 +143,9 @@ class GridCfg(BaseModel):
     prompt_variants: list[str]
     macro_states: dict[str, int]        # name -> severity index (higher = worse)
     placebo_states: dict[str, int] = {}  # name -> matched severity on a credit-irrelevant axis
+    # Severities are REUSED across the five factors here, so no distinctness
+    # check applies -- unlike macro_states, where it guards identification.
+    ofat_states: dict[str, int] = Field(default_factory=dict)
     subgrids: dict[str, Subgrid]
     pilot_requires_cheap: bool = True
 

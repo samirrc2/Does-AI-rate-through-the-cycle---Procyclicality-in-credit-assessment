@@ -1,0 +1,12 @@
+{
+  "cap": 55.0,
+  "cum_usd": 11.7197,
+  "per_model": {
+    "openai_astra": {
+      "calls": 1600,
+      "in_tok": 588880,
+      "out_tok": 116618,
+      "usd": 11.7197
+    }
+  }
+}

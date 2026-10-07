@@ -85,7 +85,7 @@
     "analysis_seed": 4242,
     "bootstrap_draws": 2000,
     "budget_cap_usd": 40.000000000000,
-    "config_hash": "57c8b3991ffb253f",
+    "config_hash": "690d08754beda055",
     "error_rate": 0.000000000000,
     "families": {
       "gemini_flash": "google",

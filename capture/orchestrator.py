@@ -73,6 +73,13 @@ def state_plan(grid, sg):
         plan.append((ms, "macro", int(grid.macro_states[ms])))
     for ps in getattr(sg, "placebo_states", []):
         plan.append((ps, "placebo", int(grid.placebo_states[ps])))
+    # kind='ofat' deliberately, NOT 'macro': these 21 states reuse severities across
+    # five factors, so pooling them on the macro axis would regress notch on an
+    # ambiguous ordering and yield a meaningless "joint" slope. A dedicated kind keeps
+    # every existing macro/placebo analysis from picking them up, and the OFAT analysis
+    # slices them per factor by name. block_for() resolves them via the macro branch.
+    for os_ in getattr(sg, "ofat_states", []):
+        plan.append((os_, "ofat", int(grid.ofat_states[os_])))
     return plan
 
 
@@ -132,7 +139,11 @@ def main() -> int:
     mcfg = cfg.models.cfg(args.model).model_dump()
     provider = mcfg["provider"]
     master = int(grid.seed_master)
-    temp = float(grid.judge_temperature)
+    # Per-model override wins so the row's `temperature` column is the value actually
+    # SENT. gpt-6-astra rejects temperature=0 ("only the default (1)"); recording the
+    # grid default here would stamp 0.0 on rows that ran at 1.0.
+    temp = float(mcfg["temperature"]) if mcfg.get("temperature") is not None \
+        else float(grid.judge_temperature)
     max_retries = int(grid.max_retries)
     workers = max(1, args.concurrency or int(grid.max_workers))
     plan = state_plan(grid, sg)              # [(state, kind, severity), ...]

@@ -2,7 +2,7 @@
 LaTeX appendix (verbatim, exactly as executed). Pure, $0.  Referee Row 8: a prompt
 appendix that differs from the executed prompt is worse than none.
 
-  python3 analysis/make_prompts.py --out paper/latex/appendix_prompts.tex
+  python3 analysis/make_prompts.py --out paper/src/appendix_prompts.tex
 """
 from __future__ import annotations
 import argparse
@@ -24,7 +24,15 @@ def _ascii(text: str) -> str:
 
 
 def vb(text: str) -> str:
-    return "\\begin{verbatim}\n" + _ascii(text) + "\n\\end{verbatim}"
+    # lstlisting, not verbatim: these prompts are single logical lines of 470-615
+    # characters, and verbatim does not wrap -- it ran them off the page and CLIPPED
+    # the text, so the appendix showed truncated prompts ("...long-term issu").
+    # breaklines wraps without altering a single character of the executed prompt,
+    # which a hard-wrap in this generator would not preserve.
+    return ("\\begin{lstlisting}[breaklines=true,breakatwhitespace=false,\n"
+            "                   basicstyle=\\ttfamily\\scriptsize,columns=fullflexible,\n"
+            "                   frame=none,xleftmargin=0pt,literate={\\%}{{\\%}}1]\n"
+            + _ascii(text) + "\n\\end{lstlisting}")
 
 
 def esc(s: str) -> str:
@@ -33,7 +41,7 @@ def esc(s: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default="paper/latex/appendix_prompts.tex")
+    ap.add_argument("--out", default="paper/src/appendix_prompts.tex")
     args = ap.parse_args()
     L = ["% AUTO-GENERATED from capture/agent.py by analysis/make_prompts.py — do not edit.",
          r"\subsection{Prompt framings}\label{app:framings}",

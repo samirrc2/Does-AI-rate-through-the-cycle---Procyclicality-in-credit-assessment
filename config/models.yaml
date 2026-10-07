@@ -110,3 +110,71 @@ models:
     pilot: false
     extra: {}
     probe_receipt: null
+
+  # ── FRONTIER TIER (revision R1#4 / R2#1) ───────────────────────────────────
+  # GPT-6 Astra — the model Reviewer #2 named ("...or now GPT-6 Astra"). Frontier
+  # endpoint of the OpenAI capability gradient (4o-mini -> 4.1-mini -> 4o -> astra),
+  # added to test whether procyclicality survives at the capability frontier.
+  # AMENDMENT #3. A reasoning model: reasoning tokens are billed as OUTPUT and count
+  # against max_completion_tokens, so max_tokens is set generously (a too-small cap
+  # returns EMPTY content after reasoning eats the budget). Price is CONSERVATIVE
+  # ($10/$50 per 1M, public catalog 2026-09); probe.py overwrites with the measured
+  # per-call price before any real capture. logprobs is requested but agent.py drops
+  # it automatically if the model refuses (reasoning models typically do).
+  openai_astra:
+    family: openai
+    provider: openai
+    key_env: OPENAI_API_KEY
+    base_url: null
+    api_model: gpt-6-astra
+    price_in: 10.00
+    price_out: 50.00
+    # 512, not 2048: the live probe measured out=61 tokens with reasoning_tokens=0 at
+    # reasoning_effort=low, so 512 is ~8x headroom while keeping the ledger's worst-case
+    # projection (and therefore the hard spend cap) meaningful. Too LOW a cap on a
+    # reasoning model returns empty content after reasoning eats the budget; that failure
+    # is loud (ERROR row) and resumable, not silent.
+    max_tokens: 512
+    reasoning_effort: low
+    # MEASURED 2026-09-29 against the live API: this model REJECTS temperature=0
+    # ("Unsupported value: 'temperature' does not support 0 with this model. Only the
+    # default (1)") and REJECTS logprobs. So the frontier arm is necessarily stochastic
+    # at t=1 while the incumbent arms are t=0 -> beta is NOT strictly temperature-matched
+    # and the comparison must say so. Two consequences, both handled: (a) >=2 seeds per
+    # cell so per-cell sampling noise is averaged, not assumed away; (b) expected-notch
+    # from logprobs is unavailable here, exactly as for the Gemini arms.
+    temperature: 1.0
+    logprobs: false
+    pilot: false
+    extra: {}
+    probe_receipt: null
+
+  # Gemini Pro tier — frontier endpoint of the Google capability gradient
+  # (Flash-Lite 0.285 -> Flash 0.230 -> Pro). AMENDMENT #5. MEASURED 2026-09-29:
+  #   * temperature=0 IS accepted -> this arm IS temperature-matched to the incumbents
+  #     (unlike gpt-6-astra, which refuses t=0). No `temperature` override needed.
+  #   * thinking_budget=0 is REJECTED ("Budget 0 is invalid. This model only works in
+  #     thinking mode"), so thinking CANNOT be disabled here. The Flash arms ran with
+  #     thinking_budget=0; this arm necessarily runs with thinking ON. Thought tokens
+  #     (~200-250 on a short prompt) are billed as OUTPUT, hence max_tokens 1024 and a
+  #     price rounded UP so the ledger's cap bites early.
+  #   * -latest alias: the served model is pinned per row via provenance, as for Flash.
+  gemini_pro:
+    family: google
+    provider: gemini
+    key_env: GEMINI_API_KEY
+    base_url: null
+    api_model: gemini-pro-latest
+    price_in: 1.50
+    price_out: 12.00
+    # 4096, not 1024: the pipeline probe on the REAL prompt billed 1010 output tokens
+    # against a 1024 cap -- one step from truncation, which would have returned empty
+    # content and mass-ERRORed the arm. Measured natural thinking is ~750-1010 tokens.
+    max_tokens: 4096
+    # thinking_budget deliberately UNSET (model default). A low budget (128) cuts billed
+    # output ~33% but handicaps the very capability under test; Reviewer #2's argument is
+    # that a practitioner would reach for the sophisticated model, so it is evaluated as
+    # deployed, at its default reasoning effort.
+    pilot: false
+    extra: {}
+    probe_receipt: null

@@ -1,0 +1,18 @@
+{
+  "cap": 250.0,
+  "cum_usd": 116.979184,
+  "per_model": {
+    "gemini_pro": {
+      "calls": 6618,
+      "in_tok": 2524560,
+      "out_tok": 5594562,
+      "usd": 70.921628
+    },
+    "openai_astra": {
+      "calls": 6400,
+      "in_tok": 2330880,
+      "out_tok": 454976,
+      "usd": 46.0576
+    }
+  }
+}

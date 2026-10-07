@@ -1,0 +1,14 @@
+{
+  "file": "data/firms/real.jsonl",
+  "n_firms": 80,
+  "sha256": "0b2089a80c0577b0f41f5db9a6cc928cf1b1a0a496e8a30bde7902a6619e2b21",
+  "seed": 20260715,
+  "source": "SEC XBRL frames FY2024 (public domain)",
+  "by_tier": {
+    "crossover": 17,
+    "distressed": 9,
+    "high_ig": 14,
+    "high_yield": 15,
+    "low_ig": 35
+  }
+}

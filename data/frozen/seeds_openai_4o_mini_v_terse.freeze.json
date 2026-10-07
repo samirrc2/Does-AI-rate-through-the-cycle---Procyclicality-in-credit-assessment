@@ -1,0 +1,11 @@
+{
+  "subgrid": "seeds",
+  "model": "openai_4o_mini",
+  "variant": "v_terse",
+  "csv": "runs_seeds_openai_4o_mini_v_terse.csv",
+  "sha256": "bda4ed5dd42551df8744a1ee1aae9860c3d3543664119bd56acb8063f006bb32",
+  "n_rows": 2400,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-09-29T23:21:40.977574+00:00"
+}

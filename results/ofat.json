@@ -1,0 +1,217 @@
+{
+  "draws": 2000,
+  "models": {
+    "gemini_flash": {
+      "additivity_ratio_sum_over_joint": 0.6222826086956523,
+      "factors": {
+        "deflt": {
+          "ci95": [
+            0.024374999999999997,
+            0.06500000000000003
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.045625000000000006
+        },
+        "gdp": {
+          "ci95": [
+            0.010000000000000004,
+            0.04875
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.028750000000000005
+        },
+        "spread": {
+          "ci95": [
+            -0.005,
+            0.03499999999999999
+          ],
+          "excludes_zero": false,
+          "n_states": 5,
+          "slope": 0.015
+        },
+        "standards": {
+          "ci95": [
+            0.01750000000000001,
+            0.05625
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.03687500000000001
+        },
+        "unemp": {
+          "ci95": [
+            -0.004375,
+            0.04000000000000001
+          ],
+          "excludes_zero": false,
+          "n_states": 5,
+          "slope": 0.016874999999999998
+        }
+      },
+      "joint_slope_all_five": 0.22999999999999998,
+      "n_firms": 80,
+      "sum_of_factor_slopes": 0.14312500000000003
+    },
+    "openai_4o": {
+      "additivity_ratio_sum_over_joint": 0.8691437802907918,
+      "factors": {
+        "deflt": {
+          "ci95": [
+            0.08374999999999999,
+            0.14750000000000002
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.114375
+        },
+        "gdp": {
+          "ci95": [
+            0.004374999999999999,
+            0.03624999999999999
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.019375
+        },
+        "spread": {
+          "ci95": [
+            0.08124999999999999,
+            0.145625
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.11249999999999998
+        },
+        "standards": {
+          "ci95": [
+            0.024375000000000004,
+            0.071875
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.046875
+        },
+        "unemp": {
+          "ci95": [
+            0.025,
+            0.06375
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.04312500000000001
+        }
+      },
+      "joint_slope_all_five": 0.3868749999999999,
+      "n_firms": 80,
+      "sum_of_factor_slopes": 0.33625
+    },
+    "openai_4o_mini": {
+      "additivity_ratio_sum_over_joint": 1.165322580645161,
+      "factors": {
+        "deflt": {
+          "ci95": [
+            0.1474999999999999,
+            0.255
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.19875
+        },
+        "gdp": {
+          "ci95": [
+            0.1325,
+            0.23749999999999996
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.18437499999999998
+        },
+        "spread": {
+          "ci95": [
+            0.10187499999999998,
+            0.19937499999999997
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.14812499999999998
+        },
+        "standards": {
+          "ci95": [
+            0.123125,
+            0.22937500000000002
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.175
+        },
+        "unemp": {
+          "ci95": [
+            0.1475,
+            0.24937500000000004
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.196875
+        }
+      },
+      "joint_slope_all_five": 0.7750000000000001,
+      "n_firms": 80,
+      "sum_of_factor_slopes": 0.903125
+    },
+    "openai_astra": {
+      "additivity_ratio_sum_over_joint": 0.9526813880126187,
+      "factors": {
+        "deflt": {
+          "ci95": [
+            0.017499999999999995,
+            0.05125
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.03375
+        },
+        "gdp": {
+          "ci95": [
+            0.0037499999999999977,
+            0.029375000000000002
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.01625
+        },
+        "spread": {
+          "ci95": [
+            0.07187500000000001,
+            0.11062500000000001
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.09125
+        },
+        "standards": {
+          "ci95": [
+            0.020625,
+            0.050000000000000024
+          ],
+          "excludes_zero": true,
+          "n_states": 5,
+          "slope": 0.035
+        },
+        "unemp": {
+          "ci95": [
+            -0.0018749999999999988,
+            0.028125
+          ],
+          "excludes_zero": false,
+          "n_states": 5,
+          "slope": 0.012499999999999997
+        }
+      },
+      "joint_slope_all_five": 0.1981249999999999,
+      "n_firms": 80,
+      "sum_of_factor_slopes": 0.18875
+    }
+  }
+}

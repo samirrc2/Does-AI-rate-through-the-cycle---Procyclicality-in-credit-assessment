@@ -1,0 +1,25 @@
+{
+  "agree_within_0.02": true,
+  "difference": 5.551115123125783e-17,
+  "joint": {
+    "ci95": [
+      0.3626249999999998,
+      0.41187500000000027
+    ],
+    "common_axis_slope": 0.04249999999999999,
+    "macro_excess_net": 0.38699999999999996
+  },
+  "models": [
+    "openai_4o_mini",
+    "openai_41_mini",
+    "openai_4o",
+    "gemini_flash_lite",
+    "gemini_flash"
+  ],
+  "n_firms": 80,
+  "subtraction": {
+    "net": 0.387,
+    "pooled_macro": 0.4295,
+    "pooled_placebo": 0.042499999999999996
+  }
+}

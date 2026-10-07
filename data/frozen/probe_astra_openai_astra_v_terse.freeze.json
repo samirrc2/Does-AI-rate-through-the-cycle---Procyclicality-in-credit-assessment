@@ -1,0 +1,11 @@
+{
+  "subgrid": "probe_astra",
+  "model": "openai_astra",
+  "variant": "v_terse",
+  "csv": "runs_probe_astra_openai_astra_v_terse.csv",
+  "sha256": "a74e2a01e5a31a29952243d547c7b61d2402a0d94980ed1792e94981c23d9cfe",
+  "n_rows": 800,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-09-29T19:19:33.920161+00:00"
+}

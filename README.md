@@ -1,22 +1,23 @@
 # Does AI rate through the cycle? Procyclicality in credit assessment
 
-Reproducibility artifact for the *Finance Research Letters* (Elsevier) submission of the same title.
+Reproducibility artifact for the *Finance Research Letters* (Elsevier) paper of the same title.
 
 **Authors:** Samir Chincholikar (Independent researcher) · Robin Chawla (Independent researcher, corresponding author)
 **ORCID:** [0009-0007-2779-3492](https://orcid.org/0009-0007-2779-3492) · [0009-0007-2807-3948](https://orcid.org/0009-0007-2807-3948)
 **Contact:** robin.chawla.cse14@iitbhu.ac.in · samir.chincholikar@gmail.com
 **Repository:** https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment
-**Zenodo DOI:** *(minted at deposit — add `https://doi.org/10.5281/zenodo.…`)*
+**Zenodo DOI:** [10.5281/zenodo.21864042](https://doi.org/10.5281/zenodo.21864042)
 
 This repository regenerates every number, table, and figure in the paper from a **frozen
-32,000-rating dataset**, offline and at zero cost. Synthetic firm fundamentals are held
+80,590-assessment dataset**, offline and at zero cost. Synthetic firm fundamentals are held
 **byte-identical** across an ordered five-point macroeconomic-severity axis (and a matched,
 credit-irrelevant placebo axis), so any change in a model's rating is procyclicality *by
 construction* — identification the observational Amato–Furfine test cannot provide.
 
 ## Summary of results
 
-All five production-tier models (OpenAI × 3, Google Gemini × 2) downgrade identical firms as the
+All seven models (OpenAI × 4, Google Gemini × 3), spanning both families' full capability range
+to the frontier tier, downgrade identical firms as the
 described macroeconomy worsens:
 
 - **Pooled effect:** 0.429 rating notches of downgrade per severity step (95% CI [0.41, 0.45]);
@@ -24,11 +25,13 @@ described macroeconomy worsens:
 - **Asymmetric:** downgrade sensitivity into recessions is ≈ 3.2× the upgrade sensitivity into
   booms, and an order of magnitude larger than the placebo.
 - **Robust** to served-model (`system_fingerprint`) fixed effects, a token-log-probability
-  estimator, and the ordered-probit null.
+  estimator, and the Amato--Furfine ordered probit.
 - **"Through-the-cycle" prompting does not fix it:** it anchors the rating while suppressing the
-  point-in-time default probability that should still move (log-odds PD-slope retention 0.38).
-- **Capital consequence:** an identical firm's Basel IRB required capital swings ≈ 1.87 pp of
-  exposure from boom to severe recession.
+  point-in-time default probability that should still move. Log-odds PD retention runs from
+  0.587 down to −0.106 across the seven models, below the 0.75 reporting threshold in every one.
+- **Capital consequence:** an identical firm's Basel IRB required capital swings ≈ 1.81 pp of
+  exposure from boom to severe recession (95% CI [1.67, 1.94]), pooled across the five original
+  models and computed on a ladder carrying the Basel 0.05% PD input floor.
 
 The canonical values behind every figure in the paper live in [`claims.json`](claims.json).
 
@@ -47,9 +50,11 @@ bash reproduce.sh --quick      # fast (seconds): integrity + unit tests + primar
 python -m unittest tests.test_canonicalize -v   # canonicalize serialization only
 ```
 
-`reproduce.sh` (1) verifies the frozen firm battery and every capture CSV against their recorded
-SHA-256 receipts, (2) verifies the pre-registration freeze, and (3) regenerates `claims.json` and
-requires a **byte-identical** SHA-256 match to the committed file. Floats are integer-quantized to
+`reproduce.sh` (1) verifies the frozen firm batteries and all 57 capture CSVs against their recorded
+SHA-256 receipts, (2) verifies the pre-registration freeze, (3) regenerates `claims.json` and requires
+a **byte-identical** SHA-256 match to the committed file, and (4) regenerates the seven revision
+artifacts — `claims_revision.json`, `reviewer_revision.json`, `real_arm.json`, `ofat.json`,
+`seeds_epochs.json`, `joint_spec.json`, `synthetic_real_overlap.json` — and byte-compares each. Floats are integer-quantized to
 12 decimal places before write (`analysis/canonicalize.py`), so the hash is stable across platforms.
 
 Optional pinned image (same check):
@@ -74,7 +79,7 @@ state, so a firm receives an identical seed across all states — the macroecono
 difference. Each model returns a letter rating (mapped to an S&P notch) and a one-year default
 probability. Analysis computes the within-firm notch slope on macro severity (the cyclicality
 coefficient), the boom-to-recession swing, the downside/upside asymmetry, the Amato–Furfine
-ordered-probit null, the OpenAI log-probability expected-notch estimator, the placebo-adjusted (net)
+ordered probit, the OpenAI log-probability expected-notch estimator, the placebo-adjusted (net)
 coefficient, and the instruction contrasts — all with a firm-clustered, tier-stratified bootstrap.
 Full detail in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -86,28 +91,30 @@ uses **Zenodo** as the citable archive; GitHub is the working copy.
 | | |
 |--|--|
 | Working copy | GitHub repository (URL above) |
-| Archive to cite | **Zenodo** — `https://doi.org/10.5281/zenodo.…` *(pending mint at deposit)* |
+| Archive to cite | **Zenodo** — [10.5281/zenodo.21864042](https://doi.org/10.5281/zenodo.21864042) |
 | Statement text | [`DATA_AVAILABILITY.md`](DATA_AVAILABILITY.md) |
 | Zenodo metadata | [`.zenodo.json`](.zenodo.json) |
 | Citation file | [`CITATION.cff`](CITATION.cff) |
 
-**Deposit contents:** synthetic firm battery, frozen 32,000 ratings, analysis code, `claims.json`,
+**Deposit contents:** synthetic and real firm batteries, 80,590 frozen assessments, analysis code,
+`claims.json` and `claims_revision.json`,
 pre-registration. License: MIT (code) + CC-BY-4.0 (data/text).
 
 ## Manuscript
 
 | File | Role |
 |------|------|
-| [`paper/latex/manuscript.tex`](paper/latex/manuscript.tex) | Elsevier CAS letter (source) |
-| [`paper/latex/manuscript.pdf`](paper/latex/manuscript.pdf) | Typeset reading PDF |
-| [`paper/manuscript.docx`](paper/manuscript.docx) | Editable Word version |
-| [`paper/highlights.docx`](paper/highlights.docx) | FRL highlights (5 bullets, ≤ 85 characters) |
-| [`paper/latex/refs.bib`](paper/latex/refs.bib) | 30 references (10 in *Finance Research Letters*) |
-| [`FRL_COMPLIANCE.md`](FRL_COMPLIANCE.md) | Guide-for-Authors checklist |
-| [`SUBMISSION_CHECKLIST.md`](SUBMISSION_CHECKLIST.md) | Pre-submission actions |
+| [`paper/src/manuscript.tex`](paper/src/manuscript.tex) | Elsevier CAS letter (source) |
+| [`paper/out/manuscript.pdf`](paper/out/manuscript.pdf) | Typeset reading PDF |
+| [`paper/out/manuscript.docx`](paper/out/manuscript.docx) | Editable Word version |
+| [`paper/out/highlights.docx`](paper/out/highlights.docx) | FRL highlights (5 bullets, ≤ 85 characters) |
+| [`paper/src/refs.bib`](paper/src/refs.bib) | 29 references (5 in *Finance Research Letters*) |
+| [`paper/out/manuscript_tracked.pdf`](paper/out/manuscript_tracked.pdf) | Tracked-changes PDF against the submitted version |
+| [`paper/out/manuscript_anonymous.pdf`](paper/out/manuscript_anonymous.pdf) | Double-blind PDF |
+| [`paper/out/FRL-Response-to-Reviewers.pdf`](paper/out/FRL-Response-to-Reviewers.pdf) | Point-by-point response |
 
-**Before submitting:** mint the Zenodo DOI, then paste it into the manuscript's Data-availability
-section, `DATA_AVAILABILITY.md`, `CITATION.cff`, and `.zenodo.json`.
+**Before submitting:** run `bash paper/tools/build_all.sh`, which rebuilds every deliverable above
+and runs the staleness, word-count, number-binding, table and locator gates in one pass.
 
 ## Repository layout
 
@@ -121,20 +128,26 @@ config/                      schema + models.yaml, grid.yaml, firms.yaml, loader
 capture/                     live-capture pipeline (build_firms, agent, orchestrator, ledger, freeze)
 analysis/                    ratings, cyclicality, probit, stats, capital, run.py -> claims.json
   make_tables.py             claims.json -> results/tables (CSV + LaTeX)
-  make_figures.py            claims.json -> paper/figures
+  make_figures.py            claims.json -> paper/src/figures (7-model forest + gradient)
 pilot/                       verdict.py -> PILOT_VERDICT.md
 
 data/
   firms/                     frozen synthetic firm battery (+ manifest, SHA-256)
-  raw/                       frozen model-output captures (32,000 ratings)
+  raw/                       frozen model-output captures (80,590 retained assessments)
   frozen/                    per-capture SHA-256 freeze receipts
 manifest/                    config hash, firm fingerprints, probe receipts, ledgers
 results/                     regenerable outputs (tables, reviewer diagnostics)
-paper/                       manuscript (LaTeX + Word), highlights, figures
+paper/
+  src/                       manuscript sources only — .tex, .bib, class files, tables, figures
+  out/                       every generated deliverable — PDFs and Word files, nothing else
+  tools/                     build.sh, build_tracked.sh, build_response.py and the checkers
+  reviews/                   the referee reports
 
 PREREGISTRATION.md           frozen day-1 contract (estimands, battery, gate, stopping rules)
 PREREGISTRATION.freeze.txt   SHA-256 freeze of the contract
-PREREGISTRATION_AMENDMENTS.md post-freeze changes (v_stable arm, Grok drop)
+PREREGISTRATION_AMENDMENTS.md post-freeze changes (8 amendments: v_stable arm, Grok drop,
+                             title, frontier probe + grids, OFAT decomposition, real-fundamentals
+                             and replication-stability arms, configuration hash)
 docs/                        ARCHITECTURE · RUNBOOK · DECISIONS · REVIEW_DIAGNOSTICS
 ```
 
@@ -144,14 +157,22 @@ docs/                        ARCHITECTURE · RUNBOOK · DECISIONS · REVIEW_DIAG
   re-verified by `reproduce.sh`; every post-freeze change is logged in `PREREGISTRATION_AMENDMENTS.md`.
 - **Frozen and hashed.** Every capture CSV carries a SHA-256 freeze receipt; the analysis reads only
   frozen CSVs and is a pure, seeded function of them.
+- **Capture-level error gate.** `capture/freeze.py` refuses to freeze any capture whose error rate
+  exceeds the 2% threshold set in `PREREGISTRATION.md` §5. It rejects a whole file and has no
+  mechanism for discarding individual rows, so four captures were excluded entirely rather than
+  trimmed. Three were extra-seed captures, which is why three models carry two replicates per cell
+  rather than five; the fourth was a real-firm GPT-6 Astra through-the-cycle run that feeds no
+  reported result. All four are listed with error rates and causes in
+  `results/revision_extras.json`.
 - **No secrets.** API keys are never stored in the repository; live capture reads them from a
   location outside the tree.
 
 ## How to cite
 
 Please cite both the paper and this artifact. Machine-readable metadata is in
-[`CITATION.cff`](CITATION.cff); the citable Zenodo DOI is minted at deposit and recorded there, in
-[`DATA_AVAILABILITY.md`](DATA_AVAILABILITY.md), and in the manuscript's reference list.
+[`CITATION.cff`](CITATION.cff); the citable Zenodo DOI is
+[10.5281/zenodo.21864042](https://doi.org/10.5281/zenodo.21864042), also recorded in
+[`DATA_AVAILABILITY.md`](DATA_AVAILABILITY.md) and in the manuscript's reference list.
 
 ## License
 

@@ -1,0 +1,571 @@
+{
+  "model": "openai_4o",
+  "temperature": 0.0,
+  "real": [
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-ENE-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-002"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-004"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.5,
+      "basis": "Data matches multiple industrial firms; insufficient unique identifiers.",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-005"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-006"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.5,
+      "basis": "Data matches multiple industrial firms; no unique identifiers provided.",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-007"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-002"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-004"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.3,
+      "basis": "Generic financials for a utility; insufficient unique identifiers",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-UTL-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches a struggling retailer but lacks unique identifiers",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-HLT-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches no specific company conclusively",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in the financial summary",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-UTL-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches large retailer but insufficient unique identifiers",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches large retailer but insufficient unique identifiers",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CDI-002"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CDI-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches general sector trends but lacks unique identifiers",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-ENE-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-002"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-004"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-TEC-000"
+    }
+  ],
+  "synthetic": [
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.3,
+      "basis": "Data matches large retail brands but lacks unique identifiers.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches general packaged-goods firms; insufficient unique identifiers.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-ENR-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique financial data to identify specific company",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-ENR-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-HLT-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-IND-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches multiple firms in commercial real estate sector.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-RES-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.5,
+      "basis": "Data matches multiple firms in commercial real estate sector.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-RES-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.5,
+      "basis": "Data matches multiple utilities; insufficient unique identifiers.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-UTL-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-ENR-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-ENR-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-HLT-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-IND-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-RES-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-RES-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.8,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Data matches general utility sector but lacks unique identifiers.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-UTL-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Financials align with large consumer brands but insufficient unique identifiers provided",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.6,
+      "basis": "Data aligns with large consumer brands but lacks unique identifiers.",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.7,
+      "basis": "Financials align with large staples firms but insufficient unique identifiers",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-ENR-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.5,
+      "basis": "Data matches large oil companies but lacks unique identifiers",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-ENR-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient unique identifiers in financial data",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-HLT-001"
+    }
+  ],
+  "real_identification_rate": 0.0,
+  "synthetic_identification_rate": 0.0,
+  "excess_over_negative_control": 0.0
+}

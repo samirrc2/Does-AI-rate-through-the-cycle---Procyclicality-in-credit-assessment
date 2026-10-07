@@ -3,7 +3,7 @@
   Figure 1  per-model cyclicality beta with 95% CIs (forest) + instruction gradient
   Figure 2  downside vs upside asymmetry per model
 
-  python3 analysis/make_figures.py --claims claims.json --out paper/figures
+  python3 analysis/make_figures.py --claims claims.json --out paper/src/figures
 """
 from __future__ import annotations
 import argparse, json
@@ -13,14 +13,21 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
+# The frontier arms were added in revision and these two tables were not extended with them, so
+# panel (a) silently plotted five models while the manuscript described seven. The filter below
+# keeps any model absent from the claims file out of the figure, which is why the omission was
+# invisible: nothing errored, the panel just had two fewer rows than the text claimed.
 DISP = {
     "gemini_flash": "Gemini Flash",
     "gemini_flash_lite": "Gemini Flash-Lite",
     "openai_41_mini": "GPT-4.1-mini",
     "openai_4o": "GPT-4o",
     "openai_4o_mini": "GPT-4o-mini",
+    "gemini_pro": "Gemini Pro",
+    "openai_astra": "GPT-6 Astra",
 }
-ORDER = ["gemini_flash", "gemini_flash_lite", "openai_41_mini", "openai_4o", "openai_4o_mini"]
+ORDER = ["gemini_flash", "gemini_flash_lite", "openai_41_mini", "openai_4o", "openai_4o_mini",
+         "gemini_pro", "openai_astra"]
 plt.rcParams.update({"font.size": 9, "font.family": "DejaVu Sans", "axes.linewidth": 0.8,
                      "pdf.fonttype": 42, "ps.fonttype": 42})  # embed TrueType (no Type-3)
 
@@ -50,7 +57,7 @@ def figure1(c, out: Path):
     ax1.axvline(0, color="#999", lw=0.8, ls="--")
     ax1.set_yticks(ys); ax1.set_yticklabels([DISP[m] for m in models])
     ax1.set_xlabel("Procyclicality β  (notches / severity step)")
-    ax1.set_title("(a) Per-model, terse framing", fontsize=9, loc="left")
+    ax1.set_title(f"(a) Per-model, terse framing ({len(models)} models)", fontsize=9, loc="left")
     ax1.margins(y=0.15)
 
     # (b) instruction gradient (pooled) with CI
@@ -67,7 +74,11 @@ def figure1(c, out: Path):
     ax2.axhline(0, color="#999", lw=0.8, ls="--")
     ax2.set_xticks(xs); ax2.set_xticklabels([lab[v] for v in order])
     ax2.set_ylabel("Pooled β  (notches / step)")
-    ax2.set_title("(b) Instruction gradient (pooled)", fontsize=9, loc="left")
+    # Panel (b) reads per_variant_pooled, which pools the FIVE original models only -- the
+    # pooled v_terse beta of 0.4295 is exactly their mean, against 0.3611 for all seven. The
+    # title says so rather than leaving "pooled" to be read as all of them.
+    ax2.set_title("(b) Instruction gradient (pooled, 5 original models)", fontsize=9,
+                  loc="left")
     ax2.set_ylim(bottom=0)
     fig.tight_layout()
     save(fig, out, "Figure_1")
@@ -93,7 +104,7 @@ def figure2(c, out: Path):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--claims", default="claims.json")
-    ap.add_argument("--out", default="paper/figures")
+    ap.add_argument("--out", default="paper/src/figures")
     args = ap.parse_args()
     c = json.loads(Path(args.claims).read_text())
     out = Path(args.out)

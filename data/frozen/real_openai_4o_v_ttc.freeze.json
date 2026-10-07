@@ -1,0 +1,11 @@
+{
+  "subgrid": "real",
+  "model": "openai_4o",
+  "variant": "v_ttc",
+  "csv": "runs_real_openai_4o_v_ttc.csv",
+  "sha256": "96aa1f2254c2618f2a7af704706326c8b92abeef3054159a1fe1056b582d5f9f",
+  "n_rows": 1600,
+  "n_error": 2,
+  "error_rate": 0.0013,
+  "frozen_utc": "2026-09-29T22:55:53.608848+00:00"
+}

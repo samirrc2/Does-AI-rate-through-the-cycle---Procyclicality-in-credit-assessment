@@ -1,0 +1,492 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{ReviewerGreen}{HTML}{008000}
+\newcommand{\rvcomment}[1]{{\color{ReviewerGreen}#1}}
+\newcommand{\concern}[1]{\textbf{\color{ReviewerGreen}#1}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[itemize,1]{leftmargin=1.6em,labelsep=0.6em,itemsep=3pt,topsep=3pt,parsep=0pt,
+                    label=\raisebox{-0.15ex}{\large\textbullet}}
+\setlist[itemize,2]{leftmargin=1.4em,labelsep=0.5em,itemsep=2pt,topsep=3pt,parsep=0pt,
+                    label=\textendash}
+\pagestyle{plain}
+\begin{document}
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#1}
+
+\concern{Reviewer comment:}
+
+\rvcomment{1. The study relies entirely on 80 synthetic firms. Although this design provides clean identification by holding firm fundamentals fixed, it remains unclear whether the observed procyclicality generalizes to real-world corporate credit assessment. The authors should provide additional validation using real firms or historical financial statements, or more clearly discuss the external validity of the synthetic experimental setting.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and added a real-fundamentals validation arm. It uses FY2024 financial data for 80 SEC filers, with names, tickers, CIKs and dates removed, so the within-firm counterfactual design is preserved.
+
+\item The positive slope replicates in all four models tested, with every interval excluding zero: GPT-4o-mini 0.814, GPT-4o 0.407, GPT-6 Astra 0.151 and Gemini Flash 0.094 notches per severity step.
+
+\item De-identification largely holds. GPT-4o identifies 0/40 real firms and GPT-6 Astra 7/40, against 0/40 synthetic controls. The slope difference between identified and unidentified firms is $-$0.003 [$-$0.074, 0.063]. With only seven identified firms, we do not read this as evidence of equivalence.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Appendix A, ``Real fundamentals and issuer recall'' (new), reports the real-fundamentals arm and the issuer-recall test.
+
+\item Table 1, Panel A, adds a $\beta$ real column.
+
+\item Section 5 states the remaining realism gap and the absence of observed credit decisions.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#2}
+
+\concern{Reviewer comment:}
+
+\rvcomment{2. The construction of the 80 synthetic firms requires further justification. The manuscript states that they cover five credit-quality tiers and eight sectors, but provides limited information on how their financial characteristics were generated and calibrated. The authors should clarify whether the distributions and combinations of leverage, profitability, liquidity, interest coverage, and other variables are representative of actual firms.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree. Table 3 now reports the full generation specification: each line is drawn uniformly within a tier-specific interval.
+
+\item We benchmark the specification against the real SEC-filer sample. In 41 of the 45 line-by-tier cells, the draw interval intersects the real-firm interquartile range. The four exceptions are top-tier revenue and net debt to EBITDA, and distressed-firm current ratio and working capital to assets.
+
+\item Because lines are drawn independently, this supports the realism of marginal credit ratios, not firm scale or the joint covariance of real filings. We have narrowed the claim accordingly.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Table 3 (new) reports the specification.
+
+\item Appendix A, ``Real fundamentals and issuer recall,'' reports the comparison and the marginal-versus-joint caveat.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#3}
+
+\concern{Reviewer comment:}
+
+\rvcomment{3. The five macroeconomic states are manually constructed using GDP growth, unemployment, credit spreads, default rates, and lending standards. However, these indicators change simultaneously and monotonically across the severity axis. Therefore, the current experiment cannot determine which macroeconomic signals primarily drive the observed rating changes. Additional experiments varying individual macroeconomic factors would help identify the sources of LLM procyclicality.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and added a one-factor-at-a-time experiment. Each indicator moves across the same severity range while the other four are held at neutral.
+
+\item The dominant signal differs by model. GPT-4o-mini responds to all five indicators. GPT-4o responds mainly to credit spreads and default rates. Gemini Flash responds mainly to default rates and lending standards. GPT-6 Astra responds mainly to credit spreads.
+
+\item The $\Sigma$/$\beta$ column compares the sum of single-factor slopes with the joint slope.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Table 1, Panel B (new), reports the decomposition.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#4}
+
+\concern{Reviewer comment:}
+
+\rvcomment{4. The comparison across models should be interpreted more cautiously. The five models come from only two model families, and several are ``mini'', ``Flash'', or ``Lite'' variants. Table 1 shows substantial differences across models, with the procyclicality coefficient ranging from 0.230 to 0.775. Expanding the evaluation to additional model families or stronger frontier models would provide more convincing support for claims concerning LLM-based credit assessment more generally. They can see these recent works: Two-Channel Graph Inference and Matrix Completion for Predicting CircRNA-Disease Associations in Consumer Health, A rapid prediction model for MiRNA-LncRNA interactions utilizing multi-view projection fusion and random parallel matrix factorization and Higher-Order Dynamic Disentangled Intent Sensing and Bidirectional Joint Updating Framework for NcRNA-Drug Resistance Association Prediction.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree that the original model set did not reach the capability frontier, and we added GPT-6 Astra and Gemini Pro at the full grid.
+
+\item Both remain significantly procyclical, at 0.198 [0.18, 0.22] and 0.182 [0.15, 0.22].
+
+\item Paired firm-clustered bootstraps replace informal comparison of intervals. 18 of 21 model pairs differ significantly, or 16 after a Holm correction. Before correction, the three that do not are Gemini Flash versus Gemini Pro, Gemini Flash versus GPT-6 Astra, and Gemini Pro versus GPT-6 Astra.
+
+\item We reviewed the three suggested ncRNA references but did not cite them, as we found no connection to credit assessment, procyclicality or LLM evaluation.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 3, Table 1 (Panel A) and Figure 1(a) now cover seven models.
+
+\item Section 4.1 and Appendix A, ``Formal contrasts and sensitivity,'' report the paired tests.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#5}
+
+\concern{Reviewer comment:}
+
+\rvcomment{5. The through-the-cycle prompting experiment is interesting, but the interpretation that the instruction ``anchors rather than de-cyclifies'' the models requires stronger validation. The conclusion mainly relies on the reduction in the verbalized one-year PD slope. Since LLM-generated probabilities may themselves be poorly calibrated, additional calibration analysis or alternative measures of point-in-time risk sensitivity would strengthen this conclusion.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree that the anchoring interpretation should not rest on verbalised PDs. Section 4.3 now supports it with three measures.
+
+\item The rating-token expected-notch slope, which never reads a stated PD, falls under the TTC instruction for every model that exposes token log-probabilities (Table 4). The rating anchoring therefore holds in the model's full rating distribution, not only in its stated rating.
+
+\item PD retention on the log-odds scale lies below 0.75 for every model, ranging from 0.587 to $-$0.106 (Appendix A).
+
+\item The ``be stable'' control holds the elicitation fixed and varies only the instruction. It preserves far more PD movement than the TTC instruction.
+
+\item We agree that verbalised PDs need not be calibrated. The log-odds scale reduces dependence on PD-level differences between models but is not a calibration test, and the manuscript now says so. The anchoring result uses changes in PD, not PD levels.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Table 4 reports expected-notch slopes under both the terse and TTC framings.
+
+\item Appendix A, ``Formal contrasts and sensitivity,'' adds bootstrap intervals for PD retention and the stable-versus-TTC contrasts, and reports ``be stable'' PD retention.
+
+\item Section 4.3 sets out the three measures and the calibration limitation.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#6}
+
+\concern{Reviewer comment:}
+
+\rvcomment{6. The capital-consequence analysis in Section 4.4 relies on a stylized mapping from LLM-generated rating notches to default probabilities and then to Basel IRB capital requirements. Although the authors acknowledge that this is a stylized proxy, the resulting capital changes may depend considerably on the assumed rating-to-PD mapping. A more comprehensive sensitivity analysis using alternative mappings or parameter settings would improve the robustness of this economic interpretation.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and expanded the analysis to a 259-cell grid. It crosses four notch-to-PD mappings, three LGDs and three maturities for each of the seven models, plus one verbalised-PD mapping per model. We also now apply the Basel 0.05\% PD input floor.
+
+\item The capital swing is positive in all 259 cells. Its magnitude, however, varies by 2.7 to 4.7 times across the rating-based specifications and by 3.1 to 7.6 times including verbalised PD. We therefore claim the direction, not the baseline magnitude.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 4.4 restates the result as directionally robust and magnitude-dependent, and reports the floored pooled figure.
+
+\item Appendix A, ``Formal contrasts and sensitivity,'' states the baseline mapping, the floor and the grid.
+
+\item The reference list adds Basel Committee on Banking Supervision (2020a), CRE31, for the IRB risk-weight functions used in the capital mapping, and (2020b), CRE32, whose paragraph CRE32.4 sets the 0.05\% PD input floor.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#7}
+
+\concern{Reviewer comment:}
+
+\rvcomment{7. The experimental design uses two runs per condition at temperature zero. Although the authors report a within-cell noise analysis, LLM outputs may still vary across repeated API calls and model updates. Increasing the number of repeated runs and reporting the stability of the main findings across repetitions would provide stronger evidence regarding the robustness of the reported effects.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and collected three further seeds for the primary condition. Four models now have five replicates per cell. The other three retain two because their extra-seed captures exceeded the 2\% error-rate gate set in the pre-registration (Section 5), which is SHA-256 frozen and re-verified on every reproduction run.
+
+\item The gate operates on whole captures, not on individual observations: freeze.py refuses an entire file whose error rate exceeds the threshold and has no mechanism for discarding rows, so no observation was dropped for being inconvenient. The three rejected extra-seed captures failed for distinct infrastructure reasons: Gemini Flash-Lite returned 400 INVALID\_ARGUMENT on every call, GPT-6 Astra hit 429 rate limits, and Gemini Pro exhausted its credit quota with 402.
+
+\item For completeness, the gate refused a fourth capture outside the seed extension: a real-firm GPT-6 Astra through-the-cycle run at a 10.6\% error rate. It was not re-run and feeds no reported result, because the real-firm arm reports the terse-framing slope and the through-the-cycle estimates come from the frontier and full arms, all of which froze cleanly. All four refusals are listed with their error rates and causes in results/revision\_extras.json.
+
+\item Re-measurement 2.5 months later separates replication noise from version drift. Coefficient drift lies within sampling uncertainty, with $\Delta$$\beta$ from $-$0.037 to +0.002. We therefore treat the coefficients as properties of the served endpoint at the collection epoch.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 3 states the replicate counts and which arms are version-resolvable.
+
+\item Table 4 adds a Noise SD column, and Table 1 adds a $\Delta$$\beta$ column.
+
+\item Appendix A, ``Replication and model drift'' (new), reports the drift analysis.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#1, Concern \#8}
+
+\concern{Reviewer comment:}
+
+\rvcomment{8. Some conclusions should be moderated to reflect the scope of the experiment. The study provides evidence that the tested LLMs exhibit procyclical behavior under controlled synthetic scenarios, but it does not directly evaluate deployed credit-rating systems or actual lending decisions. Therefore, broader statements regarding the prudential consequences of ``LLM-based credit assessment'' should be clearly distinguished from the experimentally demonstrated findings.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and have moderated the claims throughout. The conclusion now states that the study identifies a behavioural mechanism in the tested endpoints at the collection epoch. It is not a permanent property of a model family, and not an evaluation of deployed rating systems, lending decisions or analyst behaviour.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item The abstract, Section 1 and Section 5 were revised accordingly.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#2, Concern \#1}
+
+\concern{Reviewer comment:}
+
+\rvcomment{The first issue is that is extremely well-known from research on LLMs that their capabilities might substantially differ depending on which class of model is used, with work in this journal showing that there was an enormous shift in the quality of output between older/less capable models and newer/more capable models. For example, the financial literacy of GPT models has substantially increased between GPT-3.5 and GPT-4. GPT-6 Astra, for instance, is considerably more capable than GPT-4o (one of the five models used in this study). In fact, none of the models investigated in the study - Gemini Flash, Gemini Flash-Lite, GPT-4.1-mini, GPT-4o, GPT-4o-mini - is a frontier model (three are mini or lite variants). The main point I am trying to make here is that results might be substantially different if one was to use more advanced models, for example GPT-5 Pro, or now GPT-6 Astra. For Anthropic models, this would consistute the Opus or Fable models. Of course, I am cognizant that these models are much more expensive than the models that have been used in the study, but I would argue that if one would conduct these types of analyzes (concerning credit ratings), they would be more inclined to actually use the more sophisticated (and expensive) models. Therefore, I would suggest that the Authors see whether the findings remain similar when using a state-of-the-art model, rather than the rather ``pedestrian'' models that were used here.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and added two frontier models: GPT-6 Astra, as suggested, and Gemini Pro.
+
+\item Both remain significantly procyclical, at 0.198 [0.18, 0.22] and 0.182 [0.15, 0.22]. Within each family procyclicality falls in point estimate with capability, but both frontier-model estimates remain significantly above zero, and neither differs significantly from Gemini Flash or from the other.
+
+\item The TTC result is particularly pronounced for the two frontier models. Gemini Pro's residual rating slope is statistically indistinguishable from zero and GPT-6 Astra's is significantly negative, while both retain essentially none of the PD sensitivity.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 3, Table 1 (Panel A) and Figure 1(a) add both models.
+
+\item Section 4.1 and Appendix A report the paired comparisons.
+
+\item Sections 4.1 and 4.3 distinguish the declining level from the persistent behaviour.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#2, Concern \#2}
+
+\concern{Reviewer comment:}
+
+\rvcomment{The second issue is somewhat related to the first one. Why might someone use LLMs to conduct credit assessments? People can of course ask any type of question to LLMs, but is it plausible that someone would actually rely on such assessments? It is extremely unlikely that rating agencies would use simple, unsophisticated models when constructing ratings, but maybe there is a case for retail investors using them to inform them on their investment decisions? The Authors should try a little bit harder to convince the reader that this use-case is actually plausible. I think that the less sophisticated the model, the more implausible it is that LLMs present any use in such tasks.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree that the use case should be established rather than assumed. Section 1 now documents emerging institutional use: Moody's AI tools for credit assessment, underwriting and credit-memo generation, adopted by Taishin International Bank, and S\&P Global's agentic-AI Credit Memo Builder for loan committees and credit analysts.
+
+\item We motivate the study through these analyst-supported internal credit workflows, not through agency ratings delegated to general-purpose LLMs. The two added frontier models also reflect the reviewer's point that realistic use would involve stronger models.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 1, second paragraph (new), adds this evidence.
+
+\item The reference list adds Moody's (2026a, 2026b) and S\&P Global (2026).
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#2, Concern \#3}
+
+\concern{Reviewer comment:}
+
+\rvcomment{Minor issues:}
+
+\begin{itemize}\color{ReviewerGreen}
+
+\item \rvcomment{The Authors use temperature = 0 as a setting for their LLMs. This should be justified (higher temperature settings might produce more variable, yet plausible results; the CIs are pretty narrow, perhaps too narrow).}
+
+\end{itemize}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree. Temperature zero, where supported, minimises decoding variability so that the macro block is the only systematic contrast. Because decoding noise is unrelated to macro severity, it should widen intervals rather than create a slope.
+
+\item GPT-6 Astra does not support temperature zero and runs at its default. Its within-cell noise is comparable to the temperature-zero arms. Its coefficient also does not differ significantly from Gemini Pro's, which runs at temperature zero. Four models now carry five replicates per cell.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 3 adds the decoding rationale and the replicate counts.
+
+\item Table 4 reports Noise SD.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#2, Concern \#4}
+
+\concern{Reviewer comment:}
+
+\begin{itemize}\color{ReviewerGreen}
+
+\item \rvcomment{I think that writing what is and isn't suitable for a specific journal is appropriate for a cover letter, but not for the manuscript. Therefore ``for which this journal has become a leading outlet'' should be removed.}
+
+\end{itemize}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item Agreed. The statement has been removed.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item The sentence in Section 2 now begins: ``The second strand is the rapid adoption of LLMs in finance (Ali et al., 2025).''
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#3, Concern \#1}
+
+\concern{Reviewer comment:}
+
+\rvcomment{1. Define the through-the-cycle benchmark more precisely. The paper correctly states that genuine TTC behaviour is a joint condition: the rating slope should fall toward zero while the point-in-time PD should remain sensitive. Please clarify what ``toward zero'' and ``near one'' mean in practice. TTC ratings need not be perfectly flat, as the rating literature recognizes.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and now define the benchmark: a rating slope within $\pm$0.05 notches per step of zero, and PD retention of at least 0.75, each tested against its bootstrap interval. Both are reporting conventions, not supervisory standards.
+
+\item No model meets both conditions. Gemini Pro meets the rating condition but retains none of the PD slope. GPT-6 Astra overshoots into a negative slope and also fails retention. The other five models fail the rating condition.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 4.3 states both thresholds.
+
+\item Table 1 reports each model's residual slope and PD retention.
+
+\item Appendix A notes that the thresholds are conventions.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#3, Concern \#2}
+
+\concern{Reviewer comment:}
+
+\rvcomment{2. Add formal tests for model and framing differences. The paper emphasizes a roughly threefold spread across models and a large difference between TTC and ``be stable'' framings. Please provide formal pairwise tests or bootstrap confidence intervals for these differences. Overlapping per-model CIs do not by themselves establish or rule out significant differences.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree and replaced comparisons of overlapping intervals with paired firm-clustered bootstrap contrasts.
+
+\item 18 of 21 model pairs differ significantly, or 16 after a Holm correction. For the three pairs that do not differ, the manuscript now describes them as not differing significantly rather than implying equivalence.
+
+\item The ``be stable'' versus TTC contrast in rating slope is significant in all seven models, ranging from 0.047 [0.017, 0.080] to 0.254 [0.206, 0.304].
+
+\item We bootstrap the downside-to-upside ratio directly. Every interval excludes one, which supports the direction of the asymmetry, but the intervals overlap too much to rank models.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Section 4.1 and Appendix A, ``Formal contrasts and sensitivity,'' report the contrasts.
+
+\item Section 4.2 and the Figure 2 caption replace the ranking claims with the directional result.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#3, Concern \#3}
+
+\concern{Reviewer comment:}
+
+\rvcomment{3. Explain the placebo-adjusted net effect more fully. The placebo moves ratings by 0.042 notches per step, and the net effect is 0.387. Please state whether the net effect is computed by subtracting slopes, by a joint regression with both axes, or by another method.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item We agree. The net effect is the pooled macro slope minus the pooled placebo slope: 0.4295 $-$ 0.0425 = 0.387 notches per step. The earlier 0.042 was a truncation of 0.0425.
+
+\item Its interval, [0.363, 0.412], comes from bootstrapping the difference on the same resampled firms. A joint specification with both axes gives the same coefficient and interval.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item Appendix A, ``Placebo and alternative estimators,'' defines the construction and reports the interval.
+
+\end{itemize}
+
+\vspace{12pt}
+\concern{Reviewer \#3, Concern \#4}
+
+\concern{Reviewer comment:}
+
+\rvcomment{4. Table 1 should define ``D:U,'' ``Resid.,'' and ``PD-ret.'' in the notes. Table 3 should explain why the expected-notch slope is blank for the Gemini models and why the noise SD is 0.000 for Gemini Flash-Lite. ``Parsing at 1.000'' should be written as 100\% or 1.00 for clarity. Figure 2 should include confidence intervals or clearly state if it does not.}
+
+\textbf{Author response:}
+
+\begin{itemize}
+
+\item Agreed. All changes have been made.
+
+\end{itemize}
+
+\textbf{Author action:}
+
+\begin{itemize}
+
+\item The Table 1 notes define D:U, Resid. and PD-ret.
+
+\item The Table 4 notes, Table 3 in the original submission, explain that expected-notch estimates are unavailable because Gemini and GPT-6 Astra return no rating-token log-probabilities, and that Gemini Flash-Lite's 0.000 Noise SD is exact.
+
+\item Appendix A states that all 80,590 retained assessments parsed, and discloses the 101 failed call attempts.
+
+\item Figure 2 now shows firm-clustered bootstrap 95\% intervals.
+
+\end{itemize}
+
+\end{document}

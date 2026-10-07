@@ -1,0 +1,175 @@
+% AUTO-GENERATED from capture/agent.py by analysis/make_prompts.py — do not edit.
+
+\subsection{Prompt framings}\label{app:framings}
+
+The four instruction framings (system prompt), verbatim as executed:
+
+\paragraph{\texttt{v\_terse}}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+You are a credit rating analyst. Assign a long-term issuer credit rating to the company described, based on its fundamentals and the stated operating environment. Respond with ONLY a JSON object and nothing else, in exactly this form: {"rating": "<one S&P long-term issuer rating from AAA down to D, using +/- modifiers, e.g. AA-, BBB+, B>", "pd_1yr_bps": <your estimated 1-year probability of default in BASIS POINTS as an integer, where 100 bps = 1%>, "rationale": "<=30 words"}.
+\end{lstlisting}
+
+\paragraph{\texttt{v\_ttc}}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+You are a credit rating analyst applying a THROUGH-THE-CYCLE methodology. Assign a long-term issuer credit rating that reflects the company's creditworthiness over a full economic cycle, deliberately LOOKING THROUGH transitory macroeconomic conditions rather than the current point in the cycle. Respond with ONLY a JSON object and nothing else, in exactly this form: {"rating": "<one S&P long-term issuer rating from AAA down to D, using +/- modifiers, e.g. AA-, BBB+, B>", "pd_1yr_bps": <your estimated 1-year probability of default in BASIS POINTS as an integer, where 100 bps = 1%>, "rationale": "<=30 words"}.
+\end{lstlisting}
+
+\paragraph{\texttt{v\_pit}}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+You are a credit rating analyst applying a POINT-IN-TIME methodology. Assign a long-term issuer credit rating that reflects the company's creditworthiness given CURRENT economic and financial conditions as described. Respond with ONLY a JSON object and nothing else, in exactly this form: {"rating": "<one S&P long-term issuer rating from AAA down to D, using +/- modifiers, e.g. AA-, BBB+, B>", "pd_1yr_bps": <your estimated 1-year probability of default in BASIS POINTS as an integer, where 100 bps = 1%>, "rationale": "<=30 words"}.
+\end{lstlisting}
+
+\paragraph{\texttt{v\_stable}}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+You are a credit rating analyst. Assign a long-term issuer credit rating that is STABLE and does not change much in response to short-term conditions. Respond with ONLY a JSON object and nothing else, in exactly this form: {"rating": "<one S&P long-term issuer rating from AAA down to D, using +/- modifiers, e.g. AA-, BBB+, B>", "pd_1yr_bps": <your estimated 1-year probability of default in BASIS POINTS as an integer, where 100 bps = 1%>, "rationale": "<=30 words"}.
+\end{lstlisting}
+
+\subsection{Macro-environment blocks}\label{app:macro}
+
+Prepended to the byte-identical fundamentals; only these five blocks differ across the severity axis:
+
+\paragraph{boom}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+MACRO ENVIRONMENT (current conditions, this fiscal period):
+  - Real GDP growth (annualized): +4.5%
+  - Unemployment rate: 3.4%
+  - Investment-grade corporate credit spread: 95 bps
+  - Trailing 12-month corporate default rate: 0.6%
+  - Bank lending standards: easing broadly
+\end{lstlisting}
+
+\paragraph{expansion}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+MACRO ENVIRONMENT (current conditions, this fiscal period):
+  - Real GDP growth (annualized): +2.6%
+  - Unemployment rate: 4.2%
+  - Investment-grade corporate credit spread: 135 bps
+  - Trailing 12-month corporate default rate: 1.4%
+  - Bank lending standards: modestly easing
+\end{lstlisting}
+
+\paragraph{neutral}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+MACRO ENVIRONMENT (current conditions, this fiscal period):
+  - Real GDP growth (annualized): +1.8%
+  - Unemployment rate: 5.0%
+  - Investment-grade corporate credit spread: 175 bps
+  - Trailing 12-month corporate default rate: 2.3%
+  - Bank lending standards: unchanged
+\end{lstlisting}
+
+\paragraph{slowdown}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+MACRO ENVIRONMENT (current conditions, this fiscal period):
+  - Real GDP growth (annualized): -0.8%
+  - Unemployment rate: 6.4%
+  - Investment-grade corporate credit spread: 320 bps
+  - Trailing 12-month corporate default rate: 4.1%
+  - Bank lending standards: tightening
+\end{lstlisting}
+
+\paragraph{severe\_recession}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+MACRO ENVIRONMENT (current conditions, this fiscal period):
+  - Real GDP growth (annualized): -3.6%
+  - Unemployment rate: 8.9%
+  - Investment-grade corporate credit spread: 620 bps
+  - Trailing 12-month corporate default rate: 7.5%
+  - Bank lending standards: sharply tightening
+\end{lstlisting}
+
+\subsection{Placebo blocks (credit-irrelevant control)}\label{app:placebo}
+
+Matched in structure and number density, on a credit-irrelevant axis:
+
+\paragraph{placebo\_calm}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+REGIONAL CONDITIONS (current, at the company's headquarters region):
+  - Average temperature vs seasonal norm: +0.6 degC
+  - Daylight hours vs annual mean: +4.5%
+  - Monthly rainfall vs normal: 95 mm
+  - Regional air-quality index: 38
+  - Commuter traffic congestion: light
+\end{lstlisting}
+
+\paragraph{placebo\_mild}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+REGIONAL CONDITIONS (current, at the company's headquarters region):
+  - Average temperature vs seasonal norm: +0.2 degC
+  - Daylight hours vs annual mean: +2.6%
+  - Monthly rainfall vs normal: 135 mm
+  - Regional air-quality index: 52
+  - Commuter traffic congestion: moderate
+\end{lstlisting}
+
+\paragraph{placebo\_normal}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+REGIONAL CONDITIONS (current, at the company's headquarters region):
+  - Average temperature vs seasonal norm: 0.0 degC
+  - Daylight hours vs annual mean: +1.8%
+  - Monthly rainfall vs normal: 175 mm
+  - Regional air-quality index: 60
+  - Commuter traffic congestion: typical
+\end{lstlisting}
+
+\paragraph{placebo\_rough}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+REGIONAL CONDITIONS (current, at the company's headquarters region):
+  - Average temperature vs seasonal norm: -0.4 degC
+  - Daylight hours vs annual mean: -0.8%
+  - Monthly rainfall vs normal: 320 mm
+  - Regional air-quality index: 88
+  - Commuter traffic congestion: heavy
+\end{lstlisting}
+
+\paragraph{placebo\_storm}
+
+\begin{lstlisting}[breaklines=true,breakatwhitespace=false,
+                   basicstyle=\ttfamily\scriptsize,columns=fullflexible,
+                   frame=none,xleftmargin=0pt,literate={\%}{{\%}}1]
+REGIONAL CONDITIONS (current, at the company's headquarters region):
+  - Average temperature vs seasonal norm: -1.1 degC
+  - Daylight hours vs annual mean: -3.6%
+  - Monthly rainfall vs normal: 620 mm
+  - Regional air-quality index: 140
+  - Commuter traffic congestion: severe
+\end{lstlisting}

@@ -43,7 +43,9 @@ for which in ("pilot", "full"):
         got, exp = sha(f), man[which]["sha256"]
         ok &= got == exp
         print(f"  [{'OK ' if got==exp else 'FAIL'}] firm battery {which}.jsonl  {got[:16]}… vs {exp[:16]}…")
-frozen = sorted((root/"data"/"frozen").glob(f"{sub}_*.freeze.json"))
+# Every frozen capture, not just the selected subgrid's. Verifying only "{sub}_*" left
+# 37 of 57 receipts unchecked, so a truncated or deleted revision capture passed.
+frozen = sorted((root/"data"/"frozen").glob("*.freeze.json"))
 nfz = nfail = 0
 for rec in frozen:
     r = json.loads(rec.read_text()); csvp = root/"data"/"raw"/r["csv"]
@@ -91,6 +93,7 @@ PY
 fi
 
 # ---- FULL: regenerate and require byte-identical claims.json ------------------
+sha() { if command -v sha256sum >/dev/null 2>&1; then sha256sum "$1" | awk '{print $1}'; else shasum -a 256 "$1" | awk '{print $1}'; fi; }
 TMP="$(mktemp -d)"
 echo "  regenerating claims.json (seeded 2000-draw bootstrap; ~2-5 min)…"
 "$PY" analysis/run.py --subgrid "$SUBGRID" --out "$TMP/claims.json" >/dev/null
@@ -103,12 +106,45 @@ if [ "$MODE" = "write" ]; then
   echo "  results refreshed."
 fi
 
-sha() { if command -v sha256sum >/dev/null 2>&1; then sha256sum "$1" | awk '{print $1}'; else shasum -a 256 "$1" | awk '{print $1}'; fi; }
 A="$(sha claims.json)"; B="$(sha "$TMP/claims.json")"
 echo "  committed  : $A"
 echo "  regenerated: $B"
 if [ "$A" = "$B" ]; then
-  echo "  ==> BYTE-IDENTICAL. Full reproduction verified."
+  echo "  ==> claims.json BYTE-IDENTICAL."
+
+  # ---- the revision artifacts, which claims.json does not cover ----------------
+  # claims.json is the ORIGINAL five-model grid. Every revision artifact was left
+  # unregenerated, so "Full reproduction verified" covered none of the figures the revision
+  # adds, and a corrupted revision capture passed unnoticed.
+  echo "  regenerating the revision artifacts…"
+  RTMP="$(mktemp -d)"; REV_OK=1
+  "$PY" analysis/analyze_ofat.py           --out "$RTMP/ofat.json"                    >/dev/null 2>&1
+  "$PY" analysis/analyze_epochs.py         --out "$RTMP/seeds_epochs.json"            >/dev/null 2>&1
+  "$PY" analysis/joint_spec.py             --out "$RTMP/joint_spec.json"              >/dev/null 2>&1
+  "$PY" analysis/analyze_real.py           --out "$RTMP/real_arm.json"                >/dev/null 2>&1
+  "$PY" analysis/synthetic_real_overlap.py --out "$RTMP/synthetic_real_overlap.json"  >/dev/null 2>&1
+  "$PY" analysis/reviewer_revision.py      --out "$RTMP/reviewer_revision.json"       >/dev/null 2>&1
+  "$PY" analysis/make_revision_claims.py   --out "$RTMP/claims_revision.json"         >/dev/null 2>&1
+  for f in ofat.json seeds_epochs.json joint_spec.json real_arm.json \
+           synthetic_real_overlap.json reviewer_revision.json; do
+    if [ ! -s "$RTMP/$f" ]; then
+      echo "  [FAIL] results/$f did not regenerate"; REV_OK=0; continue
+    fi
+    if [ "$(sha "results/$f")" = "$(sha "$RTMP/$f")" ]; then echo "  [OK ] results/$f"
+    else echo "  [FAIL] results/$f differs from the committed copy"; REV_OK=0; fi
+  done
+  if [ -s "$RTMP/claims_revision.json" ] && \
+     [ "$(sha claims_revision.json)" = "$(sha "$RTMP/claims_revision.json")" ]; then
+    echo "  [OK ] claims_revision.json"
+  else
+    echo "  [FAIL] claims_revision.json differs from the committed copy"; REV_OK=0
+  fi
+  rm -rf "$RTMP"
+  if [ "$REV_OK" = 1 ]; then
+    echo "  ==> BYTE-IDENTICAL. Full reproduction verified."
+  else
+    echo "  ==> REVISION ARTIFACTS DID NOT REPRODUCE."; exit 1
+  fi
 else
   echo "  ==> HASH MISMATCH — claims.json did not reproduce byte-identically."
   "$PY" - "claims.json" "$TMP/claims.json" <<'PY'

@@ -1,0 +1,5 @@
+Framing,pooled_beta,CI95,excl_0
+Point-in-time,0.516,"[0.49, 0.54]",Yes
+Terse,0.429,"[0.41, 0.45]",Yes
+"""Be stable""",0.329,"[0.30, 0.35]",Yes
+Through-the-cycle,0.160,"[0.14, 0.18]",Yes

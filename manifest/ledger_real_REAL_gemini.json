@@ -1,0 +1,12 @@
+{
+  "cap": 30.0,
+  "cum_usd": 1.235386,
+  "per_model": {
+    "gemini_flash": {
+      "calls": 3200,
+      "in_tok": 1253000,
+      "out_tok": 202962,
+      "usd": 1.235382
+    }
+  }
+}

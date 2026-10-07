@@ -1,21 +1,29 @@
 {
   "paper": "Paper 5 — Does AI rate through the cycle?",
   "run": "bash reproduce.sh",
-  "claims": "claims.json",
+  "claims": "claims*.json",
   "artifacts": [
+    "README.md",
     "claims.json",
-    "results/tables/*.csv",
-    "results/tables/*.tex",
+    "claims_revision.json",
+    "paper/src/tables/*.csv",
+    "paper/src/tables/*.tex",
     "results/joint_spec.json",
     "results/ofat.json",
-    "results/seeds_epochs.json",
-    "results/reviewer_revision.json",
+    "results/pd_retention_ci.json",
     "results/real_arm.json",
-    "paper/latex/tables/*.csv",
-    "paper/latex/tables/*.tex"
+    "results/reviewer_revision.json",
+    "results/revision_extras.json",
+    "results/seeds_epochs.json",
+    "results/synthetic_real_overlap.json",
+    "results/tables/*.csv",
+    "results/tables/*.tex"
   ],
   "inputs": [
+    "data/raw/runs_*.csv",
+    "data/frozen/*.freeze.json",
     "data/firms/full.jsonl",
+    "data/firms/real.jsonl",
     "manifest/firms_manifest.json",
     "PREREGISTRATION.md"
   ],
@@ -27,5 +35,13 @@
     "/code + /data mount, so there is nothing for a capsule track to emulate. con1 skips track B",
     "and says so; the clone track still answers the question that matters, which is whether a",
     "reader who clones the repository reproduces every number."
+  ],
+  "gates": [
+    "sh -c '\"$PY\" paper/tools/bind_manuscript_numbers.py'",
+    "sh -c '\"$PY\" paper/tools/bind_letter_numbers.py'",
+    "sh -c '\"$PY\" paper/tools/verify_tables.py'",
+    "sh -c '\"$PY\" paper/tools/verify_locators.py'",
+    "sh -c '\"$PY\" paper/tools/verify_response_numbers.py'",
+    "sh -c '\"$PY\" paper/tools/check_readme.py'"
   ]
 }

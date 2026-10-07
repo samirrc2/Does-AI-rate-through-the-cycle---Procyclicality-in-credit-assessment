@@ -1,0 +1,344 @@
+{
+  "anchoring": {
+    "definition": "genuine through-the-cycle = rating slope ~ 0 AND log-odds PD slope retained (~ point-in-time slope); anchoring = both collapse",
+    "directional_pd_slope": {
+      "terse_down": 0.586220940181,
+      "terse_up": 0.181008794730,
+      "ttc_down": -0.018733235054,
+      "ttc_up": -0.052631089580
+    },
+    "downside_pd_retention": -0.031955929532,
+    "pd_retention_ci95": [
+      -0.164207786635,
+      -0.050092100962
+    ],
+    "pooled_pd_retention_ttc_vs_terse": -0.104006042284,
+    "pooled_pd_slope_terse": 0.366395955572,
+    "pooled_pd_slope_ttc": -0.038107393248,
+    "scale": "log-odds(PD) per severity step",
+    "upside_pd_retention": -0.290765372246
+  },
+  "asymmetry": {
+    "note": "downside = neutral->severe recession; upside = boom->neutral (notches/step)",
+    "pooled_downside_ci95": [
+      0.287500000000,
+      0.412500000000
+    ],
+    "pooled_downside_slope": 0.350000000000,
+    "pooled_upside_ci95": [
+      0.062500000000,
+      0.162500000000
+    ],
+    "pooled_upside_slope": 0.112500000000,
+    "ratio": 3.111111111111,
+    "variant": "v_terse"
+  },
+  "capital": {
+    "capital_asymmetry_ratio": 2.626067265573,
+    "per_model_swing_pp": {
+      "openai_astra": 1.192250138685
+    },
+    "pooled_downside_pp": 0.863450353308,
+    "pooled_swing_boom_to_recession": 1.192250138685,
+    "pooled_swing_ci95": [
+      0.898875626697,
+      1.451913461066
+    ],
+    "pooled_swing_rawpd_ci95": [
+      3.493941993697,
+      4.181150736426
+    ],
+    "pooled_swing_rawpd_robustness": 3.830559360719,
+    "pooled_upside_pp": 0.328799785378,
+    "source_primary": "rating-anchored (notch -> stylised agency default rate -> IRB)",
+    "unit": "percentage points of exposure (Basel IRB corporate, LGD 0.45, M 2.5; stylised)"
+  },
+  "headline_cyclicality": {
+    "ci_excludes_0": true,
+    "interpretation": "positive => procyclical (downgrades as macro worsens); ~0 with tight CI => through-the-cycle (TTC null holds). NET = macro - placebo is the demand-effect-adjusted value.",
+    "net_ci_excludes_0": true,
+    "pooled_ci95": [
+      0.178750000000,
+      0.245000000000
+    ],
+    "pooled_endpoint_swing": 0.925000000000,
+    "pooled_net_ci95": [
+      0.148750000000,
+      0.212500000000
+    ],
+    "pooled_net_cyclicality": 0.182500000000,
+    "pooled_notch_per_step": 0.213750000000,
+    "pooled_placebo_cyclicality": 0.031250000000,
+    "primary_variant": "v_terse"
+  },
+  "instruction_effect_contrasts": {
+    "terse_minus_ttc": 0.260000000000
+  },
+  "meta": {
+    "analysis_seed": 4242,
+    "bootstrap_draws": 2000,
+    "budget_cap_usd": 55.000000000000,
+    "config_hash": "e7d4c0056043141c",
+    "error_rate": 0.000000000000,
+    "families": {
+      "openai_astra": "openai"
+    },
+    "firms_sha256": {
+      "full": "3ac2600be8cea85b5b0dcc00b057c85ee1b0d9b9f4ce394653c749440a0eef50",
+      "pilot": "604d47dab58b32ac7ca93f2310a7a19d3cee3851dde7821ae8737e7450298156"
+    },
+    "float_quantize_decimals": 12,
+    "has_expected_notch": false,
+    "has_placebo": true,
+    "macro_states": {
+      "boom": -2,
+      "expansion": -1,
+      "neutral": 0,
+      "severe_recession": 2,
+      "slowdown": 1
+    },
+    "mode": "REAL",
+    "models": [
+      "openai_astra"
+    ],
+    "n_error": 0,
+    "n_expected_notch": 0,
+    "n_firms": 40,
+    "n_rows": 1600,
+    "placebo_states": [
+      "placebo_calm",
+      "placebo_mild",
+      "placebo_normal",
+      "placebo_rough",
+      "placebo_storm"
+    ],
+    "primary_variant": "v_terse",
+    "prompt_variants": [
+      "v_terse",
+      "v_ttc"
+    ],
+    "seed_indices": [
+      0,
+      1
+    ],
+    "spend_usd": 11.719700000000,
+    "subgrid": "probe_astra",
+    "system_fingerprints": {}
+  },
+  "per_model_variant": {
+    "openai_astra|v_terse": {
+      "asymmetry_ratio": 3.111111111111,
+      "churn": {
+        "frac_moved_ge1": 0.675000000000,
+        "frac_moved_ge2": 0.075000000000,
+        "n": 40,
+        "pd_spearman_extremes": 0.990076932516,
+        "spearman_extremes": 0.990721903481
+      },
+      "ci_excludes_0": true,
+      "cyclicality_ci95": [
+        0.178750000000,
+        0.245000000000
+      ],
+      "cyclicality_notch_per_step": 0.213750000000,
+      "cyclicality_pd_logodds_per_step": 0.366395955572,
+      "downside_slope": 0.350000000000,
+      "endpoint_swing_ci95": [
+        0.762500000000,
+        1.062500000000
+      ],
+      "endpoint_swing_notches": 0.925000000000,
+      "family": "openai",
+      "model": "openai_astra",
+      "monotonic_dose_response": true,
+      "n_firms": 40,
+      "net_ci_excludes_0": true,
+      "net_cyclicality_ci95": [
+        0.148750000000,
+        0.212500000000
+      ],
+      "net_cyclicality_notch_per_step": 0.182500000000,
+      "noise_floor_notch_sd": 0.075000000000,
+      "ordered_probit": {
+        "converged": true,
+        "estimator": "ordered_probit",
+        "n": 200,
+        "n_categories": 28,
+        "notch_per_step": 0.228304873149,
+        "severity_coef": 0.470766795958
+      },
+      "pd_retention_vs_terse": 1.000000000000,
+      "placebo_cyclicality_notch_per_step": 0.031250000000,
+      "state_means": {
+        "boom": {
+          "mean_notch": 11.662500000000,
+          "mean_pd": 0.031571250000,
+          "n": 40,
+          "severity": -2
+        },
+        "expansion": {
+          "mean_notch": 11.575000000000,
+          "mean_pd": 0.036060000000,
+          "n": 40,
+          "severity": -1
+        },
+        "neutral": {
+          "mean_notch": 11.437500000000,
+          "mean_pd": 0.042192500000,
+          "n": 40,
+          "severity": 0
+        },
+        "severe_recession": {
+          "mean_notch": 10.737500000000,
+          "mean_pd": 0.070023750000,
+          "n": 40,
+          "severity": 2
+        },
+        "slowdown": {
+          "mean_notch": 11.287500000000,
+          "mean_pd": 0.049865000000,
+          "n": 40,
+          "severity": 1
+        }
+      },
+      "upside_slope": 0.112500000000,
+      "variant": "v_terse"
+    },
+    "openai_astra|v_ttc": {
+      "asymmetry_ratio": 0.625000000000,
+      "churn": {
+        "frac_moved_ge1": 0.200000000000,
+        "frac_moved_ge2": 0.000000000000,
+        "n": 40,
+        "pd_spearman_extremes": 0.988871699319,
+        "spearman_extremes": 0.992544717565
+      },
+      "ci_excludes_0": true,
+      "cyclicality_ci95": [
+        -0.080000000000,
+        -0.013750000000
+      ],
+      "cyclicality_notch_per_step": -0.046250000000,
+      "cyclicality_pd_logodds_per_step": -0.038107393248,
+      "downside_slope": -0.031250000000,
+      "endpoint_swing_ci95": [
+        -0.312500000000,
+        -0.025000000000
+      ],
+      "endpoint_swing_notches": -0.162500000000,
+      "family": "openai",
+      "model": "openai_astra",
+      "monotonic_dose_response": false,
+      "n_firms": 40,
+      "net_ci_excludes_0": false,
+      "net_cyclicality_ci95": [
+        -0.052500000000,
+        0.010000000000
+      ],
+      "net_cyclicality_notch_per_step": -0.020000000000,
+      "noise_floor_notch_sd": 0.081250000000,
+      "ordered_probit": {
+        "converged": true,
+        "estimator": "ordered_probit",
+        "n": 200,
+        "n_categories": 29,
+        "notch_per_step": -0.059641770759,
+        "severity_coef": -0.120654210692
+      },
+      "pd_retention_vs_terse": -0.104006042284,
+      "placebo_cyclicality_notch_per_step": -0.026250000000,
+      "state_means": {
+        "boom": {
+          "mean_notch": 11.450000000000,
+          "mean_pd": 0.039537500000,
+          "n": 40,
+          "severity": -2
+        },
+        "expansion": {
+          "mean_notch": 11.500000000000,
+          "mean_pd": 0.038098750000,
+          "n": 40,
+          "severity": -1
+        },
+        "neutral": {
+          "mean_notch": 11.550000000000,
+          "mean_pd": 0.036236250000,
+          "n": 40,
+          "severity": 0
+        },
+        "severe_recession": {
+          "mean_notch": 11.612500000000,
+          "mean_pd": 0.029112500000,
+          "n": 40,
+          "severity": 2
+        },
+        "slowdown": {
+          "mean_notch": 11.637500000000,
+          "mean_pd": 0.032570000000,
+          "n": 40,
+          "severity": 1
+        }
+      },
+      "upside_slope": -0.050000000000,
+      "variant": "v_ttc"
+    }
+  },
+  "per_variant_pooled": {
+    "v_terse": {
+      "ci_excludes_0": true,
+      "net_ci_excludes_0": true,
+      "pooled_cyclicality_ci95": [
+        0.178750000000,
+        0.245000000000
+      ],
+      "pooled_cyclicality_notch_per_step": 0.213750000000,
+      "pooled_endpoint_swing": 0.925000000000,
+      "pooled_net_ci95": [
+        0.148750000000,
+        0.212500000000
+      ],
+      "pooled_net_cyclicality": 0.182500000000,
+      "pooled_placebo_cyclicality": 0.031250000000
+    },
+    "v_ttc": {
+      "ci_excludes_0": true,
+      "net_ci_excludes_0": false,
+      "pooled_cyclicality_ci95": [
+        -0.080000000000,
+        -0.013750000000
+      ],
+      "pooled_cyclicality_notch_per_step": -0.046250000000,
+      "pooled_endpoint_swing": -0.162500000000,
+      "pooled_net_ci95": [
+        -0.052500000000,
+        0.010000000000
+      ],
+      "pooled_net_cyclicality": -0.020000000000,
+      "pooled_placebo_cyclicality": -0.026250000000
+    }
+  },
+  "pilot_gate": {
+    "criterion_1_ran_clean": true,
+    "criterion_2_ratings_measurable": true,
+    "criterion_3_cyclicality_estimable": true,
+    "distinct_notches": 15,
+    "error_rate": 0.000000000000,
+    "mean_notch": 11.445000000000,
+    "parse_rate": 1.000000000000,
+    "primary_ci95": [
+      0.178750000000,
+      0.245000000000
+    ],
+    "primary_cyclicality": 0.213750000000,
+    "probit_estimable": true,
+    "sd_notch": 4.713621219402,
+    "spend_usd": 11.719700000000
+  },
+  "ratings_dispersion": {
+    "distinct_notches": 15,
+    "mean_notch": 11.445000000000,
+    "n": 400,
+    "parse_rate": 1.000000000000,
+    "sd_notch": 4.713621219402
+  }
+}

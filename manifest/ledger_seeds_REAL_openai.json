@@ -1,0 +1,30 @@
+{
+  "cap": 90.0,
+  "cum_usd": 20.707989,
+  "per_model": {
+    "openai_41_mini": {
+      "calls": 2400,
+      "in_tok": 857880,
+      "out_tok": 113225,
+      "usd": 0.524312
+    },
+    "openai_4o": {
+      "calls": 2400,
+      "in_tok": 857880,
+      "out_tok": 104848,
+      "usd": 3.193166
+    },
+    "openai_4o_mini": {
+      "calls": 2420,
+      "in_tok": 857880,
+      "out_tok": 95025,
+      "usd": 0.185704
+    },
+    "openai_astra": {
+      "calls": 5673,
+      "in_tok": 847615,
+      "out_tok": 166573,
+      "usd": 16.8048
+    }
+  }
+}

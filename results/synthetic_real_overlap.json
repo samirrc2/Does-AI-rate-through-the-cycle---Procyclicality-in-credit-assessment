@@ -1,0 +1,922 @@
+{
+  "cells": [
+    {
+      "label": "revenue scale",
+      "n_real": 14,
+      "overlap_iqr": false,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1339.567,
+        3084.7675
+      ],
+      "real_range": [
+        756.477,
+        254453.0
+      ],
+      "spec": [
+        40000.0,
+        180000.0
+      ],
+      "tier": "high_ig",
+      "variable": "revenue_musd"
+    },
+    {
+      "label": "revenue scale",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1717.526,
+        8652.9
+      ],
+      "real_range": [
+        504.158,
+        34102.0
+      ],
+      "spec": [
+        8000.0,
+        60000.0
+      ],
+      "tier": "low_ig",
+      "variable": "revenue_musd"
+    },
+    {
+      "label": "revenue scale",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1577.744,
+        6124.9
+      ],
+      "real_range": [
+        523.848,
+        25920.0
+      ],
+      "spec": [
+        2000.0,
+        20000.0
+      ],
+      "tier": "crossover",
+      "variable": "revenue_musd"
+    },
+    {
+      "label": "revenue scale",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1484.7865000000002,
+        2508.351
+      ],
+      "real_range": [
+        522.4,
+        14739.3
+      ],
+      "spec": [
+        500.0,
+        8000.0
+      ],
+      "tier": "high_yield",
+      "variable": "revenue_musd"
+    },
+    {
+      "label": "revenue scale",
+      "n_real": 9,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1330.121,
+        2107.623
+      ],
+      "real_range": [
+        725.006,
+        11245.0
+      ],
+      "spec": [
+        100.0,
+        3000.0
+      ],
+      "tier": "distressed",
+      "variable": "revenue_musd"
+    },
+    {
+      "label": "revenue growth",
+      "n_real": 14,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -3.1138413322209826,
+        7.306208822188042
+      ],
+      "real_range": [
+        -12.945968218797553,
+        14.527517117167626
+      ],
+      "spec": [
+        2.0,
+        9.0
+      ],
+      "tier": "high_ig",
+      "variable": "rev_growth_pct"
+    },
+    {
+      "label": "revenue growth",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -1.1519738914100794,
+        6.96701091961584
+      ],
+      "real_range": [
+        -15.905540751630983,
+        26.082555140074785
+      ],
+      "spec": [
+        1.0,
+        7.0
+      ],
+      "tier": "low_ig",
+      "variable": "rev_growth_pct"
+    },
+    {
+      "label": "revenue growth",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -4.286550563442119,
+        6.891037290106855
+      ],
+      "real_range": [
+        -18.188208829318587,
+        31.027857829010568
+      ],
+      "spec": [
+        -2.0,
+        6.0
+      ],
+      "tier": "crossover",
+      "variable": "rev_growth_pct"
+    },
+    {
+      "label": "revenue growth",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -10.727377268737866,
+        0.21295340088987516
+      ],
+      "real_range": [
+        -16.695817490494296,
+        15.476840106584973
+      ],
+      "spec": [
+        -5.0,
+        6.0
+      ],
+      "tier": "high_yield",
+      "variable": "rev_growth_pct"
+    },
+    {
+      "label": "revenue growth",
+      "n_real": 9,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -8.078817733990148,
+        4.953611316802702
+      ],
+      "real_range": [
+        -30.910158219193093,
+        23.45517242591218
+      ],
+      "spec": [
+        -18.0,
+        2.0
+      ],
+      "tier": "distressed",
+      "variable": "rev_growth_pct"
+    },
+    {
+      "label": "EBITDA margin",
+      "n_real": 14,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        5.411890628485381,
+        22.25399087063195
+      ],
+      "real_range": [
+        3.5473144791198856,
+        48.57586898476192
+      ],
+      "spec": [
+        22.0,
+        38.0
+      ],
+      "tier": "high_ig",
+      "variable": "ebitda_margin_pct"
+    },
+    {
+      "label": "EBITDA margin",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        11.955820525292543,
+        20.524726029107068
+      ],
+      "real_range": [
+        4.1695262199548555,
+        120.1277207898134
+      ],
+      "spec": [
+        15.0,
+        27.0
+      ],
+      "tier": "low_ig",
+      "variable": "ebitda_margin_pct"
+    },
+    {
+      "label": "EBITDA margin",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        8.948386275771464,
+        30.28886146970683
+      ],
+      "real_range": [
+        2.4464367117459354,
+        46.90972222222222
+      ],
+      "spec": [
+        11.0,
+        20.0
+      ],
+      "tier": "crossover",
+      "variable": "ebitda_margin_pct"
+    },
+    {
+      "label": "EBITDA margin",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        9.20090767212198,
+        23.107014350258837
+      ],
+      "real_range": [
+        7.197040877235646,
+        36.33970954551864
+      ],
+      "spec": [
+        7.0,
+        16.0
+      ],
+      "tier": "high_yield",
+      "variable": "ebitda_margin_pct"
+    },
+    {
+      "label": "EBITDA margin",
+      "n_real": 9,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        6.489409610103141,
+        32.26322810137839
+      ],
+      "real_range": [
+        0.7245577431912835,
+        60.10211524434719
+      ],
+      "spec": [
+        0.0,
+        9.0
+      ],
+      "tier": "distressed",
+      "variable": "ebitda_margin_pct"
+    },
+    {
+      "label": "net debt / EBITDA",
+      "n_real": 14,
+      "overlap_iqr": false,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -0.42540087615320665,
+        -0.012550675522958715
+      ],
+      "real_range": [
+        -1.7022690591474414,
+        0.825446781574497
+      ],
+      "spec": [
+        0.2,
+        1.3
+      ],
+      "tier": "high_ig",
+      "variable": "net_debt_to_ebitda"
+    },
+    {
+      "label": "net debt / EBITDA",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.8726207906295754,
+        2.003221662180642
+      ],
+      "real_range": [
+        -0.8695114409400123,
+        2.972544203270828
+      ],
+      "spec": [
+        1.3,
+        2.8
+      ],
+      "tier": "low_ig",
+      "variable": "net_debt_to_ebitda"
+    },
+    {
+      "label": "net debt / EBITDA",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1.37632703284684,
+        3.2735084704149275
+      ],
+      "real_range": [
+        -4.161490683229814,
+        4.352841102415788
+      ],
+      "spec": [
+        2.8,
+        4.2
+      ],
+      "tier": "crossover",
+      "variable": "net_debt_to_ebitda"
+    },
+    {
+      "label": "net debt / EBITDA",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        3.3378079678489385,
+        5.368296048447096
+      ],
+      "real_range": [
+        1.4517374517374517,
+        6.8294657064751725
+      ],
+      "spec": [
+        4.2,
+        6.5
+      ],
+      "tier": "high_yield",
+      "variable": "net_debt_to_ebitda"
+    },
+    {
+      "label": "net debt / EBITDA",
+      "n_real": 9,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        7.872137404580153,
+        8.56140737050639
+      ],
+      "real_range": [
+        3.108048511576626,
+        14.614849955869373
+      ],
+      "spec": [
+        6.5,
+        12.0
+      ],
+      "tier": "distressed",
+      "variable": "net_debt_to_ebitda"
+    },
+    {
+      "label": "EBITDA / interest",
+      "n_real": 14,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        24.159160468515296,
+        40.06231628422178
+      ],
+      "real_range": [
+        18.279080459770114,
+        226.93703214442976
+      ],
+      "spec": [
+        14.0,
+        40.0
+      ],
+      "tier": "high_ig",
+      "variable": "ebitda_to_interest"
+    },
+    {
+      "label": "EBITDA / interest",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        8.306289006240998,
+        12.034689002636885
+      ],
+      "real_range": [
+        6.231726283048212,
+        203.86
+      ],
+      "spec": [
+        6.0,
+        13.0
+      ],
+      "tier": "low_ig",
+      "variable": "ebitda_to_interest"
+    },
+    {
+      "label": "EBITDA / interest",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        3.9193056273221623,
+        4.807311006164606
+      ],
+      "real_range": [
+        3.673840976442815,
+        8.073705179282868
+      ],
+      "spec": [
+        3.0,
+        6.0
+      ],
+      "tier": "crossover",
+      "variable": "ebitda_to_interest"
+    },
+    {
+      "label": "EBITDA / interest",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        2.048662793718029,
+        3.583642326682285
+      ],
+      "real_range": [
+        1.9328358208955223,
+        5.278727272727273
+      ],
+      "spec": [
+        1.6,
+        3.2
+      ],
+      "tier": "high_yield",
+      "variable": "ebitda_to_interest"
+    },
+    {
+      "label": "EBITDA / interest",
+      "n_real": 9,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1.2261808367071525,
+        2.6639579684763572
+      ],
+      "real_range": [
+        0.34158658375730167,
+        2.6840390879478826
+      ],
+      "spec": [
+        0.4,
+        1.6
+      ],
+      "tier": "distressed",
+      "variable": "ebitda_to_interest"
+    },
+    {
+      "label": "FCF margin",
+      "n_real": 14,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        2.6831867608051114,
+        10.316035072443945
+      ],
+      "real_range": [
+        0.33242224793221287,
+        36.8450261351516
+      ],
+      "spec": [
+        9.0,
+        18.0
+      ],
+      "tier": "high_ig",
+      "variable": "fcf_margin_pct"
+    },
+    {
+      "label": "FCF margin",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        5.497731257079718,
+        14.382535759754361
+      ],
+      "real_range": [
+        -38.87612991242565,
+        36.33598559788906
+      ],
+      "spec": [
+        4.0,
+        10.0
+      ],
+      "tier": "low_ig",
+      "variable": "fcf_margin_pct"
+    },
+    {
+      "label": "FCF margin",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        4.71093714163392,
+        9.04481266019917
+      ],
+      "real_range": [
+        -14.723069105691057,
+        32.0041314403656
+      ],
+      "spec": [
+        0.0,
+        6.0
+      ],
+      "tier": "crossover",
+      "variable": "fcf_margin_pct"
+    },
+    {
+      "label": "FCF margin",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -1.1324206587777743,
+        5.936741449337079
+      ],
+      "real_range": [
+        -29.079265021888997,
+        13.95261124976904
+      ],
+      "spec": [
+        -4.0,
+        3.0
+      ],
+      "tier": "high_yield",
+      "variable": "fcf_margin_pct"
+    },
+    {
+      "label": "FCF margin",
+      "n_real": 9,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -1.9653179190751444,
+        6.850204241508589
+      ],
+      "real_range": [
+        -4.162088185858639,
+        35.37563822027717
+      ],
+      "spec": [
+        -14.0,
+        -1.0
+      ],
+      "tier": "distressed",
+      "variable": "fcf_margin_pct"
+    },
+    {
+      "label": "current ratio",
+      "n_real": 14,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1.200498730009663,
+        2.5515665209305727
+      ],
+      "real_range": [
+        0.9626849267620081,
+        6.175065950102433
+      ],
+      "spec": [
+        1.4,
+        2.4
+      ],
+      "tier": "high_ig",
+      "variable": "current_ratio"
+    },
+    {
+      "label": "current ratio",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1.3131564892291259,
+        2.357972885732731
+      ],
+      "real_range": [
+        0.38571428571428573,
+        3.6780340338388027
+      ],
+      "spec": [
+        1.1,
+        1.8
+      ],
+      "tier": "low_ig",
+      "variable": "current_ratio"
+    },
+    {
+      "label": "current ratio",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1.116689249707186,
+        2.1604763531651128
+      ],
+      "real_range": [
+        0.3873984522805973,
+        4.4202990773146675
+      ],
+      "spec": [
+        0.9,
+        1.4
+      ],
+      "tier": "crossover",
+      "variable": "current_ratio"
+    },
+    {
+      "label": "current ratio",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1.0422615641776725,
+        1.637477236755723
+      ],
+      "real_range": [
+        0.4961832061068702,
+        3.0774942878903273
+      ],
+      "spec": [
+        0.7,
+        1.2
+      ],
+      "tier": "high_yield",
+      "variable": "current_ratio"
+    },
+    {
+      "label": "current ratio",
+      "n_real": 9,
+      "overlap_iqr": false,
+      "overlap_minmax": true,
+      "real_iqr": [
+        1.3043024329037138,
+        1.7611287819815546
+      ],
+      "real_range": [
+        0.7689260563380281,
+        4.911477326779768
+      ],
+      "spec": [
+        0.4,
+        0.9
+      ],
+      "tier": "distressed",
+      "variable": "current_ratio"
+    },
+    {
+      "label": "retained earnings / assets",
+      "n_real": 14,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.22816187475750727,
+        0.4940699075236173
+      ],
+      "real_range": [
+        -0.15201063384180477,
+        0.7047797227776087
+      ],
+      "spec": [
+        0.35,
+        0.6
+      ],
+      "tier": "high_ig",
+      "variable": "retained_earn_to_assets"
+    },
+    {
+      "label": "retained earnings / assets",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.28747838151866506,
+        0.5566865799064495
+      ],
+      "real_range": [
+        -0.07438999384867746,
+        2.375119535359028
+      ],
+      "spec": [
+        0.18,
+        0.4
+      ],
+      "tier": "low_ig",
+      "variable": "retained_earn_to_assets"
+    },
+    {
+      "label": "retained earnings / assets",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.19122905585280944,
+        0.31105276352073463
+      ],
+      "real_range": [
+        -0.04905235281329671,
+        1.211155811677721
+      ],
+      "spec": [
+        0.05,
+        0.22
+      ],
+      "tier": "crossover",
+      "variable": "retained_earn_to_assets"
+    },
+    {
+      "label": "retained earnings / assets",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -0.11758451845443087,
+        0.12239952487253022
+      ],
+      "real_range": [
+        -0.5324870947620665,
+        0.23265110376115755
+      ],
+      "spec": [
+        -0.05,
+        0.1
+      ],
+      "tier": "high_yield",
+      "variable": "retained_earn_to_assets"
+    },
+    {
+      "label": "retained earnings / assets",
+      "n_real": 9,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        -0.33999108576794246,
+        0.017726289343289833
+      ],
+      "real_range": [
+        -1.4487402125986857,
+        0.07811416685925583
+      ],
+      "spec": [
+        -0.4,
+        -0.02
+      ],
+      "tier": "distressed",
+      "variable": "retained_earn_to_assets"
+    },
+    {
+      "label": "working capital / assets",
+      "n_real": 14,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.030135131401835852,
+        0.265010268755954
+      ],
+      "real_range": [
+        -0.010437958193660916,
+        0.4788937456277177
+      ],
+      "spec": [
+        0.15,
+        0.32
+      ],
+      "tier": "high_ig",
+      "variable": "wc_to_assets"
+    },
+    {
+      "label": "working capital / assets",
+      "n_real": 25,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.08248062695356086,
+        0.2195236791678073
+      ],
+      "real_range": [
+        -0.06814168484470759,
+        0.3109080004820835
+      ],
+      "spec": [
+        0.06,
+        0.2
+      ],
+      "tier": "low_ig",
+      "variable": "wc_to_assets"
+    },
+    {
+      "label": "working capital / assets",
+      "n_real": 17,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.026679338608641773,
+        0.2031770717618307
+      ],
+      "real_range": [
+        -0.08850275277276928,
+        0.4752641584508599
+      ],
+      "spec": [
+        -0.02,
+        0.12
+      ],
+      "tier": "crossover",
+      "variable": "wc_to_assets"
+    },
+    {
+      "label": "working capital / assets",
+      "n_real": 15,
+      "overlap_iqr": true,
+      "overlap_minmax": true,
+      "real_iqr": [
+        0.004823466918050306,
+        0.1100631327902502
+      ],
+      "real_range": [
+        -0.08896929707869952,
+        0.18662383520949574
+      ],
+      "spec": [
+        -0.08,
+        0.06
+      ],
+      "tier": "high_yield",
+      "variable": "wc_to_assets"
+    },
+    {
+      "label": "working capital / assets",
+      "n_real": 9,
+      "overlap_iqr": false,
+      "overlap_minmax": false,
+      "real_iqr": [
+        0.024356200711843114,
+        0.13084915858494692
+      ],
+      "real_range": [
+        -0.016109235961951518,
+        0.27377682522507524
+      ],
+      "spec": [
+        -0.25,
+        -0.02
+      ],
+      "tier": "distressed",
+      "variable": "wc_to_assets"
+    }
+  ],
+  "definition_iqr": "generator draw interval intersects the real tier interquartile range",
+  "definition_minmax": "generator draw interval intersects the real tier full range",
+  "exceptions_iqr": [
+    "revenue scale (high IG)",
+    "net debt / EBITDA (high IG)",
+    "current ratio (distressed)",
+    "working capital / assets (distressed)"
+  ],
+  "exceptions_minmax": [
+    "working capital / assets (distressed)"
+  ],
+  "independence_caveat": "each synthetic line is drawn independently within its tier interval, so the comparison concerns marginal distributions only, not the joint covariance structure of real filings",
+  "n_comparisons": 45,
+  "n_real_firms": 80,
+  "n_tiers": 5,
+  "n_variables": 9,
+  "overlap_iqr": 41,
+  "overlap_minmax": 44
+}

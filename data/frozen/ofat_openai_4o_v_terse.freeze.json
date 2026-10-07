@@ -1,0 +1,11 @@
+{
+  "subgrid": "ofat",
+  "model": "openai_4o",
+  "variant": "v_terse",
+  "csv": "runs_ofat_openai_4o_v_terse.csv",
+  "sha256": "7b465192dd6f3e3a5ad3248d12d94a8d79d0a4aee8cb6490f6364f439ac9c7b9",
+  "n_rows": 3360,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-09-29T22:32:51.658816+00:00"
+}

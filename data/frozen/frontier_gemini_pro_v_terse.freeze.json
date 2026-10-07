@@ -1,0 +1,11 @@
+{
+  "subgrid": "frontier",
+  "model": "gemini_pro",
+  "variant": "v_terse",
+  "csv": "runs_frontier_gemini_pro_v_terse.csv",
+  "sha256": "7ffa14452be6a005d54bb4d03e3f9c74c8248d3abc75e15fe1f610bff3c3be3f",
+  "n_rows": 1600,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-09-29T21:02:19.500253+00:00"
+}

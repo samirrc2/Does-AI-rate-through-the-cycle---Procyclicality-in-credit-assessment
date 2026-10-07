@@ -1,0 +1,11 @@
+{
+  "subgrid": "frontier",
+  "model": "openai_astra",
+  "variant": "v_stable",
+  "csv": "runs_frontier_openai_astra_v_stable.csv",
+  "sha256": "1a62303919b43e57d722ced6453dcf52883cd51b4ebc1ab05e95daed24ea9683",
+  "n_rows": 1600,
+  "n_error": 0,
+  "error_rate": 0.0,
+  "frozen_utc": "2026-09-29T20:28:29.590785+00:00"
+}

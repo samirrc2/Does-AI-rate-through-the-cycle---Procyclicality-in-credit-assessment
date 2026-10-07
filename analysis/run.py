@@ -235,7 +235,11 @@ def analyse(subgrid: str, draws: int, seed: int, allow_unfrozen: bool) -> dict:
         "scale": "log-odds(PD) per severity step",
         "pooled_pd_slope_terse": pd_terse,
         "pooled_pd_slope_ttc": pd_ttc,
-        "pooled_pd_retention_ttc_vs_terse": (pd_ttc / pd_terse) if (pd_terse not in (None, 0)) else None,
+        # Guard BOTH sides. The old form guarded only pd_terse, so a run without a
+        # v_ttc arm (a partial collection, or any subgrid that omits it) raised
+        # TypeError: NoneType / float instead of reporting None.
+        "pooled_pd_retention_ttc_vs_terse": (pd_ttc / pd_terse)
+            if (pd_terse not in (None, 0) and pd_ttc is not None) else None,
         "pd_retention_ci95": [ret_ci["ci_low"], ret_ci["ci_high"]],
         "directional_pd_slope": {
             "terse_down": _pooled_pd_half("v_terse", "down", tfirms),
@@ -257,7 +261,13 @@ def analyse(subgrid: str, draws: int, seed: int, allow_unfrozen: bool) -> dict:
 
     # ── pilot gate ───────────────────────────────────────────────────────────
     err = RA.error_rate(rt)
-    cap = float(getattr(cfg.grid.budgets, subgrid, cfg.grid.budgets.pilot))
+    # Prefer the cap the LEDGER actually enforced. Re-deriving it from
+    # budgets.<subgrid> silently fell back to the $10 pilot cap for any subgrid
+    # without its own budget entry, reporting a spurious ran_clean=False for a run
+    # that never breached its real ceiling.
+    _cap_cfg = getattr(cfg.grid.budgets, subgrid, None)
+    cap = float(ledger["cap"]) if ledger.get("cap") else float(
+        _cap_cfg if _cap_cfg is not None else cfg.grid.budgets.pilot)
     ran_clean = (err <= 0.02) and (ledger["cum_usd"] <= cap)
     ratings_ok = (disp["parse_rate"] is not None and disp["parse_rate"] >= PARSE_MIN
                   and disp["mean_notch"] is not None

@@ -1,0 +1,11 @@
+{
+  "subgrid": "seeds",
+  "model": "gemini_flash",
+  "variant": "v_terse",
+  "csv": "runs_seeds_gemini_flash_v_terse.csv",
+  "sha256": "621fe07466eb944bc1d6aaa0488d3ee4775d7c4eec1e786af6a34a22457363b6",
+  "n_rows": 2400,
+  "n_error": 2,
+  "error_rate": 0.0008,
+  "frozen_utc": "2026-09-29T23:32:18.961984+00:00"
+}

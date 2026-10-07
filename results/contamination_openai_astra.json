@@ -1,0 +1,574 @@
+{
+  "model": "openai_astra",
+  "temperature": 1.0,
+  "real": [
+    {
+      "company": "McDonald's Corporation",
+      "confidence": 0.99,
+      "basis": "Revenue of $25.92 billion and 1.7% growth match McDonald's 2024 results; high margins reflect its franchise model.",
+      "claimed_identification": true,
+      "firm_id": "R-crossover-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "These financial metrics are insufficient to uniquely identify a company without a reporting period, geography, or other ",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-ENE-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "These financial metrics lack a reporting period and unique identifiers needed to reliably identify a specific company.",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics lack sufficient distinctive information to reliably identify a specific company.",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics alone do not uniquely identify a company without a reporting year or additional context.",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-002"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional distinguishing informa",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.97,
+      "basis": "These financial metrics lack a reporting period or distinctive identifiers needed to reliably identify a specific compan",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-004"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.97,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional distinguishing informa",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-005"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional company-specific infor",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-006"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial figures lack a reporting year and sufficiently distinctive details to identify a specific company reliably",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-IND-007"
+    },
+    {
+      "company": "PTC Inc.",
+      "confidence": 0.95,
+      "basis": "Fiscal 2024 revenue of $2.298 billion, 9.6% growth, and $736 million free cash flow match PTC.",
+      "claimed_identification": true,
+      "firm_id": "R-crossover-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics lack a reporting period or distinctive details sufficient to identify a specific company reliably.",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics alone do not reliably identify a specific company without a reporting year or additional context",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-002"
+    },
+    {
+      "company": "SS&C Technologies Holdings, Inc.",
+      "confidence": 0.97,
+      "basis": "Revenue of approximately $5.882 billion and 6.9% growth match SS&C\u2019s 2024 results; leverage metrics also align.",
+      "claimed_identification": true,
+      "firm_id": "R-crossover-TEC-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting period or additional distinguishing infor",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-TEC-004"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "These financial metrics lack a reporting period, location, or distinctive identifiers needed to identify a specific util",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Financial metrics alone, without reporting period or geographic context, do not uniquely identify the company.",
+      "claimed_identification": false,
+      "firm_id": "R-crossover-UTL-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.97,
+      "basis": "These financial metrics do not uniquely identify a company; reporting period and accounting definitions are unspecified.",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting period or additional distinguishing infor",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.95,
+      "basis": "These financial metrics lack a reporting year and uniquely identifying details needed to reliably identify the company.",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics lack a reporting date and distinguishing details needed to reliably identify a specific company.",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-HLT-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.96,
+      "basis": "These financial metrics do not uniquely identify a company; reporting period and additional distinguishing details are m",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "Financial metrics and broad sector alone do not uniquely identify a company; reporting period and other identifiers are ",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.97,
+      "basis": "These financial metrics alone do not uniquely identify a company; reporting period and additional identifying context ar",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "These financial metrics lack identifying details and do not uniquely distinguish a specific regulated utility operator.",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "These financial metrics lack a reporting period, geography, or distinctive identifiers needed to identify a specific com",
+      "claimed_identification": false,
+      "firm_id": "R-distressed-UTL-001"
+    },
+    {
+      "company": "Best Buy Co., Inc.",
+      "confidence": 0.99,
+      "basis": "Fiscal 2025 revenue of $41.528 billion and 4.4% decline match Best Buy's reported results.",
+      "claimed_identification": true,
+      "firm_id": "R-high_ig-CDI-000"
+    },
+    {
+      "company": "Costco Wholesale Corporation",
+      "confidence": 0.99,
+      "basis": "Revenue of $254.453 billion and 5.0% growth match Costco\u2019s fiscal 2024 results.",
+      "claimed_identification": true,
+      "firm_id": "R-high_ig-CDI-001"
+    },
+    {
+      "company": "Tractor Supply Company",
+      "confidence": 0.99,
+      "basis": "Fiscal 2024 revenue of $14.883 billion and 2.2% growth match Tractor Supply; profitability and leverage also align.",
+      "claimed_identification": true,
+      "firm_id": "R-high_ig-CDI-002"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics alone do not uniquely identify a company; reporting period and geographic context are missing.",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CDI-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "These financial metrics lack a reporting period, geography, or distinctive identifiers needed to identify a specific com",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "These financial metrics lack a reporting period, geography, or distinctive identifiers needed to reliably identify a spe",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "Financial metrics alone, without reporting period, geography, or identifying disclosures, do not uniquely identify a com",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-ENE-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics lack a reporting year and distinctive identifiers needed to reliably identify a specific company",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics alone do not uniquely identify a company without a reporting year or additional distinguishing d",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.97,
+      "basis": "Financial metrics alone lack distinctive identifiers and could match multiple industrial manufacturers across different ",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-001"
+    },
+    {
+      "company": "Watts Water Technologies, Inc.",
+      "confidence": 0.94,
+      "basis": "Revenue of $2.252 billion and 9.5% growth match Watts\u2019 2024 results; profitability and net cash also align.",
+      "claimed_identification": true,
+      "firm_id": "R-high_ig-IND-002"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics lack a reporting period or distinctive identifiers needed to reliably identify a specific compan",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-003"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics alone do not uniquely identify a company without a reporting period or additional context.",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-IND-004"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics lack a reporting period and distinctive identifiers needed to reliably identify a specific company",
+      "claimed_identification": false,
+      "firm_id": "R-high_ig-TEC-000"
+    }
+  ],
+  "synthetic": [
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics do not uniquely identify a company without a reporting period, geography, or additional context.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics alone do not uniquely identify a company; reporting period and currency conversion details are mis",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.95,
+      "basis": "Financial metrics alone, without a reporting year or other identifying details, do not uniquely identify a company.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting period or additional context.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.97,
+      "basis": "These financial metrics lack a reporting year and uniquely identifying details needed to reliably identify a specific co",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-ENR-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics alone do not uniquely identify a company; reporting year and additional context are missing.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-ENR-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics do not uniquely identify a company without a reporting year or additional context.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics do not uniquely identify a company without a reporting year or additional distinguishing informati",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-HLT-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics lack a reporting year and distinctive details needed to reliably identify a specific company.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional business details.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-IND-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics lack a reporting year and uniquely identifying details; no company can be reliably identified.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-RES-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.95,
+      "basis": "These financial metrics do not uniquely identify a company; reporting year and accounting context are missing.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-RES-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional distinguishing informa",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting period or additional context.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics lack a reporting year and uniquely identifying details needed to distinguish among regulated uti",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "Financial metrics alone, without reporting period or geographic context, do not uniquely identify a specific utility.",
+      "claimed_identification": false,
+      "firm_id": "F-crossover-UTL-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.95,
+      "basis": "Financial metrics alone do not uniquely identify a company; reporting period and additional identifying details are miss",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional distinguishing informa",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "These financial metrics lack a reporting period or unique identifiers sufficient to reliably identify a specific company",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics alone do not uniquely identify a company; reporting period and additional identifying details ar",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "Financial metrics alone lack sufficient identifying information to reliably distinguish a specific company.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-ENR-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics lack a reporting year or distinctive identifiers needed to reliably identify a specific company.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-ENR-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional distinguishing informa",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics alone do not uniquely identify a company without a reporting period or additional context.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-HLT-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "Insufficient identifying information; zero EBITDA, interest, and debt conflict with reported ratios.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-IND-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "Financial metrics alone do not uniquely identify a company; reporting period and distinguishing business details are mis",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-IND-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "These financial metrics lack a reporting period, geography, and distinctive identifiers needed to reliably identify a sp",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-RES-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.99,
+      "basis": "These financial metrics lack identifying details and do not uniquely establish a specific company.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-RES-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "These financial metrics lack a reporting period or unique identifiers needed to reliably identify a specific company.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-TEC-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics alone do not uniquely identify a company; reporting period and additional context are missing.",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-TEC-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics lack a reporting period and distinctive details sufficient to identify a specific utility reliab",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-UTL-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.98,
+      "basis": "The financial metrics lack a reporting period, jurisdiction, or other distinguishing details needed to identify a specif",
+      "claimed_identification": false,
+      "firm_id": "F-distressed-UTL-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.95,
+      "basis": "The financial metrics do not uniquely identify a company or clearly match a known discretionary retailer or consumer bra",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CDI-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The figures do not confidently match a specific company; reporting period and currency conventions are unspecified.",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CDI-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics do not uniquely identify a company without a reporting year, currency methodology, or additional c",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CST-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.9,
+      "basis": "These aggregate financial metrics do not uniquely identify a company, and no reporting year or source is provided.",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-CST-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "These financial metrics do not uniquely identify a company without a reporting year or additional context.",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-ENR-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "The financial metrics alone do not uniquely identify a company without a reporting year or additional context.",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-ENR-001"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "No reliable company match; reporting year, currency conversion, and accounting definitions are unspecified.",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-HLT-000"
+    },
+    {
+      "company": "UNKNOWN",
+      "confidence": 0.0,
+      "basis": "No sufficiently reliable match to these financial figures; reporting year and currency conversion basis are unspecified.",
+      "claimed_identification": false,
+      "firm_id": "F-high_ig-HLT-001"
+    }
+  ],
+  "real_identification_rate": 0.175,
+  "real_calls_landed": 40,
+  "synthetic_identification_rate": 0.0,
+  "synthetic_calls_landed": 40,
+  "excess_over_negative_control": 0.175,
+  "sweep_utc": "2026-09-30T01:55:28.001597+00:00"
+}

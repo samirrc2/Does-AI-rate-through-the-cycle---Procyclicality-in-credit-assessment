@@ -80,6 +80,44 @@ _PLACEBO_BLOCKS = {
     "placebo_storm":  _placebo("-1.1°C", "-3.6%", "620 mm", "140", "severe"),
 }
 
+# ── OFAT axis (referee 1 comment 3) ─────────────────────────────────────────
+# The five joint states move all five indicators together and monotonically, so the
+# main design cannot say WHICH macro signal drives the rating change. These blocks vary
+# ONE factor across the same severity range while holding the other four at their
+# NEUTRAL values, so each factor's slope is measured on the identical -2..+2 scale and
+# is directly comparable to the joint slope. Values are taken verbatim from the joint
+# states, so an OFAT cell at severity s differs from the joint cell at s only by which
+# factors moved -- no new numbers are introduced.
+_FACTOR_LEVELS = {
+    "gdp":       {-2: "+4.5%", -1: "+2.6%", 0: "+1.8%", 1: "-0.8%", 2: "-3.6%"},
+    "unemp":     {-2: "3.4%",  -1: "4.2%",  0: "5.0%",  1: "6.4%",  2: "8.9%"},
+    "spread":    {-2: "95 bps", -1: "135 bps", 0: "175 bps", 1: "320 bps", 2: "620 bps"},
+    "deflt":     {-2: "0.6%",  -1: "1.4%",  0: "2.3%",  1: "4.1%",  2: "7.5%"},
+    "standards": {-2: "easing broadly", -1: "modestly easing", 0: "unchanged",
+                  1: "tightening", 2: "sharply tightening"},
+}
+_FACTOR_ORDER = ["gdp", "unemp", "spread", "deflt", "standards"]
+_SEV_TAG = {-2: "n2", -1: "n1", 1: "p1", 2: "p2"}
+
+
+def _ofat_blocks() -> dict:
+    """21 states: 5 factors x 4 off-neutral levels, plus ONE shared all-neutral cell.
+    Severity 0 is all-neutral for every factor, so it is emitted once as
+    `ofat_neutral` rather than five identical copies."""
+    out = {}
+    neutral = {f: _FACTOR_LEVELS[f][0] for f in _FACTOR_ORDER}
+    out["ofat_neutral"] = _macro(*[neutral[f] for f in _FACTOR_ORDER])
+    for f in _FACTOR_ORDER:
+        for sev, tag in _SEV_TAG.items():
+            vals = dict(neutral)
+            vals[f] = _FACTOR_LEVELS[f][sev]
+            out[f"ofat_{f}_{tag}"] = _macro(*[vals[g] for g in _FACTOR_ORDER])
+    return out
+
+
+_OFAT_BLOCKS = _ofat_blocks()
+_MACRO_BLOCKS.update(_OFAT_BLOCKS)          # additive: joint states are untouched
+
 _MACRO_SEV = {"boom": -2, "expansion": -1, "neutral": 0, "slowdown": 1,
               "severe_recession": 2}
 _PLACEBO_SEV = {"placebo_calm": -2, "placebo_mild": -1, "placebo_normal": 0,
@@ -370,8 +408,31 @@ def _client(provider: str, base_url: str | None, api_key: str, key_id: int):
         return c
 
 
+def _is_hard_billing_stop(msg: str) -> bool:
+    """A depleted account is NOT transient: retrying and benching keys cannot fix it.
+
+    Google returns status RESOURCE_EXHAUSTED for BOTH a 429 rate limit and a 402
+    "prepayment credits are depleted". Classifying the 402 as a rate limit benched all
+    three keys into cooldown and stalled a run for minutes behind spurious
+    "all keys rate-limited" errors instead of failing fast and legibly.
+    """
+    m = msg.lower()
+    # Providers phrase exhaustion differently AND use different status codes for it:
+    # Google returns 402 RESOURCE_EXHAUSTED "prepayment credits are depleted", while
+    # OpenAI returns 429 RateLimitError "You have no credits remaining. Add credits to
+    # continue" -- a 429, so it is indistinguishable from throttling by status code alone
+    # and the earlier pattern list missed it entirely.
+    return any(k in m for k in ("credits are depleted", "prepayment credit",
+                                "no credits remaining", "add credits",
+                                "credit balance", "billing", "402", "payment required",
+                                "insufficient_funds", "insufficient balance",
+                                "exceeded your current quota", "billing_not_active"))
+
+
 def _is_ratelimit(msg: str) -> bool:
     m = msg.lower()
+    if _is_hard_billing_stop(m):
+        return False          # hard stop: let it surface as an error, do not bench keys
     return any(k in m for k in ("429", "rate limit", "rate_limit", "quota",
                                 "resource_exhausted", "insufficient_quota"))
 
@@ -510,8 +571,16 @@ def _call_gemini(mcfg, system, user, temperature, seed):
                     continue
                 raise
             um = resp.usage_metadata
+            # Thought tokens are BILLED AS OUTPUT by Google but live in their own field.
+            # Counting only candidates_token_count under-prices every call from a model
+            # that thinks, which under-runs the ledger cap and writes a wrong cost_usd
+            # into the artifact. Harmless for the Flash arms (thinking_budget=0 -> 0
+            # thought tokens) but ~4x understated for gemini-pro, which CANNOT disable
+            # thinking ("Budget 0 is invalid. This model only works in thinking mode").
+            out_tok = ((um.candidates_token_count or 0)
+                       + (getattr(um, "thoughts_token_count", 0) or 0))
             return ((resp.text or ""), um.prompt_token_count,
-                    (um.candidates_token_count or 0), str(key_id), "", None, "")
+                    out_tok, str(key_id), "", None, "")
     raise last or RuntimeError("all gemini attempts failed")
 
 

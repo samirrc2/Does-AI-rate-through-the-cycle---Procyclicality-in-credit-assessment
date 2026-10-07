@@ -15,3 +15,15 @@ scipy>=1.10
 #   OpenAI SDK also drives xAI/Grok (OpenAI-compatible endpoint). httpx ships with it.
 openai>=1.40
 google-genai>=1.0
+
+# Figures. analysis/make_figures.py generates BOTH paper figures and imports matplotlib, which
+# was never declared here: the project venv did not have it, so `make_figures.py` failed with
+# ModuleNotFoundError and paper/figures/ could only be rebuilt by whichever system interpreter
+# happened to carry it. Anyone installing from this file could not regenerate the figures.
+matplotlib>=3.7
+
+# PDF text extraction. paper/tools/make_anonymous.py --audit reads the rendered PDF to prove no
+# author identifier survives into the double-blind copy, and build.sh fails the build if it
+# cannot run. paper/tools/check_refs.py reads the PDFs for unresolved "??" references. Neither
+# was declared, so a fresh install from this file could not complete a build.
+pymupdf>=1.24

@@ -15,8 +15,15 @@ DISP = {
     "openai_41_mini": "GPT-4.1-mini",
     "openai_4o": "GPT-4o",
     "openai_4o_mini": "GPT-4o-mini",
+        "gemini_pro": "Gemini Pro",
+        "openai_astra": "GPT-6 Astra",
 }
-ORDER = ["gemini_flash", "gemini_flash_lite", "openai_41_mini", "openai_4o", "openai_4o_mini"]
+# Seven models after the revision, ordered by ASCENDING terse coefficient so the table
+# reads as the capability/magnitude gradient the text describes. A model absent from the
+# supplied claims file is skipped, so this same ORDER works against the original
+# five-model claims.json and the seven-model claims_revision.json.
+ORDER = ["gemini_pro", "openai_astra", "gemini_flash", "gemini_flash_lite",
+         "openai_4o", "openai_41_mini", "openai_4o_mini"]
 
 
 def f(x, nd=3):
@@ -46,11 +53,14 @@ def table1_rows(c):
             "beta_terse": f(t.get("cyclicality_notch_per_step")),
             "CI95": ci(t.get("cyclicality_ci95")),
             "swing": f(t.get("endpoint_swing_notches"), 2),
-            "downside": f(t.get("downside_slope"), 2),
-            "upside": f(t.get("upside_slope"), 2),
+            # Down/Up removed: Fig. 2 plots both half-slopes WITH intervals, so columns here
+            # duplicated it. D:U is kept because the text refers to the direction.
             "asym_ratio": f(t.get("asymmetry_ratio"), 1),
             "residual_ttc": f(ttc.get("cyclicality_notch_per_step")),
             "pd_ret_ttc": f(ttc.get("pd_retention_vs_terse"), 2),
+            # folded in from the revision table: same estimand as beta, so it belongs here
+            "real_beta": f(t.get("real_beta")),
+            "beta_drift": (lambda v: "" if v is None else f"{v:+.3f}")(t.get("beta_drift_epoch")),
         })
     return rows
 
@@ -69,13 +79,18 @@ def table2_rows(c):
             "Framing": disp[v],
             "pooled_beta": f(d.get("pooled_cyclicality_notch_per_step")),
             "CI95": ci(d.get("pooled_cyclicality_ci95")),
-            "excl_0": str(d.get("ci_excludes_0")),
+            "excl_0": "Yes" if d.get("ci_excludes_0") else "No",
         })
     return rows
 
 
 def table3_rows(c):
-    """Robustness: placebo net, expected-notch (OpenAI), noise floor (v_terse)."""
+    """Robustness: placebo net, expected-notch under BOTH framings, noise floor, probit.
+
+    The expected-notch column is reported for terse AND through-the-cycle because the
+    claim it supports is the CHANGE between them -- a PD-free version of the anchoring
+    result (referee 1 comment 5). A terse-only column cannot evidence that claim.
+    """
     rows = []
     for m in ORDER:
         t = _pmv(c, m, "v_terse")
@@ -85,7 +100,8 @@ def table3_rows(c):
             "Model": DISP.get(m, m),
             "beta_terse": f(t.get("cyclicality_notch_per_step")),
             "net_placebo": f(t.get("net_cyclicality_notch_per_step")),
-            "expected_notch": f(t.get("expected_notch_cyclicality_per_step")),
+            "expnotch_terse": f(t.get("expected_notch_cyclicality_per_step")),
+            "expnotch_ttc": f(_pmv(c, m, "v_ttc").get("expected_notch_cyclicality_per_step")),
             "noise_floor_sd": f(t.get("noise_floor_notch_sd"), 3),
             "probit": f((t.get("ordered_probit") or {}).get("notch_per_step")),
         })
@@ -128,30 +144,47 @@ def main() -> int:
               "Per-model rating procyclicality on byte-identical fundamentals. "
               "$\\beta$ = notches of downgrade per +1 macro-severity step (terse framing); "
               "firm-clustered bootstrap 95\\% CIs. Swing = boom$\\to$severe-recession notches. "
-              "Asymmetry = downside (into recession) vs upside (into boom) half-slopes. "
-              "Residual = $\\beta$ after the through-the-cycle instruction; PD-ret. = PD-slope "
-              "retention under that instruction.",
+              "\\textbf{Swing} = boom$\\to$severe-recession notches. "
+              "\\textbf{D:U} = the ratio of the downside half-slope to the upside half-slope. "
+              "\\textbf{Resid.} = $\\beta$ under the through-the-cycle instruction; "
+              "\\textbf{PD-ret.} = the fraction of the log-odds PD slope retained under that "
+              "instruction. \\textbf{$\\beta$ real} = the same coefficient on the real-fundamentals battery, \\textbf{$\\Delta\\beta$} its change when the model is re-measured 2.5 months later (blank where the model was not in that arm). Half-slopes and D:U intervals appear in Fig.~2; the D:U "
+              "interval is bootstrapped as a ratio and, because its denominator is small, the "
+              "intervals are wide -- every interval excludes~1, so downside exceeds upside in "
+              "every model, but the ratios order no two models significantly.",
               "tab:permodel",
               {"beta_terse": r"$\beta$", "CI95": "95\\% CI", "swing": "Swing",
-               "downside": "Down", "upside": "Up", "asym_ratio": "D:U",
-               "residual_ttc": "Resid.", "pd_ret_ttc": "PD-ret."})
+               "asym_ratio": "D:U", "residual_ttc": "Resid.", "pd_ret_ttc": "PD-ret.",
+               "real_beta": r"$\beta$ real", "beta_drift": r"$\Delta\beta$"})
 
     t2 = table2_rows(c)
     write_csv(t2, out / "table2_instruction_gradient.csv")
     write_tex(t2, out / "table2_instruction_gradient.tex",
-              "Pooled procyclicality by prompt framing (across five models), notches per "
-              "severity step with firm-clustered bootstrap 95\\% CIs.",
+              "Pooled procyclicality by prompt framing, notches per severity step with "
+              "firm-clustered bootstrap 95\\% CIs. Pooled across the five non-frontier "
+              "models, whose four framings form the original confirmatory grid; the two "
+              "frontier models' framing gradients are reported in the replication "
+              "archive because their arms were added in revision.",
               "tab:gradient",
               {"pooled_beta": r"Pooled $\beta$", "CI95": "95\\% CI", "excl_0": "Excl.\\ 0"})
 
     t3 = table3_rows(c)
     write_csv(t3, out / "table3_robustness.csv")
     write_tex(t3, out / "table3_robustness.tex",
-              "Robustness of the terse-framing coefficient: placebo-adjusted (net), "
-              "log-probability expected-notch (OpenAI only), within-cell seed noise floor, "
-              "and the Amato--Furfine ordered-probit estimate.",
+              # Definitions and missing-value explanations only. The table is no longer narrated
+              # in prose afterwards, so its caption must carry what a reader needs.
+              "Robustness of the terse-framing coefficient. Net $=$ placebo-adjusted "
+              "coefficient. Exp-n. $=$ expected-notch slope from rating-token "
+              "log-probabilities. Noise SD $=$ mean within-cell notch standard "
+              "deviation across replicate seeds. Probit $=$ Amato--Furfine "
+              "ordered-probit estimate, converted from the latent scale to notches per "
+              "step. Expected-notch estimates are unavailable for "
+              "Gemini and for GPT-6 Astra because neither returns rating-token "
+              "log-probabilities. Gemini Flash-Lite's $0.000$ "
+              "Noise SD is exact.",
               "tab:robust",
-              {"beta_terse": r"$\beta$", "net_placebo": "Net", "expected_notch": "Exp-notch",
+              {"beta_terse": r"$\beta$", "net_placebo": "Net",
+               "expnotch_terse": "Exp-n. terse", "expnotch_ttc": "Exp-n. TTC",
                "noise_floor_sd": "Noise SD", "probit": "Probit"})
 
     print(f"[tables] wrote table1/2/3 (csv+tex) -> {out}")

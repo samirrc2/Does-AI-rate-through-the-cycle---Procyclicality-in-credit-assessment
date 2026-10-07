@@ -15,10 +15,15 @@ from __future__ import annotations
 import math
 
 # ── stylised notch -> 1-year PD, monotone, calibrated to published agency average
-# one-year corporate default rates (AAA ~0.0%, BBB ~0.2%, BB ~0.8%, B ~4%, CCC ~27%;
-# e.g. S&P Global average cumulative default rates). Values interpolate smoothly
-# across the 21-notch S&P scale. The reported result is the CHANGE in capital and is
-# robust to the exact mapping (see the raw-PD robustness variant).
+# one-year corporate default rates. The anchors below are the values ACTUALLY in the
+# table and match the manuscript's Appendix A text:
+#   AAA (21) 0.01%   BBB (13) 0.25%   BB (10) 1.10%   B (7) 5.00%   CCC (4) 20.00%
+# (An earlier version of this comment quoted 0.0/0.2/0.8/4/27% -- wrong on four of the
+# five anchors. The table and the manuscript were correct; only this comment drifted.
+# It is the kind of error a replicator would read as a miscalibrated map.)
+# Values interpolate smoothly across the 21-notch S&P scale. The reported result is the
+# CHANGE in capital and is robust to the exact mapping (see the raw-PD robustness
+# variant, and the LGD/M/alternative-map sensitivity grid in reviewer_revision.py).
 NOTCH_PD = {
     21: 0.00010, 20: 0.00015, 19: 0.00025, 18: 0.00035, 17: 0.00050, 16: 0.00070,
     15: 0.00100, 14: 0.00150, 13: 0.00250, 12: 0.00400, 11: 0.00700, 10: 0.01100,

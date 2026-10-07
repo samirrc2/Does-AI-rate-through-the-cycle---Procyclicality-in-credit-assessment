@@ -20,6 +20,35 @@ budgets:
                            # Grok). Real projection ~$28-37; probe --subgrid full
                            # measures the true Grok/gpt-4o price and preflight refuses
                            # if over. (PREREGISTRATION_AMENDMENTS.md #1.)
+  seeds: 230.00            # BUDGET_SEEDS — AMENDMENT #7. Expected actual ~$49 (astra $17,
+                           # pro $26, five cheap arms ~$6). Raised 120 -> 230 because the
+                           # per-track split refused gemini_pro at preflight: that model's
+                           # max_tokens is 4096 against price_out 12, so ONE 2,400-call
+                           # capture has a worst case of $119.76, which a $30 Gemini track
+                           # cap cannot clear. Track ceilings now sum to the declared
+                           # budget: $90 OpenAI + $140 Gemini. This raises a projection
+                           # ceiling, not expected spend -- the Gemini seeds track has
+                           # actually spent under $1 for its first model.
+  real: 150.00             # BUDGET_REAL — AMENDMENT #7. Expected ~$29 (astra
+                           # dominates). Worst case per astra capture $98, so $150 clears.
+  ofat: 160.00             # BUDGET_OFAT — AMENDMENT #6. Expected actual ~$30
+                           # SPLIT ACROSS PROVIDER TRACKS (run_all.sh PARALLEL pattern):
+                           # the OpenAI track holds the $150 global ledger, the Gemini
+                           # track runs on ledger_ofat_REAL_gemini.json with --spend-cap 10
+                           # (worst case $2.45). Declared budget is the SUM of the track
+                           # ceilings, so the hard-cap guarantee still holds: 150 + 10.
+                           # Raised 150 -> 160 for exactly that reason, not for more spend.
+                           # (astra dominates at $0.0072/call x 3,360). Worst-case
+                           # per astra capture is $103, so $150 clears preflight.
+  frontier: 250.00         # BUDGET_FRONTIER — AMENDMENT #5 confirmatory frontier grids.
+                           # Expected actual ~$124 (MEASURED per-call on the real prompt:
+                           # astra $0.00663, gemini-pro $0.0127 incl. thought tokens).
+                           # Raised 150 -> 250 because preflight tests cumulative spend
+                           # + THIS capture's worst case ($79.7 for a 1,600-call Pro
+                           # capture at max_tokens 4096); $150 would have refused the
+                           # final Pro capture mid-run. Still a real guard at ~2x expected.
+  probe_astra: 55.00       # BUDGET_PROBE_ASTRA — AMENDMENT #4 go/no-go arm. Worst-case
+                           # projection 1,600 x $0.0306 = $48.96; actual spend $11.72.
 stop_margin_usd: 0.05      # stop this far below the cap (headroom for in-flight)
 
 # ── Concurrency / rate / retries ───────────────────────────────────────────
@@ -65,6 +94,36 @@ placebo_states:
   placebo_rough: 1
   placebo_storm: 2
 
+# ── OFAT axis (AMENDMENT #6, referee 1 comment 3) ───────────────────────────
+# One factor moves across -2..+2 while the other four stay NEUTRAL, so each factor's
+# slope is on the identical scale as the joint slope and directly comparable to it.
+# This is a SEPARATE axis from macro_states because severities are deliberately
+# REUSED across the five factors -- macro_states requires distinct severities (that
+# check protects the joint axis's identification and must not be relaxed).
+# ofat_neutral is the shared severity-0 cell and is byte-identical to `neutral`.
+ofat_states:
+  ofat_neutral: 0
+  ofat_gdp_n2: -2
+  ofat_gdp_n1: -1
+  ofat_gdp_p1: 1
+  ofat_gdp_p2: 2
+  ofat_unemp_n2: -2
+  ofat_unemp_n1: -1
+  ofat_unemp_p1: 1
+  ofat_unemp_p2: 2
+  ofat_spread_n2: -2
+  ofat_spread_n1: -1
+  ofat_spread_p1: 1
+  ofat_spread_p2: 2
+  ofat_deflt_n2: -2
+  ofat_deflt_n1: -1
+  ofat_deflt_p1: 1
+  ofat_deflt_p2: 2
+  ofat_standards_n2: -2
+  ofat_standards_n1: -1
+  ofat_standards_p1: 1
+  ofat_standards_p2: 2
+
 # ── Subgrids ───────────────────────────────────────────────────────────────
 subgrids:
   pilot:
@@ -102,6 +161,94 @@ subgrids:
     macro_states: [boom, expansion, neutral, slowdown, severe_recession]
     placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
     firms: full           # 80-firm battery (tighter per-firm slope CIs)
+
+  probe_astra:
+    # GO/NO-GO PROBE for the frontier arm (AMENDMENT #3). One model x the two
+    # decision-relevant framings x 1 seed x (5 macro + 5 placebo) x the 40-firm
+    # pilot battery = 800 calls. Purpose: establish whether beta at the frontier
+    # is near zero or near the incumbent range BEFORE committing to the full
+    # frontier grids and the real-firm arm. 40 firms keeps the cluster count out
+    # of the few-clusters (5-30) over-rejection zone while distinguishing
+    # beta~0 from beta~0.3, which needs no more precision than this.
+    models: [openai_astra]
+    variants: [v_terse, v_ttc]
+    # 2 seeds, not 1: gpt-6-astra REFUSES temperature=0 (measured 2026-09-29) so every
+    # cell is a stochastic draw at t=1. A single seed would confound per-cell sampling
+    # noise with the macro slope. 2 seeds also yields the t=1 within-cell noise floor,
+    # which the incumbent t=0 arms cannot provide. -> 1,600 calls.
+    seed_indices: [0, 1]
+    macro_states: [boom, expansion, neutral, slowdown, severe_recession]
+    placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
+    firms: pilot
+
+  frontier:
+    # CONFIRMATORY frontier arm (AMENDMENT #5), answering R1#4 ("additional model
+    # families OR stronger frontier models") and R2#1 ("a state-of-the-art model").
+    # Both new models are the frontier tier of a family ALREADY in the study, so no
+    # new vendor is introduced: gpt-6-astra completes the OpenAI gradient
+    # (4o-mini -> 4.1-mini -> 4o -> astra) and gemini-pro the Google one
+    # (Flash-Lite -> Flash -> Pro). FULL grid on both: all 4 framings, 2 seeds, both
+    # axes, the 80-firm battery = 2 x 4 x 2 x 10 x 80 = 12,800 calls. Running the full
+    # grid (rather than a slice) is what makes these directly comparable to the
+    # incumbents on every dimension, so no slice-matched recomputation is needed.
+    models: [openai_astra, gemini_pro]
+    variants: [v_terse, v_ttc, v_pit, v_stable]
+    seed_indices: [0, 1]
+    macro_states: [boom, expansion, neutral, slowdown, severe_recession]
+    placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
+    firms: full
+
+  ofat:
+    # AMENDMENT #6. Which macro signal drives the rating? 21 one-factor-at-a-time
+    # states x 80 firms x 2 seeds x terse only x 4 models = 13,440 calls.
+    # NO placebo axis: the placebo tests credit-IRRELEVANCE, whereas this decomposes
+    # the macro axis itself, so a placebo arm would add cost and answer nothing.
+    # Terse only: the question is about macro signals, not about instructions.
+    # 4 models, not 7: a mechanism decomposition needs enough models to show the
+    # ranking is consistent, not every model. gpt-4o-mini is the most cyclical
+    # (clearest signal), gpt-4o mid, gemini_flash the second family, and
+    # openai_astra tests whether the driver ranking changes at the frontier.
+    models: [openai_4o_mini, openai_4o, gemini_flash, openai_astra]
+    variants: [v_terse]
+    seed_indices: [0, 1]
+    macro_states: []
+    ofat_states: [ofat_neutral, ofat_gdp_n2, ofat_gdp_n1, ofat_gdp_p1, ofat_gdp_p2, ofat_unemp_n2, ofat_unemp_n1, ofat_unemp_p1, ofat_unemp_p2, ofat_spread_n2, ofat_spread_n1, ofat_spread_p1, ofat_spread_p2, ofat_deflt_n2, ofat_deflt_n1, ofat_deflt_p1, ofat_deflt_p2, ofat_standards_n2, ofat_standards_n1, ofat_standards_p1, ofat_standards_p2]
+    placebo_states: []
+    firms: full
+
+  real:
+    # AMENDMENT #7 — REAL-fundamentals arm (referee 1 comments 1 and 2). Same macro x
+    # placebo grid, but the fundamentals are ACTUAL FY2024 SEC XBRL filings with the
+    # issuer identity stripped (capture/build_real_firms.py). 4 models x 2 framings x
+    # 2 seeds x (5 macro + 5 placebo) x 80 real firms = 12,800 calls.
+    # Models: the three with the widest synthetic beta spread plus the frontier model,
+    # so a real-vs-synthetic contrast exists at both ends of the capability range.
+    # Framings: terse (the headline) and through-the-cycle (the anchoring result).
+    # BOTH axes: without the placebo the net effect is not computable, and the net
+    # effect is what makes the coefficient interpretable.
+    models: [openai_4o_mini, openai_4o, gemini_flash, openai_astra]
+    variants: [v_terse, v_ttc]
+    seed_indices: [0, 1]
+    macro_states: [boom, expansion, neutral, slowdown, severe_recession]
+    placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
+    firms: real
+
+  seeds:
+    # AMENDMENT #7 — replication-stability arm (referee 1 comment 7). Three ADDITIONAL
+    # seeds (2,3,4) on the PRIMARY condition, all seven models, both axes, so the
+    # headline coefficient has 5 seeds per cell rather than 2. Terse only and no extra
+    # framings: this arm measures within-cell replication, not instruction effects, and
+    # the terse cell is where every headline number comes from.
+    # 80 firms x (5 macro + 5 placebo) x 3 seeds x 7 models = 16,800 calls.
+    # Frontier models are INCLUDED deliberately: excluding them would invite the
+    # objection that stability was only ever tested on the older arms.
+    models: [openai_4o_mini, openai_41_mini, openai_4o, gemini_flash_lite,
+             gemini_flash, gemini_pro, openai_astra]
+    variants: [v_terse]
+    seed_indices: [2, 3, 4]
+    macro_states: [boom, expansion, neutral, slowdown, severe_recession]
+    placebo_states: [placebo_calm, placebo_mild, placebo_normal, placebo_rough, placebo_storm]
+    firms: full
 
 # Guard: the pilot subgrid may reference ONLY models with pilot: true. loader.py
 # enforces this so a flagship can never sneak into a <=$10 pilot.

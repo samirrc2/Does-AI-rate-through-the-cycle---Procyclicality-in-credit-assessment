@@ -1,7 +1,7 @@
 # P5 reproducibility artifact — .gitignore
 #
 # NOTE: the frozen captures under data/raw/ and data/frozen/ are the reproducibility
-# RECORD and are INTENTIONALLY TRACKED (only ~32 MB total). Do not add them here — the
+# RECORD and are INTENTIONALLY TRACKED (~73 MB total). Do not add them here — the
 # Zenodo deposit and any GitHub->Zenodo release must include them so `reproduce.sh`
 # can verify and regenerate the results offline.
 
@@ -31,22 +31,21 @@ logs/*.log
 results/_preview_p1.png
 
 # LaTeX build artifacts (keep .tex, .bib, .cls, .bst, .bbl, .pdf)
-paper/latex/*.aux
-paper/latex/*.log
-paper/latex/*.out
-paper/latex/*.blg
-paper/latex/*.fls
-paper/latex/*.fdb_latexmk
-paper/latex/*.synctex.gz
 results/_*.png
-paper/latex/*.abs
-paper/latex/*.spl
-paper/latex/*.toc
 
 # intermediates from Word (.docx) generation — not part of the source
-paper/latex/flattened.tex
-paper/latex/Figure_1.png
-paper/latex/Figure_2.png
 
 # SSRN preprint — distributed separately, not part of the repo
 ssrn/
+# Generated deliverables live in paper/out/; sources in paper/src/; build scripts in
+# paper/tools/. One directory per role, so nothing generated sits beside a source.
+paper/src/*.aux
+paper/src/*.log
+paper/src/*.out
+paper/src/*.blg
+paper/src/*.abs
+paper/src/*.fls
+paper/src/*.fdb_latexmk
+paper/src/manuscript_tracked.tex
+paper/src/Figure_*.pdf
+paper/tools/*.log
