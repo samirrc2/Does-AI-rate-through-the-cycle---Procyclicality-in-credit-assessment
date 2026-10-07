@@ -6,7 +6,7 @@ Reproducibility artifact for the *Finance Research Letters* (Elsevier) paper of 
 **ORCID:** [0009-0007-2779-3492](https://orcid.org/0009-0007-2779-3492) · [0009-0007-2807-3948](https://orcid.org/0009-0007-2807-3948)
 **Contact:** robin.chawla.cse14@iitbhu.ac.in · samir.chincholikar@gmail.com
 **Repository:** https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment
-**Zenodo DOI:** [10.5281/zenodo.21864042](https://doi.org/10.5281/zenodo.21864042)
+**Zenodo DOI:** [10.5281/zenodo.21864041](https://doi.org/10.5281/zenodo.21864041)
 
 This repository regenerates every number, table, and figure in the paper from a **frozen
 80,590-assessment dataset**, offline and at zero cost. Synthetic firm fundamentals are held
@@ -91,7 +91,7 @@ uses **Zenodo** as the citable archive; GitHub is the working copy.
 | | |
 |--|--|
 | Working copy | GitHub repository (URL above) |
-| Archive to cite | **Zenodo** — [10.5281/zenodo.21864042](https://doi.org/10.5281/zenodo.21864042) |
+| Archive to cite | **Zenodo** — [10.5281/zenodo.21864041](https://doi.org/10.5281/zenodo.21864041) (concept DOI — always resolves to the newest version; do not replace it with a per-version DOI) |
 | Statement text | [`DATA_AVAILABILITY.md`](DATA_AVAILABILITY.md) |
 | Zenodo metadata | [`.zenodo.json`](.zenodo.json) |
 | Citation file | [`CITATION.cff`](CITATION.cff) |
@@ -171,7 +171,7 @@ docs/                        ARCHITECTURE · RUNBOOK · DECISIONS · REVIEW_DIAG
 
 Please cite both the paper and this artifact. Machine-readable metadata is in
 [`CITATION.cff`](CITATION.cff); the citable Zenodo DOI is
-[10.5281/zenodo.21864042](https://doi.org/10.5281/zenodo.21864042), also recorded in
+[10.5281/zenodo.21864041](https://doi.org/10.5281/zenodo.21864041), also recorded in
 [`DATA_AVAILABILITY.md`](DATA_AVAILABILITY.md) and in the manuscript's reference list.
 
 ## License

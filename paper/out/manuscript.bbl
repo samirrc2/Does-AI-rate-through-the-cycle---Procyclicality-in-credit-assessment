@@ -65,7 +65,7 @@
 \bibitem[{Chincholikar and Chawla(2026)}]{artifact2026}
 \bibinfo{author}{Chincholikar, S.}, \bibinfo{author}{Chawla, R.}, \bibinfo{year}{2026}.
 \newblock \bibinfo{title}{Does {AI} rate through the cycle? --- reproducibility artifact}.
-\newblock \DOIprefix\doi{10.5281/zenodo.21864042}. \bibinfo{note}{{Code and frozen data for the full reproduction}}.
+\newblock \DOIprefix\doi{10.5281/zenodo.21864041}. \bibinfo{note}{{Concept DOI; resolves to the latest version. Code and frozen data for the full reproduction}}.
 %Type = Techreport
 \bibitem[{Fieberg et~al.(2025)Fieberg, Hornuf, Meiler and Streich}]{fieberg2025}
 \bibinfo{author}{Fieberg, C.}, \bibinfo{author}{Hornuf, L.}, \bibinfo{author}{Meiler, M.}, \bibinfo{author}{Streich, D.J.}, \bibinfo{year}{2025}.

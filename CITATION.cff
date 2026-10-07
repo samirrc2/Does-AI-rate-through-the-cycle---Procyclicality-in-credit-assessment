@@ -7,7 +7,9 @@ abstract: >
   Firm fundamentals are held byte-identical across an ordered macroeconomic-severity
   axis; the analysis regenerates the cyclicality coefficient, its confidence
   intervals, the asymmetry, the ordered-probit null, and the instruction contrasts
-  from a frozen 32,000-rating dataset.
+  from a frozen dataset of 61 capture files and 99,366 rows, each carrying a SHA-256
+  freeze receipt. A real-firm arm repeats the design on 80 companies built from public
+  SEC company facts.
 type: software
 authors:
   - family-names: "Chincholikar"
@@ -19,9 +21,11 @@ authors:
     affiliation: "Independent researcher"
     orcid: "https://orcid.org/0009-0007-2807-3948"
     email: "robin.chawla.cse14@iitbhu.ac.in"   # corresponding author
-license: CC-BY-4.0
-version: "1.0.0"
-date-released: "2026-07-15"
+license:
+  - MIT
+  - CC-BY-4.0
+version: "2.0.0"
+date-released: "2026-10-07"
 keywords:
   - large language models
   - credit ratings
@@ -29,8 +33,9 @@ keywords:
   - through-the-cycle
   - reproducibility
 repository-code: "https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment"
-# doi: "10.5281/zenodo.<ID>"
-# url: "https://doi.org/10.5281/zenodo.<ID>"
+# Concept DOI: always resolves to the newest deposited version.
+doi: "10.5281/zenodo.21864041"
+url: "https://doi.org/10.5281/zenodo.21864041"
 preferred-citation:
   type: article
   title: "Does AI rate through the cycle? Procyclicality in credit assessment"

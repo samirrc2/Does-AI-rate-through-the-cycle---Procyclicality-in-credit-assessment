@@ -30,3 +30,8 @@ License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
 
 The code (config/, capture/, analysis/, pilot/, and top-level scripts) is
 released under the MIT License above.
+
+Third-party material: data/sec_cache/ holds responses from the U.S. Securities and
+Exchange Commission's public company-facts API, and data/firms/real.jsonl is derived
+from them. These are public U.S. government records, not our work, and the CC BY 4.0
+grant above applies only to our selection and arrangement of them.

@@ -1,7 +1,7 @@
 {
   "title": "Does AI rate through the cycle? — reproducibility artifact",
   "upload_type": "software",
-  "description": "<p>Reproducibility artifact for the Finance Research Letters submission <em>Does AI rate through the cycle?</em> — the first controlled measurement of procyclicality in credit assessment. Firm fundamentals are held byte-identical across an ordered five-point macroeconomic-severity axis (plus a matched credit-irrelevant placebo axis), so any rating movement is procyclicality by construction. From a frozen 32,000-rating dataset (5 frontier LLMs × 4 prompt framings × 80 synthetic firms × 10 macro/placebo states × 2 seeds) the analysis regenerates the cyclicality coefficient (notches per severity step) with firm-clustered bootstrap 95% CIs, the boom-to-recession swing, the downside/upside asymmetry, the Amato–Furfine ordered-probit null, the log-probability expected-notch estimator, the placebo-adjusted (net) coefficient, and the through-the-cycle vs 'be stable' instruction contrasts. The reproducible run is offline, deterministic and free; live model capture (vendor API keys) is intentionally excluded.</p>",
+  "description": "<p>Reproducibility artifact for the Finance Research Letters article <em>Does AI rate through the cycle? Procyclicality in credit assessment</em> &mdash; a controlled measurement of procyclicality in large-language-model credit assessment. Firm fundamentals are held byte-identical across an ordered five-point macroeconomic-severity axis and a matched credit-irrelevant placebo axis, so any rating movement is procyclical by construction.</p><p>The frozen dataset covers 7 models (including two frontier models) &times; 4 prompt framings &times; 80 synthetic firms &times; the severity and placebo axes, with five replicate seeds for four models and two for the remaining three, re-measured 2.5 months apart to separate replication noise from version drift: 61 capture files and 99,366 rows, each file carrying a SHA-256 freeze receipt. A real-firm arm repeats the design on 80 companies built from public SEC company facts, with a credit-irrelevant placebo and a contamination and issuer-recall battery.</p><p>The analysis regenerates the cyclicality coefficient (notches per severity step) with firm-clustered bootstrap 95% CIs, the boom-to-recession swing, the downside/upside asymmetry and its bootstrapped ratio intervals, the Amato&ndash;Furfine ordered-probit null, the log-probability expected-notch estimator, the placebo-adjusted (net) coefficient, the through-the-cycle and &ldquo;be stable&rdquo; instruction contrasts, default-probability retention against the Basel PD floor, TOST equivalence tests, Holm-corrected multiplicity, and synthetic-versus-real distributional overlap.</p><p>Reproduction is offline, deterministic and free: <code>bash reproduce.sh</code> verifies every freeze receipt and the frozen pre-registration, regenerates the results and requires them to match byte-for-byte. Python 3.10+ is required. Live model capture needs vendor API keys and is intentionally excluded from the reproduction path.</p>",
   "access_right": "open",
   "license": "cc-by-4.0",
   "creators": [
@@ -17,13 +17,15 @@
     }
   ],
   "keywords": [
-    "large language models",
-    "credit ratings",
-    "procyclicality",
-    "through-the-cycle",
     "Amato-Furfine",
+    "Basel",
+    "credit ratings",
+    "credit risk",
+    "finance",
+    "large language models",
+    "procyclicality",
     "reproducibility",
-    "finance"
+    "through-the-cycle"
   ],
-  "notes": "Code released under MIT (see LICENSE); data, analysis outputs and text under CC-BY-4.0. Working copy: https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment. Insert related-publication DOI at deposit. Live-capture SDKs (openai, google-genai) are not required to reproduce results from the frozen data."
+  "notes": "Code released under MIT (see LICENSE); data, analysis outputs and text under CC-BY-4.0 (both stated in LICENSE). Working copy: https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment. Cite the concept DOI 10.5281/zenodo.21864041, which resolves to the newest version. Live-capture SDKs (openai, google-genai) are not required to reproduce results from the frozen data."
 }

@@ -32,7 +32,7 @@ DST = PAPER / "src" / "manuscript_anonymous.tex"
 # it at source level flags our own fix. The rendered-PDF audit checks for it instead, which is
 # where an empty "ORCID(s):" footnote would actually reach a referee.
 IDENTIFIERS = ("Chincholikar", "Chawla", "samir.chincholikar", "robin.chawla", "0009-0007",
-               "10.5281/zenodo.21864042")
+               "10.5281/zenodo.21864041", "10.5281/zenodo.21864042")
 
 ANON_AUTHOR = "\\author[1]{Anonymous}\n"
 ANON_DATA = """\\section*{Data availability}
