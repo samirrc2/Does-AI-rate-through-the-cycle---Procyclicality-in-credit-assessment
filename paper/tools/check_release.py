@@ -16,7 +16,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CONCEPT = "10.5281/zenodo.21864041"
-SUPERSEDED = "10.5281/zenodo.21864042"       # the V.1.0 version DOI: must not be cited
+# V.1.0 minted 21864042 and V.2.0 minted 23224927; neither may be cited in place of
+# the concept DOI above. The check below rejects any version DOI, named or not.
 
 # Every file that states the DOI, and how many times it must appear.
 DOI_FILES = {
@@ -46,10 +47,12 @@ def main() -> int:
         checks += 1
         if got != n:
             fail(f"{rel} states the concept DOI {got} time(s), expected {n}", out)
-        # the anonymiser's strip-list is the one place the old DOI may still be named
-        if SUPERSEDED in s and "make_anonymous" not in rel:
-            fail(f"{rel} still cites the superseded version DOI {SUPERSEDED}", out)
-            checks += 1
+        # Reject ANY per-version DOI, not just the one already superseded: each new deposit
+        # mints another, and pasting any of them back pins readers to a single version.
+        checks += 1
+        for other in set(re.findall(r"10\.5281/zenodo\.\d+", s)) - {CONCEPT}:
+            fail(f"{rel} cites the per-version DOI {other}; cite the concept DOI {CONCEPT}, "
+                 f"which resolves to the newest version", out)
 
     # ---- the deposit's own counts must match the repository
     raw = sorted(glob.glob(str(ROOT / "data/raw/*.csv")))
