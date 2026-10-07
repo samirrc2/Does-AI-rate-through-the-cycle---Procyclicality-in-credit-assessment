@@ -34,11 +34,11 @@
     "reader who clones the repository reproduces every number."
   ],
   "gates": [
-    "sh -c '\"$PY\" paper/tools/bind_manuscript_numbers.py'",
-    "sh -c '\"$PY\" paper/tools/bind_letter_numbers.py'",
-    "sh -c '\"$PY\" paper/tools/verify_tables.py'",
-    "sh -c '\"$PY\" paper/tools/verify_locators.py'",
-    "sh -c '\"$PY\" paper/tools/verify_response_numbers.py'",
-    "sh -c '\"$PY\" paper/tools/check_readme.py'"
+    "sh paper/tools/with_py.sh paper/tools/bind_manuscript_numbers.py",
+    "sh paper/tools/with_py.sh paper/tools/bind_letter_numbers.py",
+    "sh paper/tools/with_py.sh paper/tools/verify_tables.py",
+    "sh paper/tools/with_py.sh paper/tools/verify_locators.py",
+    "sh paper/tools/with_py.sh paper/tools/verify_response_numbers.py",
+    "sh paper/tools/with_py.sh paper/tools/check_readme.py"
   ]
 }
