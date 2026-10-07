@@ -49,3 +49,8 @@ paper/src/*.fdb_latexmk
 paper/src/manuscript_tracked.tex
 paper/src/Figure_*.pdf
 paper/tools/*.log
+
+# LaTeX writes this when it tries to generate a font it cannot find (rsfs10, requested
+# by the journal class but never used in the output). It is regenerated on every build,
+# so tracking it made the tree dirty after each run.
+paper/out/missfont.log
