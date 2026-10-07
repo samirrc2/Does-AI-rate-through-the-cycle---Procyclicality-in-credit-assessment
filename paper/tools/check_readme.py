@@ -83,6 +83,24 @@ def main() -> int:
         print(f"[readme] FAIL PREREGISTRATION.md does not state error_rate <= {_gate_pct:g}% "
               f"(found: {_rule.group(0) if _rule else 'no error_rate bound at all'})")
         return 1
+    # a version string is not a float: compare it as text against the recorded environment
+    _env = jload("results/environment.json") or {}
+    _env_lit = {"python": _env.get("python"), "python_floor": _env.get("python_floor"),
+                **(_env.get("packages") or {})}
+    if not all(_env_lit.values()):
+        print(f"[readme] FAIL results/environment.json is missing entries: "
+              f"{[k for k, v in _env_lit.items() if not v]}")
+        return 1
+
+    # the floor the README states must be the floor reproduce.sh actually enforces
+    _rs = (ROOT / "reproduce.sh").read_text()
+    _g = re.search(r"sys\.version_info\s*>=\s*\((\d+),\s*(\d+)\)", _rs)
+    _enforced = f"{_g.group(1)}.{_g.group(2)}" if _g else None
+    if _enforced != _env_lit["python_floor"]:
+        print(f"[readme] FAIL reproduce.sh enforces Python {_enforced}, "
+              f"environment.json says the floor is {_env_lit['python_floor']}")
+        return 1
+
     _never_frozen = (jload("results/revision_extras.json") or {}).get(
         "failed_calls", {}).get("captures_never_frozen", {})
     _n_seed_refused = sum(1 for k in _never_frozen if k.startswith("runs_seeds_"))
@@ -114,12 +132,31 @@ def main() -> int:
         (r"exceeds the ", "2%", _gate_pct, 2),
         (r"so ", "four", len(_never_frozen), 0),
         (r"rather than trimmed\. ", "Three", _n_seed_refused, 0),
+    ] + [
+        # ── environment: every version in the README comes from the receipt ──
+        (anchor, _env_lit[k], _env_lit[k], None) for anchor, k in (
+            (r"byte-for-byte under Python ", "python"),
+            (r"with numpy ", "numpy"),
+            (r"scipy ", "scipy"),
+            (r"pydantic ", "pydantic"),
+            (r"PyYAML ", "PyYAML"),
+            (r"matplotlib ", "matplotlib"),
+            (r"pymupdf ", "pymupdf"),
+            (r"may also work; Python ", "python_floor"),
+            (r"activate # Python ", "python_floor"),
+        )
     ]
     fails, ok = [], 0
     for anchor, lit, val, dp in BIND:
         m = re.search(anchor + re.escape(lit), txt)
         if not m:
             fails.append(f"{lit} (anchor /{anchor[:28]}/ not found)"); continue
+        if dp is None:                      # a version string, compared verbatim
+            if lit != val:
+                fails.append(f"{lit} != recorded environment {val}")
+            else:
+                ok += 1
+            continue
         got = _as_number(lit)
         if got is None:
             fails.append(f"{lit} (not a number this gate can compare)"); continue

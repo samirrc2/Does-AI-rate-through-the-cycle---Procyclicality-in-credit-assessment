@@ -1,0 +1,14 @@
+{
+  "implementation": "CPython",
+  "note": "the environment under which the committed results reproduce byte-for-byte; reproduce.sh re-verifies the reproduction on every run. Recorded deliberately, not overwritten per run, so README figures can be bound to it.",
+  "packages": {
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.11.2",
+    "numpy": "2.4.6",
+    "pydantic": "2.13.4",
+    "pymupdf": "1.28.2",
+    "scipy": "1.17.1"
+  },
+  "python": "3.11.5",
+  "python_floor": "3.10"
+}

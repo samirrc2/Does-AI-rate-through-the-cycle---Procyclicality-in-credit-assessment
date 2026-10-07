@@ -1,5 +1,5 @@
 {
-  "paper": "Paper 5 — Does AI rate through the cycle?",
+  "paper": "Paper 5 \u2014 Does AI rate through the cycle?",
   "run": "bash reproduce.sh",
   "claims": "claims*.json",
   "artifacts": [
@@ -27,9 +27,6 @@
     "manifest/firms_manifest.json",
     "PREREGISTRATION.md"
   ],
-  "env": {
-    "PY": "/Users/samirchincholikar/Desktop/NIW/Paper 5/.venv/bin/python"
-  },
   "notes": [
     "No capsule key: this paper is archived on Zenodo as a source release, not as a Code Ocean",
     "/code + /data mount, so there is nothing for a capsule track to emulate. con1 skips track B",

@@ -43,7 +43,7 @@ vendor API.
 ```bash
 git clone https://github.com/samirrc2/Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment.git
 cd Does-AI-rate-through-the-cycle---Procyclicality-in-credit-assessment
-python3 -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate   # Python 3.10+ required
 pip install -r requirements.txt
 bash reproduce.sh              # full: verify inputs + unit tests + regenerate claims.json + SHA match
 bash reproduce.sh --quick      # fast (seconds): integrity + unit tests + primary estimands
@@ -63,7 +63,7 @@ Optional pinned image (same check):
 docker build -t p5-repro -f environment/Dockerfile . && docker run --rm p5-repro
 ```
 
-Pinned versions: Python 3.12, numpy 2.2.6, scipy 1.15.3, pydantic 2.13.4, PyYAML 6.0.3.
+The committed results regenerate byte-for-byte under Python 3.11.5 with numpy 2.4.6, scipy 1.17.1, pydantic 2.13.4, PyYAML 6.0.3, matplotlib 3.11.2 and pymupdf 1.28.2 (recorded in `results/environment.json`; `reproduce.sh` re-verifies the reproduction on every run). `requirements.txt` sets minimums, not pins, so a newer set may also work; Python 3.10 is a hard floor because the config schema uses PEP 604 annotations.
 
 > Live capture (which requires third-party API keys and does cost money) is **not** part of
 > reproduction and is documented separately in [`docs/RUNBOOK.md`](docs/RUNBOOK.md).

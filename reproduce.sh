@@ -21,6 +21,17 @@ cd "$(dirname "$0")"
 export PYTHONUNBUFFERED=1
 PY="${PY:-python3}"
 SUBGRID="${SUBGRID:-full}"
+
+# The config schema uses PEP 604 annotations (`str | None`), so 3.10 is the real floor.
+# macOS ships 3.9 as /usr/bin/python3; without this guard that interpreter dies inside
+# pydantic with a traceback that never mentions the Python version.
+if ! "$PY" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)' 2>/dev/null; then
+  _v="$("$PY" -V 2>&1 || echo 'not runnable')"
+  echo "!! This artifact needs Python 3.10+; PY=$PY is $_v."
+  echo "   Set PY to a 3.10+ interpreter, e.g.  PY=python3.12 bash reproduce.sh"
+  echo "   (see requirements.txt)"
+  exit 3
+fi
 MODE="full"
 case "${1:-}" in
   --quick) MODE="quick" ;;
