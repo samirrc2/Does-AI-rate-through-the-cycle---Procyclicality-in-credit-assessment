@@ -45,6 +45,7 @@ echo "== staleness and compliance =="
 "$PY" paper/tools/verify_locators.py        | tail -1
 "$PY" paper/tools/check_readme.py
 "$PY" paper/tools/check_refs.py
+"$PY" paper/tools/check_tracked.py
 
 echo
 echo "deliverables in paper/out:"

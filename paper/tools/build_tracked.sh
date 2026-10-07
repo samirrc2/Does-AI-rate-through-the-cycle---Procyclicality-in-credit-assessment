@@ -23,8 +23,18 @@ ROOT="$(cd ../.. && pwd)"
 # made this explicit. They are removed again at the end.
 cp -f figures/Figure_1.pdf figures/Figure_2.pdf ./ 2>/dev/null || true
 export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"
-# Which commit is the as-submitted version. Override with: build_tracked.sh V.1.0
-BASEREF="${1:-HEAD}"
+# Which commit is the as-submitted version. Override with: build_tracked.sh <ref>
+#
+# This MUST be the as-submitted tag, not HEAD. It defaulted to HEAD, which worked only while
+# the revision sat uncommitted: the moment the revision was committed, HEAD became the revised
+# manuscript and latexdiff compared the file with itself, so the tracked PDF came out with
+# essentially no markup and still looked like a normal 13-page document.
+BASEREF="${1:-V.1.0}"
+if [ "$(git rev-parse "$BASEREF")" = "$(git rev-parse HEAD)" ]; then
+  echo "!! baseline $BASEREF is the current HEAD -- the diff would be empty." >&2
+  echo "!! Pass the as-submitted ref explicitly: build_tracked.sh <tag-or-commit>" >&2
+  exit 2
+fi
 # The baseline needs its OWN \input'd tables and its own .bbl. --flatten resolves \input
 # relative to the baseline FILE's directory, so writing the baseline next to the current
 # manuscript made it expand TODAY's tables: both sides of the diff then held identical table
