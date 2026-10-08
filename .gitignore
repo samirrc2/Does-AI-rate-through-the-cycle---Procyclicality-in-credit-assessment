@@ -47,6 +47,9 @@ paper/src/*.abs
 paper/src/*.fls
 paper/src/*.fdb_latexmk
 paper/src/manuscript_tracked.tex
+paper/src/manuscript_tracked_anonymous.tex
+paper/src/manuscript_tracked*.bbl
+paper/src/refs_tracked_*.bib
 paper/src/Figure_*.pdf
 paper/tools/*.log
 
@@ -54,3 +57,5 @@ paper/tools/*.log
 # by the journal class but never used in the output). It is regenerated on every build,
 # so tracking it made the tree dirty after each run.
 paper/out/missfont.log
+paper/out/*.aux
+paper/out/*.log

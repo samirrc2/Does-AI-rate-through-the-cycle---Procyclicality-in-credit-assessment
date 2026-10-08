@@ -29,7 +29,12 @@ export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"
 # the revision sat uncommitted: the moment the revision was committed, HEAD became the revised
 # manuscript and latexdiff compared the file with itself, so the tracked PDF came out with
 # essentially no markup and still looked like a normal 13-page document.
-BASEREF="${1:-V.1.0}"
+ANON=0
+for a in "$@"; do [ "$a" = "--anon" ] && ANON=1; done
+BASEREF="V.1.0"
+for a in "$@"; do case "$a" in --*) ;; *) BASEREF="$a" ;; esac; done
+OUTNAME="manuscript_tracked"
+[ "$ANON" = 1 ] && OUTNAME="manuscript_tracked_anonymous"
 if [ "$(git rev-parse "$BASEREF")" = "$(git rev-parse HEAD)" ]; then
   echo "!! baseline $BASEREF is the current HEAD -- the diff would be empty." >&2
   echo "!! Pass the as-submitted ref explicitly: build_tracked.sh <tag-or-commit>" >&2
@@ -61,21 +66,36 @@ done
 [ "$FOUND" = 1 ] || { echo "!! cannot read the baseline manuscript from $BASEREF at either" >&2
                       echo "!! paper/src/manuscript.tex or paper/latex/manuscript.tex" >&2; exit 2; }
 echo "   baseline $BASEREF ($(git rev-parse --short "$BASEREF")) with $(find "$BASEDIR" -name '*.tex' ! -name manuscript.tex | wc -l | tr -d ' ') included file(s) and its own .bbl"
+NEW="manuscript.tex"
+if [ "$ANON" = 1 ]; then
+  python3 "$ROOT/paper/tools/make_anonymous.py" "$BASE" "$BASEDIR/manuscript_anon.tex" \
+    >/dev/null || { echo "!! could not blind the baseline" >&2; exit 2; }
+  BASE="$BASEDIR/manuscript_anon.tex"
+  if [ -f "$BASEDIR/manuscript.bbl" ]; then
+    sed -e 's/Chincholikar, S\./Anonymous/g; s/Chawla, R\./Anonymous/g' \
+        -e 's/Chincholikar and Chawla/Anonymous Authors/g' \
+        -e 's#10\.5281/zenodo\.[0-9]*#withheld for review#g' \
+        "$BASEDIR/manuscript.bbl" > "$BASEDIR/manuscript_anon.bbl"
+  fi
+  NEW="manuscript_anonymous.tex"
+  [ -f "$NEW" ] || python3 "$ROOT/paper/tools/make_anonymous.py" >/dev/null
+  echo "   blinding both sides of the diff"
+fi
 latexdiff --encoding=utf8 --flatten \
   --append-safecmd="citep,citet,citealp,citeauthor,ref,label,texttt,bibitem,natexlab" \
   --append-textcmd="emph,textbf" \
   --config="PICTUREENV=(?:picture|DIFnomarkup|tabular|thebibliography)[\w\d*@]*,VERBATIMENV=(?:lstlisting|verbatim|Verbatim|alltt)[\w\d*@]*" \
-  "$BASE" manuscript.tex > manuscript_tracked.tex
-python3 "$ROOT/paper/tools/mark_tracked_extras.py" "$BASEDIR" manuscript_tracked.tex
+  "$BASE" "$NEW" > "$OUTNAME.tex"
+python3 "$ROOT/paper/tools/mark_tracked_extras.py" "$BASEDIR" "$OUTNAME.tex"
 for i in 1 2 3; do
-  pdflatex -interaction=nonstopmode manuscript_tracked.tex >/dev/null 2>&1 || true
-  [ "$i" = 1 ] && (bibtex manuscript_tracked >/dev/null 2>&1 || true)
+  pdflatex -interaction=nonstopmode "$OUTNAME.tex" >/dev/null 2>&1 || true
+  [ "$i" = 1 ] && (bibtex "$OUTNAME" >/dev/null 2>&1 || true)
 done
-err=$(grep -c '^! ' manuscript_tracked.log || true)
-drop=$(grep -c 'Text dropped after begin of listing' manuscript_tracked.log || true)
+err=$(grep -c '^! ' "$OUTNAME.log" || true)
+drop=$(grep -c 'Text dropped after begin of listing' "$OUTNAME.log" || true)
 mkdir -p "$ROOT/paper/out"
-mv -f manuscript_tracked.pdf "$ROOT/paper/out/manuscript_tracked.pdf" 2>/dev/null || true
-rm -f Figure_1.pdf Figure_2.pdf manuscript_tracked.aux manuscript_tracked.out \
-      manuscript_tracked.abs manuscript_tracked.blg
-echo "   paper/out/manuscript_tracked.pdf  errors=$err  listing-drops=$drop"
+mv -f "$OUTNAME.pdf" "$ROOT/paper/out/$OUTNAME.pdf" 2>/dev/null || true
+rm -f Figure_1.pdf Figure_2.pdf "$OUTNAME.aux" "$OUTNAME.out" \
+      "$OUTNAME.abs" "$OUTNAME.blg"
+echo "   paper/out/$OUTNAME.pdf  errors=$err  listing-drops=$drop"
 [ "$err" = 0 ] && [ "$drop" = 0 ] || { echo "!! tracked build is not clean" >&2; exit 1; }

@@ -27,6 +27,13 @@ PAPER = Path(__file__).resolve().parent.parent
 SRC = PAPER / "src" / "manuscript.tex"
 DST = PAPER / "src" / "manuscript_anonymous.tex"
 
+
+def _paths(argv):
+    """Optional 'src dst' override, used to blind a latexdiff baseline as well as the
+    current manuscript. Defaults are unchanged."""
+    args = [a for a in argv if not a.startswith("--")]
+    return (Path(args[0]), Path(args[1])) if len(args) >= 2 else (SRC, DST)
+
 # Real identifiers, checked in the source. The bare word "orcid" is NOT here: the source
 # legitimately contains \printorcid in the command that suppresses the label, so checking for
 # it at source level flags our own fix. The rendered-PDF audit checks for it instead, which is
@@ -42,11 +49,13 @@ will be provided on acceptance \\citep{artifact2026}.
 """
 
 
-def main() -> int:
-    if not SRC.exists():
-        print(f"[anon] {SRC} not present", file=sys.stderr)
+def main(src: Path = None, dst: Path = None) -> int:
+    src = src or SRC
+    dst = dst or DST
+    if not src.exists():
+        print(f"[anon] {src} not present", file=sys.stderr)
         return 2
-    s = SRC.read_text()
+    s = src.read_text()
 
     # front matter: everything from the first \author to \cortext becomes one anonymous author
     s = re.sub(r"\\shortauthors\{[^}]*\}", r"\\shortauthors{}", s)
@@ -73,13 +82,13 @@ def main() -> int:
     if m:
         s = s[:m.start()] + ANON_DATA.rstrip() + s[m.end():]
 
-    DST.write_text(s)
+    dst.write_text(s)
 
     leaked = [k for k in IDENTIFIERS if k.lower() in s.lower()]
     if leaked:
         print(f"[anon] IDENTITY LEAK in the blinded source: {leaked}", file=sys.stderr)
         return 1
-    print(f"[anon] wrote {DST.relative_to(PAPER.parent)} "
+    print(f"[anon] wrote {dst} "
           f"({len(s.splitlines())} lines, no identifier in the source)")
     return 0
 
@@ -106,5 +115,7 @@ def audit_pdf(pdf: Path) -> int:
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--audit":
-        raise SystemExit(audit_pdf(PAPER / "out" / "manuscript_anonymous.pdf"))
-    raise SystemExit(main())
+        tgt = [a for a in sys.argv[2:] if not a.startswith("--")]
+        raise SystemExit(audit_pdf(Path(tgt[0]) if tgt
+                                   else PAPER / "out" / "manuscript_anonymous.pdf"))
+    raise SystemExit(main(*_paths(sys.argv[1:])))

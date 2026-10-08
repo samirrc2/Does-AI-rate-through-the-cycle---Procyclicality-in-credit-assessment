@@ -27,6 +27,7 @@ DOI_FILES = {
     "CITATION.cff": 2,
     ".zenodo.json": 1,
     "DATA_AVAILABILITY.md": 1,
+    "paper/src/cover_letter.tex": 1,
 }
 
 

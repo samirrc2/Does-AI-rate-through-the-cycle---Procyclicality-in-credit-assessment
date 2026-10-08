@@ -11,15 +11,22 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-TEX = ROOT / "paper" / "src" / "manuscript_tracked.tex"
-PDF = ROOT / "paper" / "out" / "manuscript_tracked.pdf"
+PAIRS = [("manuscript_tracked", "clean"), ("manuscript_tracked_anonymous", "blinded")]
 MIN_ADD = 50          # the revision rewrote whole subsections; 15 was the broken-baseline value
 MIN_DEL = 50
 
 
 def main() -> int:
+    rc = 0
+    for stem, label in PAIRS:
+        rc |= check(ROOT / "paper" / "src" / f"{stem}.tex",
+                    ROOT / "paper" / "out" / f"{stem}.pdf", label)
+    return rc
+
+
+def check(TEX, PDF, label) -> int:
     if not TEX.exists() or not PDF.exists():
-        print("[tracked] SKIP tracked sources not built")
+        print(f"[tracked] SKIP {label} tracked sources not built")
         return 2
     s = TEX.read_text(errors="replace")
     add, dele = len(re.findall(r"DIFadd", s)), len(re.findall(r"DIFdel", s))
@@ -37,7 +44,7 @@ def main() -> int:
                     colours.add(sp["color"])
     coloured = {c for c in colours if c != 0}
     ok = add >= MIN_ADD and dele >= MIN_DEL and coloured
-    print(f"[tracked] {add} addition and {dele} deletion markers, "
+    print(f"[tracked] {label}: {add} addition and {dele} deletion markers, "
           f"{len(coloured)} non-black text colour(s) in the PDF")
     if not ok:
         print(f"  FAIL this is not a tracked-changes document "

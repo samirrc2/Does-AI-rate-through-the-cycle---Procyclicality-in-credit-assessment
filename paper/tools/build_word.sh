@@ -12,12 +12,31 @@ cd "$(dirname "$0")/../.."
 command -v pandoc >/dev/null || { echo "build_word: pandoc not installed" >&2; exit 2; }
 mkdir -p paper/out
 
-# --citeproc resolves \citep against the .bib, otherwise the DOCX carries raw keys and no
+# --citeproc --metadata reference-section-title=References resolves \citep against the .bib, otherwise the DOCX carries raw keys and no
 # reference list at all.
-( cd paper/src && pandoc manuscript.tex --citeproc --bibliography=refs.bib \
+( cd paper/src && pandoc manuscript.tex --citeproc --metadata reference-section-title=References --bibliography=refs.bib \
       --resource-path=.:figures -o "$OLDPWD/paper/out/manuscript.docx" 2>/dev/null ) \
   && echo "-> paper/out/manuscript.docx" \
   || { echo "build_word: manuscript conversion FAILED" >&2; exit 1; }
+
+( cd paper/src && pandoc manuscript_anonymous.tex --citeproc --metadata reference-section-title=References --bibliography=refs_blind.bib \
+      --resource-path=.:figures -o "$OLDPWD/paper/out/manuscript_anonymous.docx" 2>/dev/null ) \
+  && echo "-> paper/out/manuscript_anonymous.docx" \
+  || { echo "build_word: anonymous manuscript conversion FAILED" >&2; exit 1; }
+
+python3 - <<'PYAUDIT'
+import re, sys, zipfile
+from pathlib import Path
+p = Path("paper/out/manuscript_anonymous.docx")
+with zipfile.ZipFile(p) as z:
+    xml = b"".join(z.read(n) for n in z.namelist() if n.endswith(".xml")).decode("utf8", "ignore")
+text = re.sub(r"<[^>]+>", " ", xml)
+bad = [k for k in ("Chincholikar", "Chawla", "samir.chincholikar", "robin.chawla",
+                   "0009-0007", "zenodo", "iitbhu") if k.lower() in text.lower()]
+if bad:
+    sys.exit(f"build_word: IDENTITY LEAK in manuscript_anonymous.docx: {bad}")
+print("   manuscript_anonymous.docx audited: no author name, e-mail, ORCID or DOI")
+PYAUDIT
 
 ( cd paper/src && pandoc title_page.tex -o "$OLDPWD/paper/out/title_page.docx" 2>/dev/null ) \
   && echo "-> paper/out/title_page.docx" || echo "   WARNING: title_page.docx not refreshed"

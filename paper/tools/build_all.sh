@@ -17,6 +17,7 @@ bash paper/tools/build.sh
 
 echo "== 2/4 tracked-changes manuscript =="
 bash paper/tools/build_tracked.sh
+bash paper/tools/build_tracked.sh --anon
 
 echo "== 3/4 response to reviewers =="
 "$PY" paper/tools/build_response.py
@@ -27,6 +28,12 @@ echo "== 3/4 response to reviewers =="
 # 3-5 highlights at 85 characters, so skipping it skipped that gate too.
 echo "== 4/4 Word deliverables (manuscript.docx, title_page.docx, highlights.docx) =="
 bash paper/tools/build_word.sh
+bash paper/tools/build_word_tracked.sh
+
+echo "== cover letter =="
+( cd paper/src && pdflatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=../out cover_letter.tex >/dev/null ) \
+  && echo "   paper/out/cover_letter.pdf"
 
 echo "== staleness and compliance =="
 "$PY" paper/tools/check_stale.py || true
